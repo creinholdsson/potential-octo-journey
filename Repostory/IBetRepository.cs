@@ -16,5 +16,6 @@ namespace PyeongchangKampen.Repostory
         Task<IEnumerable<Bet>> GetBetsForUserName(ApplicationUser user);
         Task<Bet> AddBet(Bet bet);
         Task DeleteBet(Bet bet);
+        Task<Bet> UpdateBet(Bet bet);
     }
 }

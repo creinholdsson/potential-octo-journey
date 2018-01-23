@@ -3,19 +3,65 @@
   <p>{{game.description}}</p>
 
 
-    <div class="row">
-        <div class="col col-lg-6 col-md-12">
-            <p-card *ngIf="isBettingOpen && game.gameType == 1" title="Tippa placering">
+    <div class="row" *ngIf="game.gameType == 1">
+        <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
+            <p-card *ngIf="isBettingOpen" title="Tippa placering">
                 <p-dropdown [options]="availableOptionsPlacement" [(ngModel)]="selectedResult1"></p-dropdown>
-                <p-button icon="fa fa-play" label="Tippa" (click)="placeBet()"></p-button>
+                <br /> <br />
+                <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
             </p-card>
+            <br /> <br />
         </div>
 
-        <div class="col col-lg-6 col-md-12">
+        <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
+
             <p-card *ngIf="game.gameType == 1" title="Tippade placeringar">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Namn</h5>
+                    <h5 class="mb-1">Resultat</h5>
+                </div>
+                <div class="w-100" style="border-bottom: 1px solid lightgray"></div>
+                <div *ngFor="let bet of bets">
+                    <div class="d-flex w-100 justify-content-between">
+                        <span class="mb-1">{{bet.userName}}</span>
+                        <span class="mb-1">{{bet.scoreTeam1}}</span>
+                    </div>
+                </div>
             </p-card>
         </div>
     </div>
+    <div class="row" *ngIf="game.gameType == 0">
+            <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <p-card *ngIf="isBettingOpen" title="Tippa resultat">
+                    <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult1"></p-dropdown> - 
+                    <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult2"></p-dropdown>
+                    <br /> <br />
+                    <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
+                </p-card>
+                <br /> <br />
+            </div>
+    
+            <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <p-card title="Tippade resultat">
+                    <div *ngIf="bets && bets.length > 0">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Namn</h5>
+                            <h5 class="mb-1">Resultat</h5>
+                        </div>
+                        <div class="w-100" style="border-bottom: 1px solid lightgray"></div>
+                        <div *ngFor="let bet of bets | orderBy: {property: 'userName', direction: -1}">
+                            <div class="d-flex w-100 justify-content-between">
+                                <span class="mb-1">{{bet.userName}}</span>
+                                <span class="mb-1">{{bet.scoreTeam1}}-{{bet.scoreTeam2}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="bets && bets.length == 0">
+                        Inga tippade resultat ännu.
+                    </div>
+                </p-card>
+            </div>
+        </div>
 
 </div>
 

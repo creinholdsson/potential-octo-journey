@@ -15,5 +15,8 @@ namespace PyeongchangKampen.Models.DTO.Retrieve
         public int? ScoreTeam1 { get; set; }
         public int? ScoreTeam2 { get; set; }
         public int? AwardedPoints { get; set; }
+
+        public string UserName { get; set; }
+        public string GameTitle { get; set; }
     }
 }

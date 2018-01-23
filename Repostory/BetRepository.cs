@@ -18,10 +18,26 @@ namespace PyeongchangKampen.Repostory
         }
         public async Task<Bet> AddBet(Bet bet)
         {
-            bet.User = _DbContext.Users.FirstOrDefault(x => x.Id == bet.User.Id);
-            bet.Game = _DbContext.Game.FirstOrDefault(x => x.Id == bet.Game.Id);
+            var user = await _DbContext.Users.FirstOrDefaultAsync(x => x.Id == bet.User.Id);
+            var game = await _DbContext.Game.FirstOrDefaultAsync(x => x.Id == bet.Game.Id);
+
+            var existingBet = await _DbContext.Bets.FirstOrDefaultAsync(x => x.Game.Id == bet.Game.Id && x.User.Id == bet.User.Id);
+
+            if(existingBet != null)
+            {
+                existingBet.ScoreTeam1 = bet.ScoreTeam1;
+                existingBet.ScoreTeam2 = bet.ScoreTeam2;
+                return await UpdateBet(existingBet);
+            }
 
             _DbContext.Bets.Add(bet);
+            await _DbContext.SaveChangesAsync();
+            return bet;
+        }
+
+        public async Task<Bet> UpdateBet(Bet bet)
+        {
+            _DbContext.Bets.Update(bet);
             await _DbContext.SaveChangesAsync();
             return bet;
         }
@@ -39,22 +55,36 @@ namespace PyeongchangKampen.Repostory
 
         public async Task<IEnumerable<Bet>> GetBets()
         {
-            return await _DbContext.Bets.ToListAsync();
+            return await _DbContext.Bets
+                .Include(x=>x.Game)
+                .Include(x=>x.User)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Bet>> GetBets(Game game)
         {
-            return await _DbContext.Bets.Where(x => x.Game.Id == game.Id).ToListAsync();
+            return await _DbContext.Bets
+                .Where(x => x.Game.Id == game.Id)
+                .Include(x => x.Game)
+                .Include(x => x.User)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Bet>> GetBets(ApplicationUser user)
         {
-            return await _DbContext.Bets.Where(x => x.User.Id == user.Id).ToListAsync();
+            return await _DbContext.Bets
+                .Where(x => x.User.Id == user.Id)
+                .Include(x => x.Game)
+                .Include(x => x.User)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Bet>> GetBetsForUserName(ApplicationUser user)
         {
-            return await _DbContext.Bets.Where(x => x.User.UserName == user.UserName).ToListAsync();
+            return await _DbContext.Bets.Where(x => x.User.UserName == user.UserName)
+                .Include(x => x.Game)
+                .Include(x => x.User)
+                .ToListAsync();
         }
     }
 }

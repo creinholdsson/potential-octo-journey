@@ -21,6 +21,7 @@ interface BetOption {
 export class GameComponent implements OnInit {
   game: Game;
   bet: Bet;
+  bets: Bet[];
   isBettingOpen: boolean = false;
   availableOptionsPlacement: BetOption[] = [
     {label: 1,  value: 1},
@@ -66,26 +67,57 @@ export class GameComponent implements OnInit {
     private location: Location
   ) { }
 
-  getGame(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+  getGame(id: number): void {
     this.gameService.getGame(id).subscribe(game => { 
       this.game = game; 
       this.isBettingOpen = new Date(game.startsOn) > new Date();
+      if(game.gameType == 0) {
+        this.selectedResult1 = 1;
+        this.selectedResult2 = 1;
+      }
+      else {
+        this.selectedResult1 = 1;
+        this.selectedResult2 = null;
+      }
     } );
+  }
+
+  getBetsForGame(gameId: number) {
+    this.gameService.getBets(gameId).subscribe(bets=> {
+      this.bets = bets;
+    })
   }
 
   placeBet(): void {
     var bet = new BetForCreation();
     bet.scoreTeam1 = this.selectedResult1;
+    bet.scoreTeam2 = this.selectedResult2;
     bet.gameId = this.game.id;
     
     console.log(bet);
     console.log(this.selectedResult1);
-    this.gameService.placeBet(bet).subscribe(bet => this.bet = bet);
+    this.gameService.placeBet(bet).subscribe(createdBet => {
+      this.bet = createdBet;
+      var hasBeenUpdated = false;
+      for (let bet of this.bets) {
+        if(bet.userId == createdBet.userId) {
+          bet.scoreTeam1 = createdBet.scoreTeam1;
+          bet.scoreTeam2 = createdBet.scoreTeam2;
+          hasBeenUpdated = true;
+          break;
+        }
+      }
+
+      if(hasBeenUpdated == false) {
+        this.bets.push(createdBet);
+      }
+    });
   }
 
   ngOnInit() {
-    this.getGame();
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.getGame(id);
+    this.getBetsForGame(id);
   }
 
 }

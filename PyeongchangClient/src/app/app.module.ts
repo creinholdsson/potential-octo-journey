@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/primeng';
 import { CardModule } from 'primeng/primeng';
 import { DropdownModule } from 'primeng/primeng';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CalendarModule } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { NavmenuComponent } from './navmenu/navmenu.component';
@@ -21,10 +22,14 @@ import { FooterComponent } from './footer/footer.component';
 import { IndexComponent } from './index/index.component';
 import { GameComponent } from './game/game.component';
 import { GameService } from './services/game.service';
+import { OrderByPipe } from './directives/order-by-pipe';
+import { GameCreateComponent } from './game-create/game-create.component';
 
 const appRoutes: Routes = [
   { path: '', component: IndexComponent},
-  { path: 'game/:id', component: GameComponent}
+  { path: 'game/add', component: GameCreateComponent },
+  { path: 'game/:id', component: GameComponent }
+  
 ];
 
 @NgModule({
@@ -34,7 +39,9 @@ const appRoutes: Routes = [
     OpenGamesComponent,
     FooterComponent,
     IndexComponent,
-    GameComponent
+    GameComponent,
+    OrderByPipe,
+    GameCreateComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -49,6 +56,7 @@ const appRoutes: Routes = [
     CardModule,
     DropdownModule,
     FormsModule,
+    CalendarModule,
     HttpModule,
     HttpClientModule,
     NgHttpLoaderModule,

@@ -7,5 +7,5 @@ export class Game {
     leagueId: number;
     scoreTeam1: number;
     scoreTeam2: number;
-    gameType: string;
+    gameType: number;
 }

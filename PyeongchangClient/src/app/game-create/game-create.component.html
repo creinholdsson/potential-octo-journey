@@ -1,0 +1,21 @@
+<h1>Nytt spel</h1>
+<div class="row">
+  <div class="col col-lg-6">
+    <p-card>
+      Sport <br />
+      <p-dropdown [options]="sports" [(ngModel)]="selectedSport" [autoWidth]="false" [style]="{'width':'200px'}"></p-dropdown>
+      <br /> <br />
+
+      Typ <br />
+      <p-dropdown [options]="gameTypes" [(ngModel)]="selectedGameType" [autoWidth]="false" [style]="{'width':'200px'}"></p-dropdown>
+      <br /><br />
+      
+      Starttid <br />
+      <p-calendar [(ngModel)]="selectedStartTime" [showTime]="true" [inline]="true"></p-calendar>
+      <br /><br />
+
+
+      <p-button icon="fa fa-save" label="Spara"></p-button>
+    </p-card>
+  </div>
+</div>

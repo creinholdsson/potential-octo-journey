@@ -6,4 +6,6 @@ export class Bet {
     scoreTeam1: number;
     scoreTeam2: number;
     awardedPoints: number;
+    userName: string;
+    gameTitle: string;
 }

@@ -66,7 +66,9 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.Id, context => context.MapFrom(src => src.Id))
                     .ForMember(dest => dest.ScoreTeam1, context => context.MapFrom(src => src.ScoreTeam1))
                     .ForMember(dest => dest.ScoreTeam2, context => context.MapFrom(src => src.ScoreTeam2))
-                    .ForMember(dest => dest.UserId, context => context.ResolveUsing(src => src.User == null ? null : src.User.Id));
+                    .ForMember(dest => dest.UserId, context => context.ResolveUsing(src => src.User == null ? null : src.User.Id))
+                    .ForMember(dest => dest.GameTitle, context => context.ResolveUsing(src => src.Game == null ? null : src.Game.Title))
+                    .ForMember(dest => dest.UserName, context => context.ResolveUsing(src => src.User == null ? null : src.User.UserName));
 
                 config.CreateMap<BetForCreationDto, Bet>()
                     .ForMember(dest => dest.AwardedPoints, context => context.Ignore())
