@@ -44,7 +44,7 @@ namespace PyeongchangKampen.Controllers
             return Ok(Mapper.Map<GameForRetrieveDto>(game));
         }
 
-        [HttpGet("leage/{leagueId:int}")]
+        [HttpGet("league/{leagueId:int}")]
         public async Task<IActionResult> GetGames(int leagueId)
         {
             var games = await _Repository.GetGamesAsync(leagueId);

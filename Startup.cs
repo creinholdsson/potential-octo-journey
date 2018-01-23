@@ -62,7 +62,11 @@ namespace PyeongchangKampen
                 options.SignIn.RequireConfirmedEmail = false;
             });
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options=>
+            services.AddAuthentication(options=>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options=>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -78,6 +82,16 @@ namespace PyeongchangKampen
 
             services.Configure<TokenConfigurationParameters>(options => Configuration.GetSection("Token").Bind(options));
 
+            // Add service and create Policy with options
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
             services.AddMvc();
         }
 
@@ -91,8 +105,12 @@ namespace PyeongchangKampen
 
             Mapping.MappingConfiguration.ConfigureMapping();
 
+            app.UseCors("CorsPolicy");
+
             app.UseAuthentication();
 
+            
+            
             app.UseMvc();
         }
     }

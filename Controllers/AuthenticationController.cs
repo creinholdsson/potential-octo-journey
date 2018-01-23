@@ -59,10 +59,13 @@ namespace PyeongchangKampen.Controllers
                 return BadRequest(ModelState);
             }
 
+            var loggedOnUser = await _UserManager.FindByNameAsync(signInDto.Username);
+
+
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, signInDto.Username),
-                new Claim(ClaimTypes.NameIdentifier, User.Claims.FirstOrDefault(x=>x.Type == ClaimTypes.NameIdentifier).Value)  
+                new Claim(ClaimTypes.NameIdentifier, loggedOnUser.Id)  
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_TokenParameters.SigningKey));

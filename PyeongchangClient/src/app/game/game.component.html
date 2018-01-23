@@ -1,0 +1,21 @@
+<div *ngIf="game != null">
+  <h1>{{game.title}}</h1>
+  <p>{{game.description}}</p>
+
+
+    <div class="row">
+        <div class="col col-lg-6 col-md-12">
+            <p-card *ngIf="isBettingOpen && game.gameType == 1" title="Tippa placering">
+                <p-dropdown [options]="availableOptionsPlacement" [(ngModel)]="selectedResult1"></p-dropdown>
+                <p-button icon="fa fa-play" label="Tippa" (click)="placeBet()"></p-button>
+            </p-card>
+        </div>
+
+        <div class="col col-lg-6 col-md-12">
+            <p-card *ngIf="game.gameType == 1" title="Tippade placeringar">
+            </p-card>
+        </div>
+    </div>
+
+</div>
+

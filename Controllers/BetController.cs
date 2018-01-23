@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PyeongchangKampen.Models;
@@ -76,6 +77,7 @@ namespace PyeongchangKampen.Controllers
 
         [Authorize]
         [HttpPost]
+        [EnableCors("CorsPolicy")]
         public async Task<IActionResult> AddBet([FromBody]BetForCreationDto betDto)
         {
             var bet = Mapper.Map<Bet>(betDto);
