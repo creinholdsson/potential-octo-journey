@@ -1,19 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+
 import { HttpClientModule } from '@angular/common/http';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
-import { DataTableModule } from 'primeng/primeng';
-import { DialogModule } from 'primeng/primeng';
-import { InputTextModule } from 'primeng/primeng';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/primeng';
-import { CardModule } from 'primeng/primeng';
-import { DropdownModule } from 'primeng/primeng';
+import { DialogModule, InputTextModule, InputTextareaModule, ButtonModule, CardModule, DropdownModule, CalendarModule, GrowlModule } from 'primeng/primeng';
+import { MessageService } from 'primeng/components/common/messageservice';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarModule } from 'primeng/primeng';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 import { AppComponent } from './app.component';
 import { NavmenuComponent } from './navmenu/navmenu.component';
@@ -24,12 +22,14 @@ import { GameComponent } from './game/game.component';
 import { GameService } from './services/game.service';
 import { OrderByPipe } from './directives/order-by-pipe';
 import { GameCreateComponent } from './game-create/game-create.component';
+import { LoginComponentComponent } from './login-component/login-component.component';
+import { AuthenticationService } from './services/authentication-service.service';
+
 
 const appRoutes: Routes = [
   { path: '', component: IndexComponent},
   { path: 'game/add', component: GameCreateComponent },
-  { path: 'game/:id', component: GameComponent }
-  
+  { path: 'game/:id', component: GameComponent }  
 ];
 
 @NgModule({
@@ -41,7 +41,8 @@ const appRoutes: Routes = [
     IndexComponent,
     GameComponent,
     OrderByPipe,
-    GameCreateComponent
+    GameCreateComponent,
+    LoginComponentComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -55,14 +56,26 @@ const appRoutes: Routes = [
     ButtonModule,
     CardModule,
     DropdownModule,
+    InputTextareaModule,
     FormsModule,
+    ReactiveFormsModule,
     CalendarModule,
+    GrowlModule,
     HttpModule,
     HttpClientModule,
     NgHttpLoaderModule,
     NgbModule.forRoot()
   ],
-  providers: [GameService],
+  providers: [
+    GameService, 
+    MessageService, 
+    AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

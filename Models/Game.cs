@@ -13,7 +13,13 @@ namespace PyeongchangKampen.Models
         public League League { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime StartsOn { get; set; }
+        private DateTime _StartsOn;
+        public DateTime StartsOn
+        {
+            get { return _StartsOn.Kind == DateTimeKind.Unspecified ? new DateTime(_StartsOn.Ticks, DateTimeKind.Utc) : _StartsOn; }
+            set { _StartsOn = value; }
+            
+        }
         public GameType GameType { get; set; }
         public int? ScoreTeam1 { get; set; }
         public int? ScoreTeam2 { get; set; }
