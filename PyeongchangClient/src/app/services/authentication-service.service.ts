@@ -9,11 +9,12 @@ import { UsernameAvailableResponse } from '../domain/auth/username-available-res
 //import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { Router } from '@angular/router';
+import { AuthenticationEvent } from '../domain/auth/authentication-event';
 
 
 @Injectable()
 export class AuthenticationService {
-  dispatcher : EventEmitter<any> =  new EventEmitter();
+  dispatcher : EventEmitter<AuthenticationEvent> =  new EventEmitter();
 
   private usersBaseUrl = environment.apiBaseUrl + 'api/auth/';
 
@@ -24,7 +25,7 @@ export class AuthenticationService {
       localStorage.setItem('user', JSON.stringify(result));
       this.router.navigate(['/']);
       this.messageService.add({severity: 'success', summary:'Välkommen', detail: 'Registering lyckades, du har blivit inloggad'});
-      
+      this.dispatcher.emit(new AuthenticationEvent(true));
     }, error=> {
       this.messageService.add({severity: 'error', summary:'Fel', detail: JSON.stringify(error)})
     });
@@ -73,6 +74,7 @@ export class AuthenticationService {
       this.httpClient.post<User>(this.usersBaseUrl + 'signin/', { 'username': username, 'password': password }).toPromise().then(
         result => {
           localStorage.setItem('user', JSON.stringify(result));
+          this.dispatcher.emit(new AuthenticationEvent(true));
           resolve(true);
         }, reject => {
           reject(false);
@@ -80,6 +82,12 @@ export class AuthenticationService {
       );
     });
     return promise;
+  }
+
+  signOut() {
+    localStorage.removeItem('user');
+    let event = new AuthenticationEvent(false);
+    this.dispatcher.emit(event);
   }
 
 }

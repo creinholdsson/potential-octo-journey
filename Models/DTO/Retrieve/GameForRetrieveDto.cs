@@ -17,5 +17,7 @@ namespace PyeongchangKampen.Models.DTO.Retrieve
         public int GameType { get; set; }
         public int? ScoreTeam1 { get; set; }
         public int? ScoreTeam2 { get; set; }
+        public bool IsOpenForBets { get { return DateTime.Now > StartsOn; } }
+
     }
 }

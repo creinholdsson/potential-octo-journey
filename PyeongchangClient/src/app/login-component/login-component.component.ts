@@ -20,14 +20,19 @@ export class LoginComponentComponent implements OnInit {
 
   login() {
     this.authenticationService.signIn(this.username, this.password).then(result=> {
-      this.isLoggedIn = true;
+      this.user = this.authenticationService.getUser();
     }, rejected => {
-      this.isLoggedIn = false;
+      this.user = null;
     });
   }
 
   ngOnInit() {
     this.user = this.authenticationService.getUser();
+  }
+
+  signOut() {
+    this.authenticationService.signOut();
+    this.user = null;
   }
 
 }

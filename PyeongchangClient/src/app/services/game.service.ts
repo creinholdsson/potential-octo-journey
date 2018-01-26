@@ -25,7 +25,6 @@ export class GameService {
   }
 
   placeBet(bet: BetForCreation): Observable<Bet> {
-    // const headers = new HttpHeaders().set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdGFyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIyMTQ3M2Y3Yi02MDEyLTQwMTYtOTYwZi0yYmQ2MGFjMGI2MzQiLCJpc3MiOiJQeWVvbmdjaGFuZ0thbXBlbkFwaSIsImF1ZCI6IlB5ZW9uZ2NoYW5nS2FtcGVuIn0.EbD6yx9Q5SFKNieUi9LgTIw4y2HSq1RQqUQF7zJZqE4');
     return this.http.post<Bet>(this.betsPlacementUrl, bet);
   }
 

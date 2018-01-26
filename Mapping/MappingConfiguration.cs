@@ -78,8 +78,10 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.ScoreTeam2, context => context.MapFrom(src => src.ScoreTeam2))
                     .ForMember(dest => dest.User, context => context.Ignore())
                     .ForMember(dest => dest.Id, context => context.Ignore());
-                
 
+                config.CreateMap<ApplicationUser, UserForRetrieve>()
+                    .ForMember(dest => dest.Id, context => context.MapFrom(src => src.Id))
+                    .ForMember(dest => dest.Username, context => context.MapFrom(src=>src.UserName));
             });
 
             

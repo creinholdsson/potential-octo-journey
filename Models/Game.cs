@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,9 @@ namespace PyeongchangKampen.Models
         public GameType GameType { get; set; }
         public int? ScoreTeam1 { get; set; }
         public int? ScoreTeam2 { get; set; }
+
+        [NotMapped]
+        public bool IsOpenForBets { get { return DateTime.Now > StartsOn; } }
     }
 
     public enum GameType

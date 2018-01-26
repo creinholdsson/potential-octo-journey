@@ -27,13 +27,15 @@ import { AuthenticationService } from './services/authentication-service.service
 import { RegisterComponent } from './register/register.component';
 import { TakenUsernameDirective } from './directives/taken-username.directive';
 import { UserComponent } from './user/user.component';
+import { UserService } from './services/user.service';
 
 
 const appRoutes: Routes = [
   { path: '', component: IndexComponent},
   { path: 'game/add', component: GameCreateComponent },
   { path: 'game/:id', component: GameComponent },
-  { path: 'register', component: RegisterComponent }  
+  { path: 'register', component: RegisterComponent },
+  { path: 'user/:username', component: UserComponent }, 
 ];
 
 @NgModule({
@@ -76,6 +78,7 @@ const appRoutes: Routes = [
   providers: [
     GameService, 
     MessageService, 
+    UserService,
     AuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,

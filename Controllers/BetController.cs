@@ -20,11 +20,13 @@ namespace PyeongchangKampen.Controllers
     public class BetController: Controller
     {
         private IBetRepository _Repository;
+        private IGameRepository _GameRepository;
         private ILogger<BetController> _Logger;
 
-        public BetController(IBetRepository repository, ILogger<BetController> logger)
+        public BetController(IBetRepository repository, ILogger<BetController> logger, IGameRepository gameRepository)
         {
             _Repository = repository;
+            _GameRepository = gameRepository;
             _Logger = logger;
         }
 
@@ -77,9 +79,20 @@ namespace PyeongchangKampen.Controllers
 
         [Authorize]
         [HttpPost]
-        [EnableCors("CorsPolicy")]
         public async Task<IActionResult> AddBet([FromBody]BetForCreationDto betDto)
         {
+            var game = await _GameRepository.GetGameAsync(betDto.GameId);
+
+            if(game == null)
+            {
+                ModelState.AddModelError(nameof(betDto.GameId), "Not a valid game id");
+                return BadRequest(ModelState);
+            }
+            if(game.IsOpenForBets == false)
+            {
+                ModelState.AddModelError(nameof(betDto.GameId), "Not open for bets");
+            }
+            
             var bet = Mapper.Map<Bet>(betDto);
             var currentUserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
             if (currentUserId == null)

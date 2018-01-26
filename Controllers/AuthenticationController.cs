@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -81,6 +82,24 @@ namespace PyeongchangKampen.Controllers
                 );
 
             return Ok(new SignInForRetrieveDto { Username = signInDto.Username, Token = new JwtSecurityTokenHandler().WriteToken(token) });
+        }
+
+        [HttpGet("user/{userName}")]
+        public async Task<IActionResult> GetUser(string username)
+        {
+            if(string.IsNullOrEmpty(username))
+            {
+                ModelState.AddModelError("username", "cannot be null");
+                return BadRequest(ModelState);
+            }
+            var user = await _UserManager.FindByNameAsync(username);
+
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(Mapper.Map<UserForRetrieve>(user));
         }
 
         [HttpPost("register")]
