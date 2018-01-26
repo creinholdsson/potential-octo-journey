@@ -1,0 +1,6 @@
+
+.form-group > span {
+    color: #a94442;
+    font-size: small;
+    display: block;
+}

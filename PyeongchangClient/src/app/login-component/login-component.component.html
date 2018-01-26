@@ -1,5 +1,5 @@
 <ul class="nav navbar-nav navbar-right">
-<li class="nav-item dropdown" *ngIf="isLoggedIn == null" ngbDropdown #loginDropdown="ngbDropdown">
+<li class="nav-item dropdown" *ngIf="user === null" ngbDropdown #loginDropdown="ngbDropdown">
   <a href="#" ngbDropdownToggle class="nav-link dropdown-toggle" data-toggle="dropdown">Logga in <span class="caret"></span></a>
   <ul id="login-dp" class="dropdown-menu" ngbDropdownMenu>
     <li>
@@ -21,7 +21,7 @@
     </li>
   </ul>
 </li>
-<li class="nav-item dropdown" *ngIf="isLoggedIn != null" ngbDropdown #loginDropdown="ngbDropdown">
+<li class="nav-item dropdown" *ngIf="user != null" ngbDropdown #loginDropdown="ngbDropdown">
     <a href="#" ngbDropdownToggle class="nav-link dropdown-toggle" data-toggle="dropdown">{{user.username}}</a>
     <ul id="login-dp" class="dropdown-menu" ngbDropdownMenu>
       <li>
@@ -38,6 +38,7 @@
                 <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Logga in</button>
               </div>
             </form>
+            <a routerLink="/register" (click)="loginDropdown.close();">Registrera</a>
           </div>
         </div>
       </li>

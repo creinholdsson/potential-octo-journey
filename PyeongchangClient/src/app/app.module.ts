@@ -24,12 +24,16 @@ import { OrderByPipe } from './directives/order-by-pipe';
 import { GameCreateComponent } from './game-create/game-create.component';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { AuthenticationService } from './services/authentication-service.service';
+import { RegisterComponent } from './register/register.component';
+import { TakenUsernameDirective } from './directives/taken-username.directive';
+import { UserComponent } from './user/user.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: IndexComponent},
   { path: 'game/add', component: GameCreateComponent },
-  { path: 'game/:id', component: GameComponent }  
+  { path: 'game/:id', component: GameComponent },
+  { path: 'register', component: RegisterComponent }  
 ];
 
 @NgModule({
@@ -42,7 +46,10 @@ const appRoutes: Routes = [
     GameComponent,
     OrderByPipe,
     GameCreateComponent,
-    LoginComponentComponent
+    LoginComponentComponent,
+    RegisterComponent,
+    TakenUsernameDirective,
+    UserComponent
   ],
   imports: [
     RouterModule.forRoot(

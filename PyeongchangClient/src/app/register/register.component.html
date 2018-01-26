@@ -1,0 +1,40 @@
+<h1>Registrera konto</h1>
+<div class="row">
+  <div class="col col-lg-12">
+      <p>Användarnamnet är det som används som login-namn och är vad som identifierar dig på sidan.</p>
+      <form [formGroup]="registerForm" novalidate (ngSubmit)="register()">
+        <div class="form-group">
+          <label>Användarnamn</label><br/>
+          <input pInputText type="text" formControlName="username" required size="40">
+          <span *ngIf="registerForm.controls.username.touched && registerForm.controls.username.errors">Användarnamnet är för kort</span>
+        </div>
+        <div class="form-group">
+          <label>E-postadress</label><br/>
+          <input pInputText type="email" formControlName="email" name="email" required size="40">
+          <span *ngIf="registerForm.controls.email.touched && registerForm.controls.email.errors">Inte en giltig e-mailadress</span>
+        </div>
+        <div formGroupName="passwords">
+          <div class="form-group">
+            <label>Lösenord</label><br/>
+            <input pInputText type="password" formControlName="password" name="password" required size="40">
+            <span *ngIf="registerForm.controls['passwords'].controls.password.touched && registerForm.controls['passwords'].controls.password.errors">Lösenordet är för kort</span>
+          </div>
+          <div class="form-group">
+            <label>Upprepa lösenord</label><br/>
+            <input pInputText type="password" formControlName="passwordRepeat" name="repeatPassword" required size="40">
+            <span *ngIf="
+            registerForm.controls['passwords'].errors &&
+            registerForm.controls['passwords'].errors.areEqual &&
+            registerForm.controls['passwords'].controls.password.touched &&
+            registerForm.controls['passwords'].controls.passwordRepeat.touched">Lösenorden matchar inte</span>
+          </div>
+        </div>
+        <div class="form-group"><br/>
+          <p-button type="submit" label="Registrera" [disabled]="registerForm.invalid"></p-button>
+        </div>
+        {{registerForm.value | json}}
+      </form>
+  </div>
+</div>
+
+

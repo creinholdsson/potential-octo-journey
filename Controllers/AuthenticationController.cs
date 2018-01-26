@@ -83,13 +83,6 @@ namespace PyeongchangKampen.Controllers
             return Ok(new SignInForRetrieveDto { Username = signInDto.Username, Token = new JwtSecurityTokenHandler().WriteToken(token) });
         }
 
-        [Authorize]
-        [HttpGet("check")]
-        public IActionResult CheckAuthorized()
-        {
-            return Ok();
-        }
-
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]ApplicationUserForCreationDto userDto)
         {
@@ -114,6 +107,20 @@ namespace PyeongchangKampen.Controllers
                 return BadRequest(ModelState);
             }
             
+        }
+
+        [HttpGet("check")]
+        public async Task<IActionResult> IsUsernameTaken(string username)
+        {
+            var user = await _UserManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                return Ok(new { User = username, IsAvailable = true });
+            }
+            else
+            {
+                return Ok(new { User = username, IsAvailable = false });
+            }
         }
 
 
