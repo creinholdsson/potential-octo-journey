@@ -3,6 +3,7 @@ import { Game } from '../domain/game';
 import { CardModule } from 'primeng/primeng';
 import { ButtonModule } from 'primeng/primeng';
 import { GameService } from '../services/game.service';
+import { HasPermissionDirective } from '../directives/has-permission.directive';
 
 @Component({
   selector: 'app-open-games',

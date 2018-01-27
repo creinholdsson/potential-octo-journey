@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { UserForCreation } from '../domain/auth/user-for-creation';
@@ -15,10 +15,16 @@ import { AuthenticationEvent } from '../domain/auth/authentication-event';
 @Injectable()
 export class AuthenticationService {
   dispatcher : EventEmitter<AuthenticationEvent> =  new EventEmitter();
-
+  user : User = null;
   private usersBaseUrl = environment.apiBaseUrl + 'api/auth/';
 
-  constructor(private httpClient: HttpClient, private messageService: MessageService, private router: Router) { }
+  constructor(private httpClient: HttpClient, 
+    private messageService: MessageService, 
+    private router: Router) {
+      this.user = this.getUserFromLocalStorage();
+    }
+
+
 
   createUser(user: UserForCreation) {
     return this.httpClient.post<User>(this.usersBaseUrl + '/register', user).subscribe(result=> {
@@ -30,15 +36,22 @@ export class AuthenticationService {
       this.messageService.add({severity: 'error', summary:'Fel', detail: JSON.stringify(error)})
     });
   }
+  
+  private getUserFromLocalStorage() : User {
+    var storageUser = JSON.parse(localStorage.getItem('user'));
+    let user: User;
+      if(storageUser != undefined) {
+        user = new User();
+        Object.assign(user, storageUser);
+      }
+    return user;
+  }
 
   getUser() : User {
-    var user = JSON.parse(localStorage.getItem('user'));
-    if(user != undefined) {
-      var a = new User();
-      Object.assign(a, user);
-      return a;
+    if(this.user == null) {
+      this.user = this.getUserFromLocalStorage();
     }
-    return null;
+    return this.user;    
   }
 
   getToken() {
@@ -87,7 +100,24 @@ export class AuthenticationService {
   signOut() {
     localStorage.removeItem('user');
     let event = new AuthenticationEvent(false);
+    this.user = null;
     this.dispatcher.emit(event);
   }
+  
+  hasRole(role: string) {
+    if(this.getUser() == null) {
+      return false;
+    }
+
+    for(let userRole of this.user.roles) {
+      if(role.toLowerCase() == userRole.toLowerCase()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+
 
 }

@@ -1,5 +1,5 @@
 <ul class="nav navbar-nav navbar-right">
-<li class="nav-item dropdown" *ngIf="user === null" ngbDropdown #loginDropdown="ngbDropdown">
+<li class="nav-item dropdown" *ngIf="user == null" ngbDropdown #loginDropdown="ngbDropdown">
   <a href="" (click)="$event.preventDefault()" ngbDropdownToggle class="nav-link dropdown-toggle" data-toggle="dropdown">Logga in <span class="caret"></span></a>
   <ul id="login-dp" class="dropdown-menu" ngbDropdownMenu>
     <li>

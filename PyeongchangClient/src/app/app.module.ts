@@ -29,6 +29,7 @@ import { TakenUsernameDirective } from './directives/taken-username.directive';
 import { UserComponent } from './user/user.component';
 import { UserService } from './services/user.service';
 import { GameEditComponent } from './game-edit/game-edit.component';
+import { HasPermissionDirective } from './directives/has-permission.directive';
 
 
 const appRoutes: Routes = [
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     TakenUsernameDirective,
     UserComponent,
-    GameEditComponent
+    GameEditComponent,
+    HasPermissionDirective
   ],
   imports: [
     RouterModule.forRoot(
@@ -87,7 +89,8 @@ const appRoutes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    HasPermissionDirective
   ],
   bootstrap: [AppComponent]
 })

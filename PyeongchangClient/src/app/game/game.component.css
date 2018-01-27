@@ -4,3 +4,11 @@ h3 {
     font-weight: bold;
     margin-bottom: .5em;
 }
+
+.gold {
+    color: #ffd700;
+}
+
+.silver {
+    color: #c0c0c0;
+}

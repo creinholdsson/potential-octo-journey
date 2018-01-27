@@ -28,6 +28,9 @@ export class LoginComponentComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.authenticationService.getUser();
+    this.authenticationService.getEmitter().asObservable().subscribe(x=> {
+      this.user = this.authenticationService.getUser();
+    })
   }
 
   signOut() {

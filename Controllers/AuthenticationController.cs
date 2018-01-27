@@ -76,7 +76,7 @@ namespace PyeongchangKampen.Controllers
                 signingCredentials: credentials
                 );
 
-            return Ok(new SignInForRetrieveDto { Username = signInDto.Username, Token = new JwtSecurityTokenHandler().WriteToken(token) });
+            return Ok(new SignInForRetrieveDto { Username = signInDto.Username, Token = new JwtSecurityTokenHandler().WriteToken(token), Roles = roles.ToArray() });
         }
 
         [HttpGet("user/{userName}")]
