@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-
-import { OpenGamesComponent } from './open-games/open-games.component';
 import {SelectItem} from 'primeng/primeng';
 
 @Component({

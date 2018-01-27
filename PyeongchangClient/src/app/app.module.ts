@@ -15,7 +15,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 
 import { AppComponent } from './app.component';
 import { NavmenuComponent } from './navmenu/navmenu.component';
-import { OpenGamesComponent } from './open-games/open-games.component';
+import { GameListComponent } from './game-list/game-list.component';
 import { FooterComponent } from './footer/footer.component';
 import { IndexComponent } from './index/index.component';
 import { GameComponent } from './game/game.component';
@@ -45,7 +45,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     NavmenuComponent,
-    OpenGamesComponent,
+    GameListComponent,
     FooterComponent,
     IndexComponent,
     GameComponent,

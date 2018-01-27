@@ -17,8 +17,13 @@ export class GameService {
   private sportsUrl = environment.apiBaseUrl + 'api/sports';
   constructor(private http: HttpClient) { }
 
-  getOpenGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.openGamesUrl);
+  getGames(filter: string = null): Observable<Game[]> {
+    let gamesUrl: string = this.openGamesUrl;
+    if(filter != null) {
+      gamesUrl = gamesUrl + '/?filter=' + filter; 
+    }
+      
+    return this.http.get<Game[]>(gamesUrl);
   }
 
   getGame(gameId: number): Observable<Game> {
