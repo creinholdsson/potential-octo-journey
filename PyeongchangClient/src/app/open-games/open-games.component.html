@@ -1,6 +1,6 @@
 
 <p-card title="Öppna spel">
-      <a routerLink="/game/add" [appHasPermission]="'Administrator'" pButton label="Lägg till nytt spel"></a><br />
+      <a routerLink="/game/add" [appHasPermission]="'Administrator'" pButton label="Lägg till nytt spel" id="#createlink"></a><br />
       
       <br/>
       <a *ngFor="let game of games" routerLink="/game/{{game.id}}">

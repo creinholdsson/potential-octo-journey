@@ -102,6 +102,8 @@ namespace PyeongchangKampen
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             Mapping.MappingConfiguration.ConfigureMapping();
 

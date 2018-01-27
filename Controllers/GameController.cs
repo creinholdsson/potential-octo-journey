@@ -30,9 +30,18 @@ namespace PyeongchangKampen.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetGames()
+        public async Task<IActionResult> GetGames(string filter = null)
         {
             var games = await _Repository.GetGamesAsync();
+            if(filter == "open")
+            {
+                games = games.Where(x => x.IsOpenForBets == true);
+            }
+            if(filter == "closed")
+            {
+                games = games.Where(x => x.IsOpenForBets == false);
+            }
+
             return Ok(Mapper.Map<IEnumerable<GameForRetrieveDto>>(games));
         }
 
