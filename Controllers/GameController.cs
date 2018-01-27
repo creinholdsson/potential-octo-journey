@@ -54,7 +54,7 @@ namespace PyeongchangKampen.Controllers
             return Ok(Mapper.Map<IEnumerable<GameForRetrieveDto>>(games));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> AddGame([FromBody]GameForCreationDto gameDto)
         {
@@ -68,7 +68,7 @@ namespace PyeongchangKampen.Controllers
             return CreatedAtRoute("GetGame", new { gameId = game.Id }, Ok(Mapper.Map<GameForRetrieveDto>(game)));
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{gameId:int}")]
         public async Task<IActionResult> UpdateGame(int gameId, [FromBody]GameForUpdateDto gameDto)
         {

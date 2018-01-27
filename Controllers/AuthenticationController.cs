@@ -46,11 +46,6 @@ namespace PyeongchangKampen.Controllers
                 return BadRequest(ModelState);
             }
 
-            var applicationUser = new ApplicationUser
-            {
-                UserName = signInDto.Username,
-                Email = "email@example.com"
-            };
 
             var signInResult = await _SignInManager.PasswordSignInAsync(signInDto.Username, signInDto.Password, false, false);
 
@@ -61,18 +56,18 @@ namespace PyeongchangKampen.Controllers
             }
 
             var loggedOnUser = await _UserManager.FindByNameAsync(signInDto.Username);
+            var roles = await _UserManager.GetRolesAsync(loggedOnUser);
 
 
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, signInDto.Username),
-                new Claim(ClaimTypes.NameIdentifier, loggedOnUser.Id)  
+                new Claim(ClaimTypes.NameIdentifier, loggedOnUser.Id)
             };
+            claims.AddRange(roles.Select(x => new Claim(ClaimsIdentity.DefaultRoleClaimType, x)));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_TokenParameters.SigningKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var user = User.Claims;
 
             var token = new JwtSecurityToken(
                 issuer: _TokenParameters.Issuer,
