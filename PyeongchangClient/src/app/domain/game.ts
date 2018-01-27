@@ -8,4 +8,7 @@ export class Game {
     scoreTeam1: number;
     scoreTeam2: number;
     gameType: number;
+    isOpenForBets: boolean;
+    pointsResult: number;
+    pointsWinner: number;
 }

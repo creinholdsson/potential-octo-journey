@@ -28,11 +28,13 @@ import { RegisterComponent } from './register/register.component';
 import { TakenUsernameDirective } from './directives/taken-username.directive';
 import { UserComponent } from './user/user.component';
 import { UserService } from './services/user.service';
+import { GameEditComponent } from './game-edit/game-edit.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: IndexComponent},
   { path: 'game/add', component: GameCreateComponent },
+  { path: 'game/edit/:id', component: GameEditComponent },
   { path: 'game/:id', component: GameComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'user/:username', component: UserComponent }, 
@@ -51,7 +53,8 @@ const appRoutes: Routes = [
     LoginComponentComponent,
     RegisterComponent,
     TakenUsernameDirective,
-    UserComponent
+    UserComponent,
+    GameEditComponent
   ],
   imports: [
     RouterModule.forRoot(

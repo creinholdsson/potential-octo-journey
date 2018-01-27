@@ -34,7 +34,7 @@ namespace PyeongchangKampen.Repostory
 
         public async Task<Game> GetGameAsync(int gameId)
         {
-            return await _DbContext.Game.FindAsync(gameId);
+            return await _DbContext.Game.Include(x=>x.Sport).Include(x=>x.League).FirstOrDefaultAsync(x=>x.Id == gameId);
         }
 
         public async Task<IEnumerable<Game>> GetGamesAsync()
@@ -45,6 +45,17 @@ namespace PyeongchangKampen.Repostory
         public async Task<IEnumerable<Game>> GetGamesAsync(int leagueId)
         {
             return await _DbContext.Game.Where(x => x.League.Id == leagueId).ToListAsync();
+        }
+
+        public async Task UpdateGame(Game game)
+        {
+            //var sport = _DbContext.Sports.Find(game.Sport.Id);
+            //var league = _DbContext.Leagues.Find(game.League.Id);
+            //game.Sport = sport;
+            //game.League = league;
+            //_DbContext.Attach(game);
+            _DbContext.Game.Update(game);
+            await _DbContext.SaveChangesAsync();
         }
     }
 }

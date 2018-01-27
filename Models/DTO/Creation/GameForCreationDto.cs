@@ -14,5 +14,7 @@ namespace PyeongchangKampen.Models.DTO.Creation
         public string Description { get; set; }
         public DateTime StartsOn { get; set; }
         public int GameType { get; set; }
+        public int PointsResult { get; set; }
+        public int? PointsWinner { get; set; }
     }
 }

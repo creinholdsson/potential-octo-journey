@@ -19,14 +19,17 @@ namespace PyeongchangKampen.Models
         {
             get { return _StartsOn.Kind == DateTimeKind.Unspecified ? new DateTime(_StartsOn.Ticks, DateTimeKind.Utc) : _StartsOn; }
             set { _StartsOn = value; }
-            
+
         }
         public GameType GameType { get; set; }
         public int? ScoreTeam1 { get; set; }
         public int? ScoreTeam2 { get; set; }
 
+        public int PointsResult { get; set; }
+        public int? PointsWinner { get; set; }
+
         [NotMapped]
-        public bool IsOpenForBets { get { return DateTime.Now > StartsOn; } }
+        public bool IsOpenForBets { get { return DateTime.Now < StartsOn; } }
     }
 
     public enum GameType

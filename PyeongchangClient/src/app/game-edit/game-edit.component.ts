@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { OptionValue } from '../domain/option-value';
-import { Sport } from '../domain/sport';
 import { GameService } from '../services/game.service';
-import { GameForCreation } from '../domain/game-for-creation';
+import { OptionValue } from '../domain/option-value';
+import { GameForUpdate } from '../domain/game-for-update';
+import { ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
-  selector: 'app-game-create',
-  templateUrl: './game-create.component.html',
-  styleUrls: ['./game-create.component.css']
+  selector: 'app-game-edit',
+  templateUrl: './game-edit.component.html',
+  styleUrls: ['./game-edit.component.css']
 })
-export class GameCreateComponent implements OnInit {
+export class GameEditComponent implements OnInit {
   gameTypes: OptionValue<string>[] = [];
   sports: OptionValue<string>[] = [];
   points: OptionValue<string>[] = [
@@ -33,13 +34,23 @@ export class GameCreateComponent implements OnInit {
     { label: '15', value: 15 }, 
     { label: '16', value: 16 }, 
   ];
-  game : GameForCreation = new GameForCreation();
+  game : GameForUpdate = new GameForUpdate();
+  gameId: number;
 
-  constructor(private gameService: GameService, private messageSerive: MessageService) {
-   }
-  
+  constructor(private gameService: GameService, 
+    private route: ActivatedRoute, 
+    private router: Router,
+    private messageService: MessageService) { }
+
+  getGame(id: number) {
+    this.gameService.getGame(id).subscribe(game => {
+      this.game = GameForUpdate.copyFrom(game);
+      this.game.startsOn = new Date(this.game.startsOn);
+    });
+  }
   getSports() {
     this.gameService.getSports().subscribe(sports => {
+      
       this.sports = [];
       for (let sport of sports) {
         var newSport = new OptionValue<string>();
@@ -48,19 +59,21 @@ export class GameCreateComponent implements OnInit {
         this.sports.push(newSport);
       }
       this.gameTypes = [{label: 'Resultat', value: 0 }, {label: 'Placering', value: 1 }];
+      
     })
   }
 
-  addGame(value) {
-    console.log(this.game);
-    this.gameService.addGame(this.game).subscribe(game => {
-      this.messageSerive.add({severity: 'success', summary:'Spel skapat', detail: 'Spelet har lagts till'});
-      this.game = new GameForCreation();
-    });
+  ngOnInit() {
+    this.gameId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
+    this.getSports();
+    this.getGame(this.gameId);
   }
 
-  ngOnInit() {
-    this.getSports();
+  updateGame() {
+    this.gameService.updateGame(this.game).subscribe(game => {
+      this.messageService.add({severity: 'success', summary:'Spel uppdaterat', detail: 'Spelet har uppdaterats'});
+      this.router.navigate(['/game/'+this.game.id.toString()]);
+    })
   }
 
 }

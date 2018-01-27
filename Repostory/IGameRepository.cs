@@ -14,6 +14,6 @@ namespace PyeongchangKampen.Repostory
         Task<IEnumerable<Game>> GetGamesAsync(int leagueId);
         Task<Game> GetGameAsync(int gameId);
         Task DeleteGameAsync(Game game);
-        
+        Task UpdateGame(Game game);
     }
 }

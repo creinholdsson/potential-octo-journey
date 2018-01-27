@@ -86,5 +86,11 @@ namespace PyeongchangKampen.Repostory
                 .Include(x => x.User)
                 .ToListAsync();
         }
+
+        public async Task UpdateBets(IEnumerable<Bet> bets)
+        {
+            _DbContext.Bets.UpdateRange(bets);
+            await _DbContext.SaveChangesAsync();
+        }
     }
 }

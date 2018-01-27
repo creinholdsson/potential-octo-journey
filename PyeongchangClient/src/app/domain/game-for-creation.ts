@@ -4,5 +4,7 @@ export class GameForCreation {
     title: string;
     description: string;
     startsOn: Date;
-    gameType: number
+    gameType: number;
+    pointsResult: number;
+    pointsWinner: number;
 }

@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { GameForUpdate } from '../domain/game-for-update';
 
 @Injectable()
 export class GameService {
@@ -38,5 +39,9 @@ export class GameService {
 
   addGame(game: GameForCreation): Observable<Game> {
     return this.http.post<Game>(this.openGamesUrl, game);
+  }
+
+  updateGame(game: GameForUpdate): Observable<Game> {
+    return this.http.put<Game>(this.openGamesUrl + '/' + game.id, game);
   }
 }

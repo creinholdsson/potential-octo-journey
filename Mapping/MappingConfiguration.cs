@@ -2,6 +2,7 @@
 using PyeongchangKampen.Models;
 using PyeongchangKampen.Models.DTO.Creation;
 using PyeongchangKampen.Models.DTO.Retrieve;
+using PyeongchangKampen.Models.DTO.Update;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,14 +40,17 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.LeagueSports, context => context.Ignore());
 
                 config.CreateMap<Game, GameForRetrieveDto>()
-                    .ForMember(dest=>dest.Description, context=>context.MapFrom(src=>src.Description))
+                    .ForMember(dest => dest.Description, context => context.MapFrom(src => src.Description))
                     .ForMember(dest => dest.Id, context => context.MapFrom(src => src.Id))
                     .ForMember(dest => dest.LeagueId, context => context.ResolveUsing(src => src.League == null ? default(int) : src.League.Id))
                     .ForMember(dest => dest.ScoreTeam1, context => context.MapFrom(src => src.ScoreTeam1))
                     .ForMember(dest => dest.ScoreTeam2, context => context.MapFrom(src => src.ScoreTeam2))
                     .ForMember(dest => dest.SportId, context => context.ResolveUsing(src => src.Sport == null ? default(int) : src.Sport.Id))
                     .ForMember(dest => dest.StartsOn, context => context.MapFrom(src => src.StartsOn))
-                    .ForMember(dest => dest.Title, context => context.MapFrom(src => src.Title));
+                    .ForMember(dest => dest.Title, context => context.MapFrom(src => src.Title))
+                    .ForMember(dest => dest.PointsResult, context => context.MapFrom(src => src.PointsResult))
+                    .ForMember(dest => dest.PointsWinner, context => context.MapFrom(src => src.PointsWinner))
+                    .ForMember(dest => dest.SportName, context => context.ResolveUsing(src => src.Sport == null ? string.Empty : src.Sport.Name));
 
                 config.CreateMap<GameForCreationDto, Game>()
                     .ForMember(dest => dest.Description, context => context.MapFrom(src => src.Description))
@@ -55,9 +59,24 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.StartsOn, context => context.MapFrom(src => src.StartsOn))
                     .ForMember(dest => dest.Sport, context => context.ResolveUsing(src => new Sport { Id = src.SportId }))
                     .ForMember(dest => dest.League, context => context.ResolveUsing(src => new League { Id = src.LeagueId }))
+                    .ForMember(dest => dest.PointsResult, context => context.MapFrom(src=>src.PointsResult))
+                    .ForMember(dest => dest.PointsWinner, context => context.MapFrom(src=>src.PointsWinner))
                     .ForMember(dest => dest.ScoreTeam1, context => context.Ignore())
                     .ForMember(dest => dest.ScoreTeam2, context => context.Ignore())
                     .ForMember(dest => dest.Id, context => context.Ignore());
+
+                config.CreateMap<GameForUpdateDto, Game>()
+                    .ForMember(dest => dest.Description, context => context.MapFrom(src => src.Description))
+                    .ForMember(dest => dest.GameType, context => context.ResolveUsing(src => (GameType)src.GameType))
+                    .ForMember(dest => dest.Id, context => context.Ignore())
+                    .ForMember(dest => dest.League, context => context.Ignore())
+                    .ForMember(dest => dest.Sport, context => context.Ignore())
+                    .ForMember(dest => dest.PointsResult, context => context.MapFrom(src => src.PointsResult))
+                    .ForMember(dest => dest.PointsWinner, context => context.MapFrom(src => src.PointsWinner))
+                    .ForMember(dest => dest.ScoreTeam1, context => context.MapFrom(src => src.ScoreTeam1))
+                    .ForMember(dest => dest.ScoreTeam2, context => context.MapFrom(src => src.ScoreTeam2))
+                    .ForMember(dest => dest.StartsOn, context => context.MapFrom(src => src.StartsOn))
+                    .ForMember(dest => dest.Title, context => context.MapFrom(src => src.Title));
 
                 config.CreateMap<Bet, BetForRetrieveDto>()
                     .ForMember(dest => dest.AwardedPoints, context => context.MapFrom(src => src.AwardedPoints))
