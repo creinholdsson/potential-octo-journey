@@ -1,0 +1,11 @@
+.test {
+    min-height: 100px;
+}
+
+.test>img.icon {
+    opacity: 0.4;
+    right: 20px;
+    position: absolute;
+    height: 60px;
+    width: 60px;
+}
