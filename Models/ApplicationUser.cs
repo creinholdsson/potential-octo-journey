@@ -14,5 +14,8 @@ namespace PyeongchangKampen.Models
 
         [NotMapped]
         public int TotalPoints { get; set; }
+
+        [NotMapped]
+        public int Rank { get; set; }
     }
 }

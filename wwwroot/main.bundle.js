@@ -25,7 +25,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "#main-container {\r\n    margin-top: 30px;\r\n}", ""]);
+exports.push([module.i, "#main-container {\r\n    margin-top: 30px;\r\n    background-image: '../assets/background.png';\r\n    background-position: center;\r\n    background-repeat: no-repeat;\r\n}\r\n", ""]);
 
 // exports
 
@@ -443,6 +443,7 @@ var UserForCreation = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return User; });
 var User = /** @class */ (function () {
     function User() {
+        this.rank = 0;
     }
     return User;
 }());
@@ -1080,7 +1081,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".content-column {\r\n    padding-bottom: 50px;\r\n}", ""]);
 
 // exports
 
@@ -1093,7 +1094,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/index/index.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col col-lg-4 col-md-6 col-sm-12\">\n    <p-card title=\"Öppna spel\">\n        <app-game-list [gameType]=\"'open'\"></app-game-list>\n        <p><a routerLink=\"/game/add\" [appHasPermission]=\"'Administrator'\" pButton label=\"Lägg till nytt spel\" id=\"#createlink\"></a></p>\n    </p-card>\n  </div>\n  <div class=\"col col-lg-4 col-md-6 col-sm-12\">\n    <p-card title=\"Senast avslutade\">\n        <app-game-list [gameType]=\"'closed'\"></app-game-list>\n    </p-card>\n  </div>\n  <div class=\"col col-lg-4 col-md-6 col-sm-12\">\n    <p-card title=\"Topplista\">\n      <app-top-list></app-top-list>\n    </p-card>\n\n  </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n  <div class=\"col-12 col-sm-12 col-md-6 col-lg-4 content-column\">\n    <p-card title=\"Öppna spel\">\n        <app-game-list [gameType]=\"'open'\"></app-game-list>\n        <p><a routerLink=\"/game/add\" [appHasPermission]=\"'Administrator'\" pButton label=\"Lägg till nytt spel\" id=\"#createlink\"></a></p>\n    </p-card>\n  </div>\n  <div class=\"col-12 col-sm-12 col-md-6 col-lg-4 content-column\">\n    <p-card title=\"Senast avslutade\">\n        <app-game-list [gameType]=\"'closed'\"></app-game-list>\n    </p-card>\n  </div>\n  <div class=\"col-12 col-sm-12 col-md-6 col-lg-4 content-column\">\n    <p-card title=\"Topplista\">\n      <app-top-list></app-top-list>\n    </p-card>\n\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1702,7 +1703,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".table-borderless > tbody > tr > td,\r\n.table-borderless > tbody > tr > th,\r\n.table-borderless > tfoot > tr > td,\r\n.table-borderless > tfoot > tr > th,\r\n.table-borderless > thead > tr > td,\r\n.table-borderless > thead > tr > th {\r\n    border: none;\r\n}", ""]);
 
 // exports
 
@@ -1715,7 +1716,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/top-list/top-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<a *ngFor=\"let user of topList\" routerLink=\"/user/{{user.username}}\">\n  <div class=\"d-flex w-100 justify-content-between\">\n      <h6 class=\"mb-1\">{{user.username}}</h6>\n      <h6 class=\"mb-1\">{{user.totalPoints}}</h6>\n  </div>\n</a>\n"
+module.exports = "<!-- <a *ngFor=\"let user of topList\" routerLink=\"/user/{{user.username}}\">\n  <div class=\"w-100\">\n    <div class=\"row\">\n      <div class=\"col-lg-1\"><h6 class=\"mb-1\">{{user.rank}}</h6></div>\n      <div class=\"col-lg-8\"><h6 class=\"mb-1\">{{user.username}}</h6></div>\n      <div class=\"col-lg-2\"><h6 class=\"mb-1\">{{user.totalPoints}}</h6></div>\n    </div>\n      \n      <h6 class=\"mb-1\">{{user.username}}</h6>\n      <h6 class=\"mb-1\">{{user.totalPoints}}</h6> \n  </div> \n</a> -->\n<table class=\"table table-borderless\">\n  <tbody>\n    <tr *ngFor=\"let user of topList\" routerLink=\"/user/{{user.username}}\">\n      <td class=\"col-lg-1\">{{user.rank}}</td>\n      <td class=\"col-lg-8\">{{user.username}}</td>\n      <td class=\"col-lg-3\">{{user.totalPoints}}</td>\n    </tr>\n  </tbody>\n</table>"
 
 /***/ }),
 

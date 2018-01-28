@@ -101,7 +101,9 @@ namespace PyeongchangKampen.Mapping
                 config.CreateMap<ApplicationUser, UserForRetrieve>()
                     .ForMember(dest => dest.Id, context => context.MapFrom(src => src.Id))
                     .ForMember(dest => dest.Username, context => context.MapFrom(src=>src.UserName))
-                    .ForMember(dest => dest.TotalPoints, context => context.MapFrom(src=>src.TotalPoints));
+                    .ForMember(dest => dest.TotalPoints, context => context.MapFrom(src=>src.TotalPoints))
+                    .ForMember(dest => dest.Rank, context => context.MapFrom(src=>src.Rank));
+
             });
 
             

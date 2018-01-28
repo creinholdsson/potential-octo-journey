@@ -75,7 +75,14 @@ namespace PyeongchangKampen.Controllers
         public async Task<IActionResult> GetToplist(int leagueId)
         {
             var topList = await _Repository.GetTopList(new League { Id = leagueId });
-            return Ok(Mapper.Map<IEnumerable<UserForRetrieve>>(topList.OrderByDescending(x=>x.TotalPoints)));
+            var topListRanked = topList.Select(s => new ApplicationUser {
+                Id = s.Id,
+                UserName = s.UserName,
+                TotalPoints = s.TotalPoints,
+                Rank = topList.Count(x => x.TotalPoints > s.TotalPoints) + 1
+            });
+
+            return Ok(Mapper.Map<IEnumerable<UserForRetrieve>>(topListRanked.OrderBy(x=>x.Rank)));
         }
 
     }

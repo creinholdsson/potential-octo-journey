@@ -1,0 +1,12 @@
+.content-column {
+    padding-bottom: 50px;
+}
+
+#header {
+    background-image: url('../../assets/header.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 150px;
+    margin-bottom: 20px;
+}

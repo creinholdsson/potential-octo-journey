@@ -3,4 +3,5 @@ export class User {
     email: string;
     roles: string[];
     totalPoints: number;
+    rank: number = 0;
 }

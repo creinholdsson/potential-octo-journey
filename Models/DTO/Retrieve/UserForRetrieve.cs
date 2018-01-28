@@ -11,5 +11,6 @@ namespace PyeongchangKampen.Models.DTO.Retrieve
         public string Id { get; set; }
         public string Username { get; set; }
         public int TotalPoints { get; set; }
+        public int Rank { get; set; }
     }
 }
