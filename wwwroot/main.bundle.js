@@ -100,7 +100,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__interceptors_token_interceptor__ = __webpack_require__("../../../../../src/app/interceptors/token.interceptor.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__navmenu_navmenu_component__ = __webpack_require__("../../../../../src/app/navmenu/navmenu.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__open_games_open_games_component__ = __webpack_require__("../../../../../src/app/open-games/open-games.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__game_list_game_list_component__ = __webpack_require__("../../../../../src/app/game-list/game-list.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__footer_footer_component__ = __webpack_require__("../../../../../src/app/footer/footer.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__index_index_component__ = __webpack_require__("../../../../../src/app/index/index.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__game_game_component__ = __webpack_require__("../../../../../src/app/game/game.component.ts");
@@ -115,12 +115,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__game_edit_game_edit_component__ = __webpack_require__("../../../../../src/app/game-edit/game-edit.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__directives_has_permission_directive__ = __webpack_require__("../../../../../src/app/directives/has-permission.directive.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__top_list_top_list_component__ = __webpack_require__("../../../../../src/app/top-list/top-list.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -167,7 +169,7 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_12__app_component__["a" /* AppComponent */],
                 __WEBPACK_IMPORTED_MODULE_13__navmenu_navmenu_component__["a" /* NavmenuComponent */],
-                __WEBPACK_IMPORTED_MODULE_14__open_games_open_games_component__["a" /* OpenGamesComponent */],
+                __WEBPACK_IMPORTED_MODULE_14__game_list_game_list_component__["a" /* GameListComponent */],
                 __WEBPACK_IMPORTED_MODULE_15__footer_footer_component__["a" /* FooterComponent */],
                 __WEBPACK_IMPORTED_MODULE_16__index_index_component__["a" /* IndexComponent */],
                 __WEBPACK_IMPORTED_MODULE_17__game_game_component__["a" /* GameComponent */],
@@ -178,7 +180,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_24__directives_taken_username_directive__["a" /* TakenUsernameDirective */],
                 __WEBPACK_IMPORTED_MODULE_25__user_user_component__["a" /* UserComponent */],
                 __WEBPACK_IMPORTED_MODULE_27__game_edit_game_edit_component__["a" /* GameEditComponent */],
-                __WEBPACK_IMPORTED_MODULE_28__directives_has_permission_directive__["a" /* HasPermissionDirective */]
+                __WEBPACK_IMPORTED_MODULE_28__directives_has_permission_directive__["a" /* HasPermissionDirective */],
+                __WEBPACK_IMPORTED_MODULE_29__top_list_top_list_component__["a" /* TopListComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_2__angular_router__["RouterModule"].forRoot(appRoutes, { enableTracing: true }),
@@ -836,6 +839,79 @@ var GameEditComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/game-list/game-list.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/game-list/game-list.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<a *ngFor=\"let game of games\" routerLink=\"/game/{{game.id}}\">\n  <div class=\"d-flex w-100 justify-content-between\">\n      <h5 class=\"mb-1\">{{game.title}}</h5>\n      <small>{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>\n  </div>\n  <p class=\"mb-3\">{{game.description}}</p>\n</a>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/game-list/game-list.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GameListComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_game_service__ = __webpack_require__("../../../../../src/app/services/game.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var GameListComponent = /** @class */ (function () {
+    function GameListComponent(gameService) {
+        this.gameService = gameService;
+    }
+    GameListComponent.prototype.getOpenGames = function () {
+        var _this = this;
+        this.gameService.getGames(this.gameType).subscribe(function (games) { return _this.games = games; });
+    };
+    GameListComponent.prototype.ngOnInit = function () {
+        this.getOpenGames();
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+        __metadata("design:type", String)
+    ], GameListComponent.prototype, "gameType", void 0);
+    GameListComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-game-list',
+            template: __webpack_require__("../../../../../src/app/game-list/game-list.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/game-list/game-list.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_game_service__["a" /* GameService */]])
+    ], GameListComponent);
+    return GameListComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/game/game.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1017,7 +1093,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/index/index.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col col-lg-4 col-md-6 col-sm-12\">\n    <app-open-games></app-open-games>\n  </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n  <div class=\"col col-lg-4 col-md-6 col-sm-12\">\n    <p-card title=\"Öppna spel\">\n        <app-game-list [gameType]=\"'open'\"></app-game-list>\n        <p><a routerLink=\"/game/add\" [appHasPermission]=\"'Administrator'\" pButton label=\"Lägg till nytt spel\" id=\"#createlink\"></a></p>\n    </p-card>\n  </div>\n  <div class=\"col col-lg-4 col-md-6 col-sm-12\">\n    <p-card title=\"Senast avslutade\">\n        <app-game-list [gameType]=\"'closed'\"></app-game-list>\n    </p-card>\n  </div>\n  <div class=\"col col-lg-4 col-md-6 col-sm-12\">\n    <p-card title=\"Topplista\">\n      <app-top-list></app-top-list>\n    </p-card>\n\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1242,75 +1318,6 @@ var NavmenuComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], NavmenuComponent);
     return NavmenuComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../../../../src/app/open-games/open-games.component.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/open-games/open-games.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "\n<p-card title=\"Öppna spel\">\n      <a routerLink=\"/game/add\" [appHasPermission]=\"'Administrator'\" pButton label=\"Lägg till nytt spel\" id=\"#createlink\"></a><br />\n      \n      <br/>\n      <a *ngFor=\"let game of games\" routerLink=\"/game/{{game.id}}\">\n        <div class=\"d-flex w-100 justify-content-between\">\n            <h5 class=\"mb-1\">{{game.title}}</h5>\n            <small>{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>\n        </div>\n        <p class=\"mb-3\">{{game.description}}</p>\n      </a>\n</p-card>"
-
-/***/ }),
-
-/***/ "../../../../../src/app/open-games/open-games.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OpenGamesComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_game_service__ = __webpack_require__("../../../../../src/app/services/game.service.ts");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var OpenGamesComponent = /** @class */ (function () {
-    function OpenGamesComponent(gameService) {
-        this.gameService = gameService;
-    }
-    OpenGamesComponent.prototype.getOpenGames = function () {
-        var _this = this;
-        this.gameService.getOpenGames().subscribe(function (games) { return _this.games = games; });
-    };
-    OpenGamesComponent.prototype.ngOnInit = function () {
-        this.getOpenGames();
-    };
-    OpenGamesComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'app-open-games',
-            template: __webpack_require__("../../../../../src/app/open-games/open-games.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/open-games/open-games.component.css")]
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_game_service__["a" /* GameService */]])
-    ], OpenGamesComponent);
-    return OpenGamesComponent;
 }());
 
 
@@ -1605,9 +1612,15 @@ var GameService = /** @class */ (function () {
         this.openGamesUrl = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiBaseUrl + 'api/games';
         this.betsPlacementUrl = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiBaseUrl + 'api/bets';
         this.sportsUrl = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiBaseUrl + 'api/sports';
+        this.leagueUrl = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiBaseUrl + 'api/leagues';
     }
-    GameService.prototype.getOpenGames = function () {
-        return this.http.get(this.openGamesUrl);
+    GameService.prototype.getGames = function (filter) {
+        if (filter === void 0) { filter = null; }
+        var gamesUrl = this.openGamesUrl;
+        if (filter != null) {
+            gamesUrl = gamesUrl + '/?filter=' + filter;
+        }
+        return this.http.get(gamesUrl);
     };
     GameService.prototype.getGame = function (gameId) {
         return this.http.get(this.openGamesUrl + '/' + gameId.toString());
@@ -1626,6 +1639,9 @@ var GameService = /** @class */ (function () {
     };
     GameService.prototype.updateGame = function (game) {
         return this.http.put(this.openGamesUrl + '/' + game.id, game);
+    };
+    GameService.prototype.getTopList = function () {
+        return this.http.get(this.leagueUrl + '/1/toplist');
     };
     GameService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
@@ -1672,6 +1688,77 @@ var UserService = /** @class */ (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["HttpClient"]])
     ], UserService);
     return UserService;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/top-list/top-list.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/top-list/top-list.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<a *ngFor=\"let user of topList\" routerLink=\"/user/{{user.username}}\">\n  <div class=\"d-flex w-100 justify-content-between\">\n      <h6 class=\"mb-1\">{{user.username}}</h6>\n      <h6 class=\"mb-1\">{{user.totalPoints}}</h6>\n  </div>\n</a>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/top-list/top-list.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TopListComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_game_service__ = __webpack_require__("../../../../../src/app/services/game.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var TopListComponent = /** @class */ (function () {
+    function TopListComponent(gameService) {
+        this.gameService = gameService;
+    }
+    TopListComponent.prototype.ngOnInit = function () {
+        this.getTopList();
+    };
+    TopListComponent.prototype.getTopList = function () {
+        var _this = this;
+        this.gameService.getTopList().subscribe(function (toplist) {
+            _this.topList = toplist;
+        });
+    };
+    TopListComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'app-top-list',
+            template: __webpack_require__("../../../../../src/app/top-list/top-list.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/top-list/top-list.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_game_service__["a" /* GameService */]])
+    ], TopListComponent);
+    return TopListComponent;
 }());
 
 
@@ -1755,13 +1842,9 @@ var UserComponent = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
-// The file contents for the current environment will overwrite these during build.
-// The build system defaults to the dev environment which uses `environment.ts`, but if you do
-// `ng build --env=prod` then `environment.prod.ts` will be used instead.
-// The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
-    production: false,
-    apiBaseUrl: 'http://localhost:63410/'
+    production: true,
+    apiBaseUrl: '/'
 };
 
 

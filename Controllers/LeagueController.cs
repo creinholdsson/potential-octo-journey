@@ -71,5 +71,12 @@ namespace PyeongchangKampen.Controllers
             return NoContent();
         }
 
+        [HttpGet("{leagueId:int}/toplist")]
+        public async Task<IActionResult> GetToplist(int leagueId)
+        {
+            var topList = await _Repository.GetTopList(new League { Id = leagueId });
+            return Ok(Mapper.Map<IEnumerable<UserForRetrieve>>(topList.OrderByDescending(x=>x.TotalPoints)));
+        }
+
     }
 }

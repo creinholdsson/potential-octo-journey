@@ -17,23 +17,39 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using PyeongchangKampen.Models;
 using PyeongchangKampen.Repostory;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace PyeongchangKampen
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+
+        private IHostingEnvironment _HostingEnvironment;
+
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            _HostingEnvironment = env;
         }
 
-        public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            if (_HostingEnvironment.IsProduction())
+            {
+                services.Configure<MvcOptions>(options =>
+                {
+                    options.Filters.Add(new RequireHttpsAttribute());
+                });
+            }
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
+                
                 options.UseSqlServer(Configuration["DefaultConnectionString"]);
             });
 
@@ -102,8 +118,20 @@ namespace PyeongchangKampen
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            if (env.IsProduction())
+            {
+
+                var options = new RewriteOptions()
+                        .AddRedirectToHttps();
+
+                app.UseRewriter(options);
+            }
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            
 
             Mapping.MappingConfiguration.ConfigureMapping();
 

@@ -9,12 +9,14 @@ import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { GameForUpdate } from '../domain/game-for-update';
+import { User } from '../domain/auth/user';
 
 @Injectable()
 export class GameService {
   private openGamesUrl = environment.apiBaseUrl + 'api/games';
   private betsPlacementUrl = environment.apiBaseUrl + 'api/bets';
   private sportsUrl = environment.apiBaseUrl + 'api/sports';
+  private leagueUrl = environment.apiBaseUrl + 'api/leagues'
   constructor(private http: HttpClient) { }
 
   getGames(filter: string = null): Observable<Game[]> {
@@ -48,5 +50,9 @@ export class GameService {
 
   updateGame(game: GameForUpdate): Observable<Game> {
     return this.http.put<Game>(this.openGamesUrl + '/' + game.id, game);
+  }
+
+  getTopList(): Observable<User[]> {
+    return this.http.get<User[]>(this.leagueUrl + '/1/toplist');
   }
 }

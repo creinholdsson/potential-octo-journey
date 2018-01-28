@@ -30,6 +30,7 @@ import { UserComponent } from './user/user.component';
 import { UserService } from './services/user.service';
 import { GameEditComponent } from './game-edit/game-edit.component';
 import { HasPermissionDirective } from './directives/has-permission.directive';
+import { TopListComponent } from './top-list/top-list.component';
 
 
 const appRoutes: Routes = [
@@ -56,7 +57,8 @@ const appRoutes: Routes = [
     TakenUsernameDirective,
     UserComponent,
     GameEditComponent,
-    HasPermissionDirective
+    HasPermissionDirective,
+    TopListComponent
   ],
   imports: [
     RouterModule.forRoot(
