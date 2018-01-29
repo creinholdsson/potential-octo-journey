@@ -109,6 +109,10 @@ export class AuthenticationService {
       return false;
     }
 
+    if(this.user.roles == null) {
+      return false;
+    }
+
     for(let userRole of this.user.roles) {
       if(role.toLowerCase() == userRole.toLowerCase()) {
         return true;
