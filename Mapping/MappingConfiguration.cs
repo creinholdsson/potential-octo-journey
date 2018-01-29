@@ -50,7 +50,8 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.Title, context => context.MapFrom(src => src.Title))
                     .ForMember(dest => dest.PointsResult, context => context.MapFrom(src => src.PointsResult))
                     .ForMember(dest => dest.PointsWinner, context => context.MapFrom(src => src.PointsWinner))
-                    .ForMember(dest => dest.SportName, context => context.ResolveUsing(src => src.Sport == null ? string.Empty : src.Sport.Name));
+                    .ForMember(dest => dest.SportName, context => context.ResolveUsing(src => src.Sport == null ? string.Empty : src.Sport.Name))
+                    .ForMember(dest => dest.SportIcon, context=> context.ResolveUsing(src => src.Sport == null ? "default" : src.Sport.Icon));
 
                 config.CreateMap<GameForCreationDto, Game>()
                     .ForMember(dest => dest.Description, context => context.MapFrom(src => src.Description))

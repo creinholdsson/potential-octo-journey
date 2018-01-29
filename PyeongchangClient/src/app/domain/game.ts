@@ -11,4 +11,6 @@ export class Game {
     isOpenForBets: boolean;
     pointsResult: number;
     pointsWinner: number;
+    sportName: string;
+    sportIcon: string;
 }

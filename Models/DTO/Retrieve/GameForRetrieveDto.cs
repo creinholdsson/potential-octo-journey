@@ -23,6 +23,7 @@ namespace PyeongchangKampen.Models.DTO.Retrieve
         public int? PointsWinner { get; set; }
 
         public string SportName { get; set; }
+        public string SportIcon { get; set; }
 
     }
 }
