@@ -1,5 +1,6 @@
 <div *ngIf="user != null">
   <h1>{{user.username}}</h1>
+  <p-button [appHasPermission]="'Administrator'" label="Gör till administratör" (click)="makeAdministrator()"></p-button>
   <div class="row">
     <div class="col col-lg-3"></div>
   </div>

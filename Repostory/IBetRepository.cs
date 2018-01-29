@@ -13,7 +13,7 @@ namespace PyeongchangKampen.Repostory
         Task<IEnumerable<Bet>> GetBets();
         Task<IEnumerable<Bet>> GetBets(Game game);
         Task<IEnumerable<Bet>> GetBets(ApplicationUser user);
-        Task<IEnumerable<Bet>> GetBetsForUserName(ApplicationUser user);
+        Task<IEnumerable<Bet>> GetBetsForUserName(ApplicationUser user, int leagueId);
         Task<Bet> AddBet(Bet bet);
         Task DeleteBet(Bet bet);
         Task<Bet> UpdateBet(Bet bet);

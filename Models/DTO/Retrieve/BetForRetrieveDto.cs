@@ -18,5 +18,8 @@ namespace PyeongchangKampen.Models.DTO.Retrieve
 
         public string UserName { get; set; }
         public string GameTitle { get; set; }
+        public DateTime GameStartedOn { get; set; }
+        public int AccumulatedScore { get; set; }
+
     }
 }

@@ -61,7 +61,7 @@ namespace PyeongchangKampen.Controllers
         public async Task<IActionResult> GetBetsForCurrentUser()
         {
             var currentUserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-            if(currentUserId == null)
+            if (currentUserId == null)
             {
                 return BadRequest("Supplied token lacks information");
             }
@@ -69,12 +69,20 @@ namespace PyeongchangKampen.Controllers
             return Ok(Mapper.Map<IEnumerable<BetForRetrieveDto>>(bets));
         }
 
-        
+
         [HttpGet("user/{username}")]
-        public async Task<IActionResult> GetBetsForUser(string username)
+        public async Task<IActionResult> GetBetsForUser(string username, int leagueId)
         {
-            var bets = await _Repository.GetBetsForUserName(new ApplicationUser { UserName = username });
-            return Ok(Mapper.Map<IEnumerable<BetForRetrieveDto>>(bets));
+            var bets = await _Repository.GetBetsForUserName(new ApplicationUser { UserName = username }, leagueId);
+            var mapped = Mapper.Map<IEnumerable<BetForRetrieveDto>>(bets).OrderBy(x => x.GameStartedOn);
+            var accumulated = 0;
+            foreach(var bet in mapped)
+            {
+                accumulated += bet.AwardedPoints.HasValue ? bet.AwardedPoints.Value : 0;
+                bet.AccumulatedScore = accumulated;                
+            }
+
+            return Ok(mapped);
         }
 
         [Authorize]

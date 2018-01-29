@@ -13,4 +13,8 @@ export class UserService {
   getUser(username: string): Observable<User> {
     return this.httpClient.get<User>(this.userApiBase + '/user/' + username);
   }
+
+  makeAdministrator(username: string): Observable<string> {
+    return this.httpClient.post<string>(this.userApiBase + '/' + username + '/addasadmin', null);
+  }
 }

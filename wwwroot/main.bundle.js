@@ -25,7 +25,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "#main-container {\r\n    margin-top: 30px;\r\n    background-image: '../assets/background.png';\r\n    background-position: center;\r\n    background-repeat: no-repeat;\r\n}\r\n", ""]);
+exports.push([module.i, "#main-container {\r\n    margin-top: 30px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -116,12 +116,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__game_edit_game_edit_component__ = __webpack_require__("../../../../../src/app/game-edit/game-edit.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__directives_has_permission_directive__ = __webpack_require__("../../../../../src/app/directives/has-permission.directive.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__top_list_top_list_component__ = __webpack_require__("../../../../../src/app/top-list/top-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__limit_to_pipe__ = __webpack_require__("../../../../../src/app/limit-to.pipe.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -181,7 +183,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_25__user_user_component__["a" /* UserComponent */],
                 __WEBPACK_IMPORTED_MODULE_27__game_edit_game_edit_component__["a" /* GameEditComponent */],
                 __WEBPACK_IMPORTED_MODULE_28__directives_has_permission_directive__["a" /* HasPermissionDirective */],
-                __WEBPACK_IMPORTED_MODULE_29__top_list_top_list_component__["a" /* TopListComponent */]
+                __WEBPACK_IMPORTED_MODULE_29__top_list_top_list_component__["a" /* TopListComponent */],
+                __WEBPACK_IMPORTED_MODULE_30__limit_to_pipe__["a" /* LimitToPipe */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_2__angular_router__["RouterModule"].forRoot(appRoutes, { enableTracing: true }),
@@ -848,7 +851,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".test {\r\n    min-height: 100px;\r\n}\r\n\r\n\r\n\r\n.test>img.icon {\r\n    opacity: 0.4;\r\n    right: 20px;\r\n    position: absolute;\r\n    height: 60px;\r\n    width: 60px;\r\n}\r\n\r\n\r\n\r\na:hover {\r\n    text-decoration: none;\r\n    color: #000;\r\n}\r\n", ""]);
 
 // exports
 
@@ -861,7 +864,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/game-list/game-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<a *ngFor=\"let game of games\" routerLink=\"/game/{{game.id}}\">\n  <div class=\"d-flex w-100 justify-content-between\">\n      <h5 class=\"mb-1\">{{game.title}}</h5>\n      <small>{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>\n  </div>\n  <p class=\"mb-3\">{{game.description}}</p>\n</a>\n"
+module.exports = "<a *ngFor=\"let game of games\" routerLink=\"/game/{{game.id}}\">\n  <div class=\"test\">\n    <img src=\"../../assets/icons/bobsleigh.png\" class=\"icon\" />\n    <div class=\"d-flex w-100 justify-content-between\">\n        <h5 class=\"mb-1\">{{game.title}}</h5>\n        <small>{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>\n    </div>\n    <p class=\"mb-3\">{{game.description | limitTo: 55}}</p>\n  </div>\n</a>\n"
 
 /***/ }),
 
@@ -1076,12 +1079,13 @@ var GameComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/index/index.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
+var escape = __webpack_require__("../../../../css-loader/lib/url/escape.js");
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, ".content-column {\r\n    padding-bottom: 50px;\r\n}", ""]);
+exports.push([module.i, ".content-column {\r\n    padding-bottom: 50px;\r\n}\r\n\r\n#header {\r\n    background-image: url(" + escape(__webpack_require__("../../../../../src/assets/header.png")) + ");\r\n    background-position: center;\r\n    background-repeat: no-repeat;\r\n    background-size: contain;\r\n    height: 150px;\r\n    margin-bottom: 20px;\r\n}", ""]);
 
 // exports
 
@@ -1094,7 +1098,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/index/index.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col-12 col-sm-12 col-md-6 col-lg-4 content-column\">\n    <p-card title=\"Öppna spel\">\n        <app-game-list [gameType]=\"'open'\"></app-game-list>\n        <p><a routerLink=\"/game/add\" [appHasPermission]=\"'Administrator'\" pButton label=\"Lägg till nytt spel\" id=\"#createlink\"></a></p>\n    </p-card>\n  </div>\n  <div class=\"col-12 col-sm-12 col-md-6 col-lg-4 content-column\">\n    <p-card title=\"Senast avslutade\">\n        <app-game-list [gameType]=\"'closed'\"></app-game-list>\n    </p-card>\n  </div>\n  <div class=\"col-12 col-sm-12 col-md-6 col-lg-4 content-column\">\n    <p-card title=\"Topplista\">\n      <app-top-list></app-top-list>\n    </p-card>\n\n  </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n  <div class=\"col-lg-12\" id=\"header\"></div>\n</div>\n\n<div class=\"row\">\n  <div class=\"col-12 col-sm-12 col-md-6 col-lg-4 content-column\">\n    <p-card title=\"Öppna spel\">\n        <app-game-list [gameType]=\"'open'\"></app-game-list>\n        <p><a routerLink=\"/game/add\" [appHasPermission]=\"'Administrator'\" pButton label=\"Lägg till nytt spel\" id=\"#createlink\"></a></p>\n    </p-card>\n  </div>\n  <div class=\"col-12 col-sm-12 col-md-6 col-lg-4 content-column\">\n    <p-card title=\"Senast avslutade\">\n        <app-game-list [gameType]=\"'closed'\"></app-game-list>\n    </p-card>\n  </div>\n  <div class=\"col-12 col-sm-12 col-md-6 col-lg-4 content-column\">\n    <p-card title=\"Topplista\">\n      <app-top-list></app-top-list>\n    </p-card>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1173,6 +1177,39 @@ var TokenInterceptor = /** @class */ (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injector"]])
     ], TokenInterceptor);
     return TokenInterceptor;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/limit-to.pipe.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LimitToPipe; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var LimitToPipe = /** @class */ (function () {
+    function LimitToPipe() {
+    }
+    LimitToPipe.prototype.transform = function (value, args) {
+        var limit = args ? parseInt(args, 10) : 10;
+        var trail = '...';
+        return value.length > limit ? value.substring(0, limit) + trail : value;
+    };
+    LimitToPipe = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"])({
+            name: 'limitTo'
+        })
+    ], LimitToPipe);
+    return LimitToPipe;
 }());
 
 
@@ -1285,7 +1322,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/navmenu/navmenu.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\n    <a class=\"navbar-brand\" routerLink=\"/\">Pyeongchangkampen</a>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" (click)=\"isNavbarCollapsed = !isNavbarCollapsed\"\n      data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      <span class=\"navbar-toggler-icon\"></span>\n    </button>\n    <div [ngbCollapse]=\"!isNavbarCollapsed\" class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\n      <ul class=\"navbar-nav mr-auto\">\n        <li class=\"nav-item active\">\n          <a class=\"nav-link\" href=\"/\">Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" href=\"#\">Link</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link disabled\" href=\"#\">Disabled</a>\n        </li>\n        <li class=\"nav-item dropdown\" ngbDropdown>\n          <a class=\"nav-link dropdown-toggle\" ngbDropdownToggle href=\"#\" id=\"dropdown01\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Dropdown</a>\n          <div class=\"dropdown-menu\" aria-labelledby=\"dropdown01\" ngbDropdownMenu>\n            <a class=\"dropdown-item\" href=\"#\">Action</a>\n            <a class=\"dropdown-item\" href=\"#\">Another action</a>\n            <a class=\"dropdown-item\" href=\"#\">Something else here</a>\n          </div>\n        </li>\n        \n      </ul>\n      <app-login-component></app-login-component>\n    </div>\n  </nav>\n"
+module.exports = "<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\n    <a class=\"navbar-brand\" routerLink=\"/\">Pyeongchangkampen</a>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" (click)=\"isNavbarCollapsed = !isNavbarCollapsed\"\n      data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      <span class=\"navbar-toggler-icon\"></span>\n    </button>\n    <div [ngbCollapse]=\"!isNavbarCollapsed\" class=\"collapse navbar-collapse\" id=\"navbarsExampleDefault\">\n      <ul class=\"navbar-nav mr-auto\">\n        <!-- <li class=\"nav-item active\">\n          <a class=\"nav-link\" href=\"/\">Home <span class=\"sr-only\">(current)</span></a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" href=\"#\">Link</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link disabled\" href=\"#\">Disabled</a>\n        </li>\n        <li class=\"nav-item dropdown\" ngbDropdown>\n          <a class=\"nav-link dropdown-toggle\" ngbDropdownToggle href=\"#\" id=\"dropdown01\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Dropdown</a>\n          <div class=\"dropdown-menu\" aria-labelledby=\"dropdown01\" ngbDropdownMenu>\n            <a class=\"dropdown-item\" href=\"#\">Action</a>\n            <a class=\"dropdown-item\" href=\"#\">Another action</a>\n            <a class=\"dropdown-item\" href=\"#\">Something else here</a>\n          </div>\n        </li> -->\n        \n      </ul>\n      <app-login-component></app-login-component>\n    </div>\n  </nav>\n"
 
 /***/ }),
 
@@ -1835,6 +1872,13 @@ var UserComponent = /** @class */ (function () {
 }());
 
 
+
+/***/ }),
+
+/***/ "../../../../../src/assets/header.png":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "header.b4076b792001bfc6200b.png";
 
 /***/ }),
 

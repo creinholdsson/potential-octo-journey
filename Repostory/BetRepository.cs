@@ -73,17 +73,21 @@ namespace PyeongchangKampen.Repostory
         public async Task<IEnumerable<Bet>> GetBets(ApplicationUser user)
         {
             return await _DbContext.Bets
-                .Where(x => x.User.Id == user.Id)
-                .Include(x => x.Game)
                 .Include(x => x.User)
+                .Include(x => x.Game)
+                .Where(x => x.User.Id == user.Id)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Bet>> GetBetsForUserName(ApplicationUser user)
+        public async Task<IEnumerable<Bet>> GetBetsForUserName(ApplicationUser user, int leagueId)
         {
-            return await _DbContext.Bets.Where(x => x.User.UserName == user.UserName)
-                .Include(x => x.Game)
+            return await _DbContext.Bets
                 .Include(x => x.User)
+                .Include(x => x.Game)
+                .ThenInclude(x => x.League)
+                .Where(x => x.User.UserName == user.UserName 
+                    && x.Game.League.Id == leagueId
+                    && x.Game.ScoreTeam1.HasValue)
                 .ToListAsync();
         }
 
