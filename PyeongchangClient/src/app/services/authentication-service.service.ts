@@ -67,7 +67,7 @@ export class AuthenticationService {
 
   checkUsername(username: string): Promise<boolean> {
     let promise = new Promise<boolean>((resolve, reject) => {
-      this.httpClient.get<UsernameAvailableResponse>(this.usersBaseUrl + 'check/?username'+username).toPromise().then(result=> {
+      this.httpClient.get<UsernameAvailableResponse>(this.usersBaseUrl + 'check/?username='+username).toPromise().then(result=> {
           if(result.isAvailable == true) {
             resolve(true)
           }
