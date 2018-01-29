@@ -3,13 +3,17 @@
     <div class="row" *ngIf="game.gameType == 1">
         <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
             <p-card title="Spelinformation">
+                <img src="../../assets/icons/{{game.sportIcon}}.png" class="sportIcon" />
                 <p>{{game.description}}</p>
-                <p *ngIf="game.scoreTeam1 != null">Placering: {{game.scoreTeam1}}</p>
+                
+                <p *ngIf="game.scoreTeam1 != null"><b>Slutgiltig placering</b>: {{game.scoreTeam1}}</p>
                 <p *ngIf="game.isOpenForBets == false && game.scoreTeam1 == null">Inget resultat ännu</p>
 
             
                 <div *ngIf="game.isOpenForBets">
-                    <h3>Tippa resultat</h3>
+                    <h3>Tippa placering</h3>
+                    Sista tid att tippa: {{game.startsOn | date: 'yyyy-MM-dd HH:mm'}} <br />
+                    Har du redan tippat på spelet uppdateras din tippade placering.
                     <p-dropdown [options]="availableOptionsPlacement" [(ngModel)]="selectedResult1"></p-dropdown>
                     <br /> <br />
                     <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
@@ -46,13 +50,16 @@
     <div class="row" *ngIf="game.gameType == 0">
             <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <p-card title="Spelinformation">
+                    <img src="../../assets/icons/{{game.sportIcon}}.png" class="sportIcon" />
                     <p>{{game.description}}</p>
-                    <p *ngIf="game.scoreTeam1 != null && game.scoreTeam2 != null">Resultat: {{game.scoreTeam1}}-{{game.scoreTeam2}}</p>
+                    <p *ngIf="game.scoreTeam1 != null && game.scoreTeam2 != null"><b>Slutgiltigt resultat: {{game.scoreTeam1}}-{{game.scoreTeam2}}</b></p>
                     <p *ngIf="game.isOpenForBets == false && game.scoreTeam1 == null && game.scoreTeam2 == null">Inget resultat ännu</p>
                 
 
                     <div *ngIf="isBettingOpen">
                         <h3>Tippa resultat</h3>
+                        Sista tid att tippa: {{game.startsOn | date }} <br />
+                        Har du redan tippat på spelet uppdateras ditt tippade resultat.
                         <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult1"></p-dropdown> - 
                         <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult2"></p-dropdown>
                         <br /> <br />

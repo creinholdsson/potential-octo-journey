@@ -12,3 +12,8 @@ h3 {
 .silver {
     color: #c0c0c0;
 }
+
+.sportIcon {
+    float: right;
+    margin-top: -20px;
+}
