@@ -2,6 +2,13 @@
   <h1>{{user.username}}</h1>
   <p-button [appHasPermission]="'Administrator'" label="Gör till administratör" (click)="makeAdministrator()"></p-button>
   <div class="row">
-    <div class="col col-lg-3"></div>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+        <p-card title="Tippningar (avslutade spel)"></p-card>
+      </div>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+          <p-card title="Poängutveckling">
+            <p-chart type="line" [data]="data" [options]="options"></p-chart>
+          </p-card>
+        </div>
   </div>
 </div>

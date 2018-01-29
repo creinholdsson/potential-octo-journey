@@ -8,7 +8,7 @@ import { HttpModule } from '@angular/http';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
-import { DialogModule, InputTextModule, InputTextareaModule, ButtonModule, CardModule, DropdownModule, CalendarModule, GrowlModule } from 'primeng/primeng';
+import { DialogModule, InputTextModule, InputTextareaModule, ButtonModule, CardModule, DropdownModule, CalendarModule, GrowlModule, ChartModule } from 'primeng/primeng';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TokenInterceptor } from './interceptors/token.interceptor';
@@ -82,6 +82,7 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule,
     NgHttpLoaderModule,
+    ChartModule,
     NgbModule.forRoot()
   ],
   providers: [

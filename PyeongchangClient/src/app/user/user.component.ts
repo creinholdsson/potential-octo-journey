@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../domain/auth/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { Bet } from '../domain/bet';
 
 @Component({
   selector: 'app-user',
@@ -12,6 +13,22 @@ import { MessageService } from 'primeng/components/common/messageservice';
 export class UserComponent implements OnInit {
   user: User = null;
 
+  data : any = {
+    labels: [],
+    datasets: []
+  }
+
+  options = {
+    title: {
+        display: false,
+        text: 'My Title',
+        fontSize: 16
+    },
+    legend: {
+        position: 'none'
+    }
+};
+
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -19,8 +36,23 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     const username = this.route.snapshot.paramMap.get('username');
-    this.userService.getUser(username).subscribe(user => this.user = user);
+    this.userService.getUser(username).subscribe(user =>  {
+      this.user = user;
+      this.userService.getUserBets(username).subscribe(bets => this.initializeGraph(bets));
+    });
+    
+  }
 
+  initializeGraph(bets: Bet[]): void {
+    var labels = [];
+    var dataset = [{label: this.user.username, data: [], borderColor: '#4bc0c0'}];
+
+    for(let bet of bets) {
+      labels.push(new Date(bet.gameStartedOn));
+      dataset[0].data.push(bet.accumulatedScore);
+    }
+
+    this.data = { labels: labels, datasets: dataset };
   }
 
   makeAdministrator() {

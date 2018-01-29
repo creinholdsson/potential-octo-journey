@@ -8,4 +8,6 @@ export class Bet {
     awardedPoints: number;
     userName: string;
     gameTitle: string;
+    gameStartedOn: Date;
+    accumulatedScore: number;
 }
