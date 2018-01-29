@@ -3,9 +3,9 @@
     <div class="row" *ngIf="game.gameType == 1">
         <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
             <p-card title="Spelinformation">
-                <img src="../../assets/icons/{{game.sportIcon}}.png" class="sportIcon" />
+                <img src="{{game.sportIcon}}" class="sportIcon" />
                 <p>{{game.description}}</p>
-                
+                <p>Rätt placering ger {{game.pointsResult}} poäng</p>
                 <p *ngIf="game.scoreTeam1 != null"><b>Slutgiltig placering</b>: {{game.scoreTeam1}}</p>
                 <p *ngIf="game.isOpenForBets == false && game.scoreTeam1 == null">Inget resultat ännu</p>
 
@@ -50,8 +50,10 @@
     <div class="row" *ngIf="game.gameType == 0">
             <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <p-card title="Spelinformation">
-                    <img src="../../assets/icons/{{game.sportIcon}}.png" class="sportIcon" />
+                    <img src="{{game.sportIcon}}" class="sportIcon" />
                     <p>{{game.description}}</p>
+                    <p>Rätt resultat ger {{game.pointsResult}} poäng, medan rätt vinnare ger {{game.pointsWinner}} poäng</p>
+
                     <p *ngIf="game.scoreTeam1 != null && game.scoreTeam2 != null"><b>Slutgiltigt resultat: {{game.scoreTeam1}}-{{game.scoreTeam2}}</b></p>
                     <p *ngIf="game.isOpenForBets == false && game.scoreTeam1 == null && game.scoreTeam2 == null">Inget resultat ännu</p>
                 
@@ -59,7 +61,7 @@
                     <div *ngIf="isBettingOpen">
                         <h3>Tippa resultat</h3>
                         Sista tid att tippa: {{game.startsOn | date }} <br />
-                        Har du redan tippat på spelet uppdateras ditt tippade resultat.
+                        Har du redan tippat på spelet uppdateras ditt tippade resultat. <br /> <br />
                         <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult1"></p-dropdown> - 
                         <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult2"></p-dropdown>
                         <br /> <br />

@@ -203,6 +203,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["HttpClientModule"],
                 __WEBPACK_IMPORTED_MODULE_7_ng_http_loader_ng_http_loader_module__["NgHttpLoaderModule"],
+                __WEBPACK_IMPORTED_MODULE_8_primeng_primeng__["ChartModule"],
                 __WEBPACK_IMPORTED_MODULE_10__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot()
             ],
             providers: [
@@ -614,7 +615,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/game-create/game-create.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Nytt spel</h1>\n<div class=\"row\">\n  <div class=\"col col-lg-6\">\n    <p-card>\n      <form #gameForm=\"ngForm\" (ngSubmit)=\"addGame()\">\n        Titel <br />\n        <input type=\"text\" pInputText [(ngModel)]=\"game.title\" name=\"title\" size=\"45\" required/>\n        <br /> <br />\n\n\n        Sport <br />\n        <p-dropdown [options]=\"sports\" [(ngModel)]=\"game.sportId\" name=\"sportId\" autoDisplayFirst=\"false\" [style]=\"{'width':'433px'}\" placeholder=\"V&auml;lj ett alternativ\" required></p-dropdown>\n        <br /> <br />\n\n        Typ <br />\n        <p-dropdown [options]=\"gameTypes\" [(ngModel)]=\"game.gameType\" name=\"gameType\" autoDisplayFirst=\"false\" [style]=\"{'width':'433px'}\" placeholder=\"V&auml;lj ett alternativ\" required></p-dropdown>\n        <br /><br />\n        \n        Starttid <br />\n        <p-calendar [(ngModel)]=\"game.startsOn\" [showTime]=\"true\" name=\"startsOn\" [inline]=\"true\" required></p-calendar>\n        <br /><br />\n\n        Poäng rätt resultat <br />\n        <p-dropdown [options]=\"points\" [(ngModel)]=\"game.pointsResult\" name=\"pointsResult\" [style]=\"{'width':'433px'}\" placeholder=\"V&auml;lj ett alternativ\" required></p-dropdown>\n\n        <div *ngIf=\"game.gameType == 0\">\n          Poäng rätt vinnare <br />\n          <p-dropdown [options]=\"points\" [(ngModel)]=\"game.winnerResult\" name=\"winnerResult\" [style]=\"{'width':'433px'}\" placeholder=\"V&auml;lj ett alternativ\"></p-dropdown>\n        </div>\n        \n        Beskrivning <br/>\n        <textarea pInputTextarea [rows]=\"7\" [cols]=\"42\" [(ngModel)]=\"game.description\" name=\"description\" required></textarea>\n        <br /><br />\n        <p-button icon=\"fa fa-save\" type=\"submit\" label=\"Spara\" [disabled]=\"!gameForm.form.valid\"></p-button>\n      </form>\n    </p-card>\n  </div>\n</div>"
+module.exports = "<h1>Nytt spel</h1>\n<div class=\"row\">\n  <div class=\"col col-lg-6\">\n    <p-card>\n      <form #gameForm=\"ngForm\" (ngSubmit)=\"addGame()\">\n        Titel <br />\n        <input type=\"text\" pInputText [(ngModel)]=\"game.title\" name=\"title\" size=\"45\" required/>\n        <br /> <br />\n\n\n        Sport <br />\n        <p-dropdown [options]=\"sports\" [(ngModel)]=\"game.sportId\" name=\"sportId\" autoDisplayFirst=\"false\" [style]=\"{'width':'433px'}\" placeholder=\"V&auml;lj ett alternativ\" required></p-dropdown>\n        <br /> <br />\n\n        Typ <br />\n        <p-dropdown [options]=\"gameTypes\" [(ngModel)]=\"game.gameType\" name=\"gameType\" autoDisplayFirst=\"false\" [style]=\"{'width':'433px'}\" placeholder=\"V&auml;lj ett alternativ\" required></p-dropdown>\n        <br /><br />\n        \n        Starttid <br />\n        <p-calendar [(ngModel)]=\"game.startsOn\" [showTime]=\"true\" name=\"startsOn\" [inline]=\"true\" required></p-calendar>\n        <br /><br />\n\n        Poäng rätt resultat <br />\n        <p-dropdown [options]=\"points\" [(ngModel)]=\"game.pointsResult\" name=\"pointsResult\" [style]=\"{'width':'433px'}\" placeholder=\"V&auml;lj ett alternativ\" required></p-dropdown>\n\n        <div *ngIf=\"game.gameType == 0\">\n          Poäng rätt vinnare <br />\n          <p-dropdown [options]=\"points\" [(ngModel)]=\"game.pointsWinner\" name=\"pointsWinner\" [style]=\"{'width':'433px'}\" placeholder=\"V&auml;lj ett alternativ\"></p-dropdown>\n        </div>\n        \n        Beskrivning <br/>\n        <textarea pInputTextarea [rows]=\"7\" [cols]=\"42\" [(ngModel)]=\"game.description\" name=\"description\" required></textarea>\n        <br /><br />\n        <p-button icon=\"fa fa-save\" type=\"submit\" label=\"Spara\" [disabled]=\"!gameForm.form.valid\"></p-button>\n      </form>\n    </p-card>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -864,7 +865,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/game-list/game-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<a *ngFor=\"let game of games\" routerLink=\"/game/{{game.id}}\">\n  <div class=\"test\">\n    <img src=\"../../assets/icons/bobsleigh.png\" class=\"icon\" />\n    <div class=\"d-flex w-100 justify-content-between\">\n        <h5 class=\"mb-1\">{{game.title}}</h5>\n        <small>{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>\n    </div>\n    <p class=\"mb-3\">{{game.description | limitTo: 55}}</p>\n  </div>\n</a>\n"
+module.exports = "<a *ngFor=\"let game of games\" routerLink=\"/game/{{game.id}}\">\n  <div class=\"test\">\n    <img src=\"{{game.sportIcon}}\" class=\"icon\" />\n    <div class=\"d-flex w-100 justify-content-between\">\n        <h5 class=\"mb-1\">{{game.title}}</h5>\n        <small>{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>\n    </div>\n    <p class=\"mb-3\">{{game.description | limitTo: 55}}</p>\n  </div>\n</a>\n"
 
 /***/ }),
 
@@ -924,7 +925,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "h3 {\r\n    font-family: 'Roboto', 'Trebuchet MS', Arial, Helvetica, sans-serif;\r\n    font-size: 1.5em;\r\n    font-weight: bold;\r\n    margin-bottom: .5em;\r\n}\r\n\r\n.gold {\r\n    color: #ffd700;\r\n}\r\n\r\n.silver {\r\n    color: #c0c0c0;\r\n}", ""]);
+exports.push([module.i, "h3 {\r\n    font-family: 'Roboto', 'Trebuchet MS', Arial, Helvetica, sans-serif;\r\n    font-size: 1.5em;\r\n    font-weight: bold;\r\n    margin-bottom: .5em;\r\n}\r\n\r\n.gold {\r\n    color: #ffd700;\r\n}\r\n\r\n.silver {\r\n    color: #c0c0c0;\r\n}\r\n\r\n.sportIcon {\r\n    float: right;\r\n    margin-top: -20px;\r\n}", ""]);
 
 // exports
 
@@ -937,7 +938,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/game/game.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"game != null\">\n  <h1>{{game.title}}</h1>\n    <div class=\"row\" *ngIf=\"game.gameType == 1\">\n        <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n            <p-card title=\"Spelinformation\">\n                <p>{{game.description}}</p>\n                <p *ngIf=\"game.scoreTeam1 != null\">Placering: {{game.scoreTeam1}}</p>\n                <p *ngIf=\"game.isOpenForBets == false && game.scoreTeam1 == null\">Inget resultat ännu</p>\n\n            \n                <div *ngIf=\"game.isOpenForBets\">\n                    <h3>Tippa resultat</h3>\n                    <p-dropdown [options]=\"availableOptionsPlacement\" [(ngModel)]=\"selectedResult1\"></p-dropdown>\n                    <br /> <br />\n                    <p-button icon=\"fa fa-play\" styleClass=\"ui-button-success\" label=\"Tippa\" (click)=\"placeBet()\"></p-button>\n                </div>\n\n                <p><br /><a routerLink=\"/game/edit/{{game.id}}\" [appHasPermission]=\"'Administrator'\" pButton label=\"Uppdatera spel\"></a></p>\n            </p-card>\n            <br /> <br />\n        </div>\n\n        <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n\n            <p-card *ngIf=\"game.gameType == 1\" title=\"Tippade placeringar\">\n                <div class=\"d-flex w-100 justify-content-between\">\n                    <h5 class=\"mb-1\">Namn</h5>\n                    <h5 class=\"mb-1\">Resultat</h5>\n                </div>\n                <div class=\"w-100\" style=\"border-bottom: 1px solid lightgray\"></div>\n                <div *ngFor=\"let bet of bets\">\n                    <div class=\"d-flex w-100 justify-content-between\">\n                        <span class=\"mb-1\">{{bet.userName}}</span>\n                        <span class=\"mb-1\">{{bet.scoreTeam1}} \n                            <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsResult\" class=\"fa fa-trophy gold\"></i>\n                            <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsWinner\" class=\"fa fa-trophy silver\"></i>\n                        </span>\n                    </div>\n                </div>\n                <div *ngIf=\"bets && bets.length == 0\">\n                    Inga tippade placeringar.\n                </div>\n            </p-card>\n        </div>\n    </div>\n    <div class=\"row\" *ngIf=\"game.gameType == 0\">\n            <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n                <p-card title=\"Spelinformation\">\n                    <p>{{game.description}}</p>\n                    <p *ngIf=\"game.scoreTeam1 != null && game.scoreTeam2 != null\">Resultat: {{game.scoreTeam1}}-{{game.scoreTeam2}}</p>\n                    <p *ngIf=\"game.isOpenForBets == false && game.scoreTeam1 == null && game.scoreTeam2 == null\">Inget resultat ännu</p>\n                \n\n                    <div *ngIf=\"isBettingOpen\">\n                        <h3>Tippa resultat</h3>\n                        <p-dropdown [options]=\"availableOptionsResult\" [(ngModel)]=\"selectedResult1\"></p-dropdown> - \n                        <p-dropdown [options]=\"availableOptionsResult\" [(ngModel)]=\"selectedResult2\"></p-dropdown>\n                        <br /> <br />\n                        <p-button icon=\"fa fa-play\" styleClass=\"ui-button-success\" label=\"Tippa\" (click)=\"placeBet()\"></p-button>\n                    </div>\n\n                    <p><br /><a routerLink=\"/game/edit/{{game.id}}\" [appHasPermission]=\"'Administrator'\" pButton label=\"Uppdatera spel\"></a></p>\n\n                </p-card>\n                <br /> <br />\n            </div>\n    \n            <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n                <p-card title=\"Tippade resultat\">\n                    <div *ngIf=\"bets && bets.length > 0\">\n                        <div class=\"d-flex w-100 justify-content-between\">\n                            <h5 class=\"mb-1\">Namn</h5>\n                            <h5 class=\"mb-1\">Resultat</h5>\n                        </div>\n                        <div class=\"w-100\" style=\"border-bottom: 1px solid lightgray\"></div>\n                        <div *ngFor=\"let bet of bets | orderBy: {property: 'userName', direction: -1}\">\n                            <div class=\"d-flex w-100 justify-content-between\">\n                                <span class=\"mb-1\">{{bet.userName}}</span>\n                                <span class=\"mb-1\">{{bet.scoreTeam1}}-{{bet.scoreTeam2}}\n                                    <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsResult\" class=\"fa fa-trophy gold\"></i>\n                                    <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsWinner\" class=\"fa fa-trophy silver\"></i>\n                                </span>\n                            </div>\n                        </div>\n                    </div>\n                    <div *ngIf=\"bets && bets.length == 0\">\n                        Inga tippade resultat.\n                    </div>\n                </p-card>\n            </div>\n        </div>\n\n</div>\n\n"
+module.exports = "<div *ngIf=\"game != null\">\n  <h1>{{game.title}}</h1>\n    <div class=\"row\" *ngIf=\"game.gameType == 1\">\n        <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n            <p-card title=\"Spelinformation\">\n                <img src=\"{{game.sportIcon}}\" class=\"sportIcon\" />\n                <p>{{game.description}}</p>\n                <p>Rätt placering ger {{game.pointsResult}} poäng</p>\n                <p *ngIf=\"game.scoreTeam1 != null\"><b>Slutgiltig placering</b>: {{game.scoreTeam1}}</p>\n                <p *ngIf=\"game.isOpenForBets == false && game.scoreTeam1 == null\">Inget resultat ännu</p>\n\n            \n                <div *ngIf=\"game.isOpenForBets\">\n                    <h3>Tippa placering</h3>\n                    Sista tid att tippa: {{game.startsOn | date: 'yyyy-MM-dd HH:mm'}} <br />\n                    Har du redan tippat på spelet uppdateras din tippade placering.\n                    <p-dropdown [options]=\"availableOptionsPlacement\" [(ngModel)]=\"selectedResult1\"></p-dropdown>\n                    <br /> <br />\n                    <p-button icon=\"fa fa-play\" styleClass=\"ui-button-success\" label=\"Tippa\" (click)=\"placeBet()\"></p-button>\n                </div>\n\n                <p><br /><a routerLink=\"/game/edit/{{game.id}}\" [appHasPermission]=\"'Administrator'\" pButton label=\"Uppdatera spel\"></a></p>\n            </p-card>\n            <br /> <br />\n        </div>\n\n        <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n\n            <p-card *ngIf=\"game.gameType == 1\" title=\"Tippade placeringar\">\n                <div class=\"d-flex w-100 justify-content-between\">\n                    <h5 class=\"mb-1\">Namn</h5>\n                    <h5 class=\"mb-1\">Resultat</h5>\n                </div>\n                <div class=\"w-100\" style=\"border-bottom: 1px solid lightgray\"></div>\n                <div *ngFor=\"let bet of bets\">\n                    <div class=\"d-flex w-100 justify-content-between\">\n                        <span class=\"mb-1\">{{bet.userName}}</span>\n                        <span class=\"mb-1\">{{bet.scoreTeam1}} \n                            <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsResult\" class=\"fa fa-trophy gold\"></i>\n                            <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsWinner\" class=\"fa fa-trophy silver\"></i>\n                        </span>\n                    </div>\n                </div>\n                <div *ngIf=\"bets && bets.length == 0\">\n                    Inga tippade placeringar.\n                </div>\n            </p-card>\n        </div>\n    </div>\n    <div class=\"row\" *ngIf=\"game.gameType == 0\">\n            <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n                <p-card title=\"Spelinformation\">\n                    <img src=\"{{game.sportIcon}}\" class=\"sportIcon\" />\n                    <p>{{game.description}}</p>\n                    <p>Rätt resultat ger {{game.pointsResult}} poäng, medan rätt vinnare ger {{game.pointsWinner}} poäng</p>\n\n                    <p *ngIf=\"game.scoreTeam1 != null && game.scoreTeam2 != null\"><b>Slutgiltigt resultat: {{game.scoreTeam1}}-{{game.scoreTeam2}}</b></p>\n                    <p *ngIf=\"game.isOpenForBets == false && game.scoreTeam1 == null && game.scoreTeam2 == null\">Inget resultat ännu</p>\n                \n\n                    <div *ngIf=\"isBettingOpen\">\n                        <h3>Tippa resultat</h3>\n                        Sista tid att tippa: {{game.startsOn | date }} <br />\n                        Har du redan tippat på spelet uppdateras ditt tippade resultat. <br /> <br />\n                        <p-dropdown [options]=\"availableOptionsResult\" [(ngModel)]=\"selectedResult1\"></p-dropdown> - \n                        <p-dropdown [options]=\"availableOptionsResult\" [(ngModel)]=\"selectedResult2\"></p-dropdown>\n                        <br /> <br />\n                        <p-button icon=\"fa fa-play\" styleClass=\"ui-button-success\" label=\"Tippa\" (click)=\"placeBet()\"></p-button>\n                    </div>\n\n                    <p><br /><a routerLink=\"/game/edit/{{game.id}}\" [appHasPermission]=\"'Administrator'\" pButton label=\"Uppdatera spel\"></a></p>\n\n                </p-card>\n                <br /> <br />\n            </div>\n    \n            <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n                <p-card title=\"Tippade resultat\">\n                    <div *ngIf=\"bets && bets.length > 0\">\n                        <div class=\"d-flex w-100 justify-content-between\">\n                            <h5 class=\"mb-1\">Namn</h5>\n                            <h5 class=\"mb-1\">Resultat</h5>\n                        </div>\n                        <div class=\"w-100\" style=\"border-bottom: 1px solid lightgray\"></div>\n                        <div *ngFor=\"let bet of bets | orderBy: {property: 'userName', direction: -1}\">\n                            <div class=\"d-flex w-100 justify-content-between\">\n                                <span class=\"mb-1\">{{bet.userName}}</span>\n                                <span class=\"mb-1\">{{bet.scoreTeam1}}-{{bet.scoreTeam2}}\n                                    <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsResult\" class=\"fa fa-trophy gold\"></i>\n                                    <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsWinner\" class=\"fa fa-trophy silver\"></i>\n                                </span>\n                            </div>\n                        </div>\n                    </div>\n                    <div *ngIf=\"bets && bets.length == 0\">\n                        Inga tippade resultat.\n                    </div>\n                </p-card>\n            </div>\n        </div>\n\n</div>\n\n"
 
 /***/ }),
 
@@ -1224,7 +1225,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "#login-dp{\r\n    margin-left: -150px;\r\n    min-width: 250px;\r\n    padding: 14px;\r\n    overflow:hidden;\r\n    background-color:rgba(255,255,255);\r\n}\r\n#login-dp .help-block{\r\n    font-size:12px    \r\n}\r\n#login-dp .bottom{\r\n    background-color:rgba(255,255,255,.8);\r\n    border-top:1px solid #ddd;\r\n    clear:both;\r\n    padding:14px;\r\n}\r\n#login-dp .form-group {\r\n    margin-bottom: 10px;\r\n}", ""]);
+exports.push([module.i, "#login-dp{\r\n    margin-left: -170px;\r\n    min-width: 250px;\r\n    padding: 14px;\r\n    overflow:hidden;\r\n    background-color:rgba(255,255,255);\r\n}\r\n#login-dp .help-block{\r\n    font-size:12px    \r\n}\r\n#login-dp .bottom{\r\n    background-color:rgba(255,255,255,.8);\r\n    border-top:1px solid #ddd;\r\n    clear:both;\r\n    padding:14px;\r\n}\r\n#login-dp .form-group {\r\n    margin-bottom: 10px;\r\n}\r\n@media (max-width: 768px) {\r\n    #login-dp {\r\n        margin-left: 0;\r\n    }\r\n }", ""]);
 
 // exports
 
@@ -1383,7 +1384,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/register/register.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Registrera konto</h1>\n<div class=\"row\">\n  <div class=\"col col-lg-12\">\n      <p>Användarnamnet är det som används som login-namn och är vad som identifierar dig på sidan.</p>\n      <form [formGroup]=\"registerForm\" novalidate (ngSubmit)=\"register()\">\n        <div class=\"form-group\">\n          <label>Användarnamn</label><br/>\n          <input pInputText type=\"text\" formControlName=\"username\" required size=\"40\">\n          <span *ngIf=\"registerForm.controls.username.touched && registerForm.controls.username.errors\">Användarnamnet är för kort</span>\n        </div>\n        <div class=\"form-group\">\n          <label>E-postadress</label><br/>\n          <input pInputText type=\"email\" formControlName=\"email\" name=\"email\" required size=\"40\">\n          <span *ngIf=\"registerForm.controls.email.touched && registerForm.controls.email.errors\">Inte en giltig e-mailadress</span>\n        </div>\n        <div formGroupName=\"passwords\">\n          <div class=\"form-group\">\n            <label>Lösenord</label><br/>\n            <input pInputText type=\"password\" formControlName=\"password\" name=\"password\" required size=\"40\">\n            <span *ngIf=\"registerForm.controls['passwords'].controls.password.touched && registerForm.controls['passwords'].controls.password.errors\">Lösenordet är för kort</span>\n          </div>\n          <div class=\"form-group\">\n            <label>Upprepa lösenord</label><br/>\n            <input pInputText type=\"password\" formControlName=\"passwordRepeat\" name=\"repeatPassword\" required size=\"40\">\n            <span *ngIf=\"\n            registerForm.controls['passwords'].errors &&\n            registerForm.controls['passwords'].errors.areEqual &&\n            registerForm.controls['passwords'].controls.password.touched &&\n            registerForm.controls['passwords'].controls.passwordRepeat.touched\">Lösenorden matchar inte</span>\n          </div>\n        </div>\n        <div class=\"form-group\"><br/>\n          <p-button type=\"submit\" label=\"Registrera\" [disabled]=\"registerForm.invalid\"></p-button>\n        </div>\n      </form>\n  </div>\n</div>\n\n\n"
+module.exports = "<h1>Registrera konto</h1>\n<div class=\"row\">\n  <div class=\"col col-lg-12\">\n      <p>Användarnamnet är det som används som login-namn och är vad som identifierar dig på sidan.</p>\n      <form [formGroup]=\"registerForm\" novalidate (ngSubmit)=\"register()\">\n        <div class=\"form-group\">\n          <label>Användarnamn</label><br/>\n          <input pInputText type=\"text\" formControlName=\"username\" required size=\"34\" (ngModelChange)=\"resetUsernameTakenStatus()\">\n          <span *ngIf=\"registerForm.controls.username.touched && \n                       registerForm.controls.username.errors != null &&\n                       registerForm.controls.username.errors.minlength\">Användarnamnet är för kort</span>\n          <span *ngIf=\"registerForm.controls.username.touched && \n                       registerForm.controls.username.errors != null &&\n                       registerForm.controls.username.errors.maxlength\">Användarnamnet är för långt</span>\n          <span *ngIf=\"registerForm.controls.username.touched && \n                       registerForm.controls.username.errors != null &&\n                       registerForm.controls.username.errors.pattern\">Användarnamnet innehåller otillåtna tecken. Det får innehålla a-ö samt _ och -</span>\n          <span *ngIf=\"usernameTaken\">Användarnamnet är upptaget</span>\n        </div>\n        <div class=\"form-group\">\n          <label>E-postadress</label><br/>\n          <input pInputText type=\"email\" formControlName=\"email\" name=\"email\" required size=\"34\">\n          <span *ngIf=\"registerForm.controls.email.touched && registerForm.controls.email.errors\">Inte en giltig e-mailadress</span>\n        </div>\n        <div formGroupName=\"passwords\">\n          <div class=\"form-group\">\n            <label>Lösenord</label><br/>\n            <input pInputText type=\"password\" formControlName=\"password\" name=\"password\" required size=\"34\">\n            <span *ngIf=\"registerForm.controls['passwords'].controls.password.touched && registerForm.controls['passwords'].controls.password.errors\">Lösenordet är för kort</span>\n          </div>\n          <div class=\"form-group\">\n            <label>Upprepa lösenord</label><br/>\n            <input pInputText type=\"password\" formControlName=\"passwordRepeat\" name=\"repeatPassword\" required size=\"34\">\n            <span *ngIf=\"\n            registerForm.controls['passwords'].errors &&\n            registerForm.controls['passwords'].errors.areEqual &&\n            registerForm.controls['passwords'].controls.password.touched &&\n            registerForm.controls['passwords'].controls.passwordRepeat.touched\">Lösenorden matchar inte</span>\n          </div>\n        </div>\n        <div class=\"form-group\"><br/>\n          <p-button type=\"submit\" label=\"Registrera\" [disabled]=\"registerForm.invalid\"></p-button>\n        </div>\n      </form>\n  </div>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -1413,11 +1414,15 @@ var RegisterComponent = /** @class */ (function () {
     function RegisterComponent(authenticationService) {
         this.authenticationService = authenticationService;
         this.user = new __WEBPACK_IMPORTED_MODULE_2__domain_auth_user_for_creation__["a" /* UserForCreation */]();
+        this.usernameTaken = false;
     }
     RegisterComponent.prototype.ngOnInit = function () {
         this.registerForm = new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["FormGroup"]({
             'username': new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["FormControl"](this.user.username, [
-                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].minLength(5),
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required,
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].minLength(5),
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].maxLength(25),
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].pattern('^[a-zA-Z-_0-9]+$')
             ]),
             'email': new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["FormControl"](this.user.email, [
                 __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["Validators"].email
@@ -1467,12 +1472,26 @@ var RegisterComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    RegisterComponent.prototype.resetUsernameTakenStatus = function () {
+        this.usernameTaken = false;
+    };
     RegisterComponent.prototype.register = function () {
+        var _this = this;
+        this.usernameTaken = false;
         this.user = new __WEBPACK_IMPORTED_MODULE_2__domain_auth_user_for_creation__["a" /* UserForCreation */]();
         this.user.username = this.registerForm.value.username;
         this.user.email = this.registerForm.value.email;
         this.user.password = this.registerForm.value.passwords.password;
-        this.authenticationService.createUser(this.user);
+        this.authenticationService.checkUsername(this.user.username).then(function (x) {
+            if (x) {
+                _this.authenticationService.createUser(_this.user);
+            }
+            else {
+                _this.usernameTaken = true;
+            }
+        }, function (error) {
+            _this.usernameTaken = true;
+        });
     };
     RegisterComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -1567,7 +1586,7 @@ var AuthenticationService = /** @class */ (function () {
     AuthenticationService.prototype.checkUsername = function (username) {
         var _this = this;
         var promise = new Promise(function (resolve, reject) {
-            _this.httpClient.get(_this.usersBaseUrl + 'check/?username' + username).toPromise().then(function (result) {
+            _this.httpClient.get(_this.usersBaseUrl + 'check/?username=' + username).toPromise().then(function (result) {
                 if (result.isAvailable == true) {
                     resolve(true);
                 }
@@ -1601,6 +1620,9 @@ var AuthenticationService = /** @class */ (function () {
     };
     AuthenticationService.prototype.hasRole = function (role) {
         if (this.getUser() == null) {
+            return false;
+        }
+        if (this.user.roles == null) {
             return false;
         }
         for (var _i = 0, _a = this.user.roles; _i < _a.length; _i++) {
@@ -1717,9 +1739,16 @@ var UserService = /** @class */ (function () {
         this.httpClient = httpClient;
         this.userApiBase = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiBaseUrl + 'api/auth';
         this.gamesApiBase = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiBaseUrl + '/games';
+        this.betsApiBase = __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].apiBaseUrl + 'api/bets';
     }
     UserService.prototype.getUser = function (username) {
         return this.httpClient.get(this.userApiBase + '/user/' + username);
+    };
+    UserService.prototype.getUserBets = function (username) {
+        return this.httpClient.get(this.betsApiBase + '/user/' + username + '?leagueId=1');
+    };
+    UserService.prototype.makeAdministrator = function (username) {
+        return this.httpClient.post(this.userApiBase + '/' + username + '/addasadmin', null);
     };
     UserService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
@@ -1824,7 +1853,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/user/user.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"user != null\">\n  <h1>{{user.username}}</h1>\n  <div class=\"row\">\n    <div class=\"col col-lg-3\"></div>\n  </div>\n</div>\n"
+module.exports = "<div *ngIf=\"user != null\">\n  <h1>{{user.username}}</h1>\n  <p-button [appHasPermission]=\"'Administrator'\" label=\"Gör till administratör\" (click)=\"makeAdministrator()\"></p-button>\n  <div class=\"row\">\n      <div class=\"col-12 col-sm-12 col-md-6 col-lg-6\">\n        <p-card title=\"Tippningar (avslutade spel)\"></p-card>\n      </div>\n      <div class=\"col-12 col-sm-12 col-md-6 col-lg-6\">\n          <p-card title=\"Poängutveckling\">\n            <p-chart type=\"line\" [data]=\"data\" [options]=\"options\"></p-chart>\n          </p-card>\n        </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1836,6 +1865,8 @@ module.exports = "<div *ngIf=\"user != null\">\n  <h1>{{user.username}}</h1>\n  
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_primeng_components_common_messageservice__ = __webpack_require__("../../../../primeng/components/common/messageservice.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_primeng_components_common_messageservice___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_primeng_components_common_messageservice__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1848,16 +1879,53 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var UserComponent = /** @class */ (function () {
-    function UserComponent(userService, route) {
+    function UserComponent(userService, route, messageService) {
         this.userService = userService;
         this.route = route;
+        this.messageService = messageService;
         this.user = null;
+        this.data = {
+            labels: [],
+            datasets: []
+        };
+        this.options = {
+            title: {
+                display: false,
+                text: 'My Title',
+                fontSize: 16
+            },
+            legend: {
+                position: 'none'
+            }
+        };
     }
     UserComponent.prototype.ngOnInit = function () {
         var _this = this;
         var username = this.route.snapshot.paramMap.get('username');
-        this.userService.getUser(username).subscribe(function (user) { return _this.user = user; });
+        this.userService.getUser(username).subscribe(function (user) {
+            _this.user = user;
+            _this.userService.getUserBets(username).subscribe(function (bets) { return _this.initializeGraph(bets); });
+        });
+    };
+    UserComponent.prototype.initializeGraph = function (bets) {
+        var labels = [];
+        var dataset = [{ label: this.user.username, data: [], borderColor: '#4bc0c0' }];
+        for (var _i = 0, bets_1 = bets; _i < bets_1.length; _i++) {
+            var bet = bets_1[_i];
+            labels.push(new Date(bet.gameStartedOn));
+            dataset[0].data.push(bet.accumulatedScore);
+        }
+        this.data = { labels: labels, datasets: dataset };
+    };
+    UserComponent.prototype.makeAdministrator = function () {
+        var _this = this;
+        this.userService.makeAdministrator(this.user.username).subscribe(function (x) {
+            _this.messageService.add({ severity: 'success', summary: 'Användaren är administratör', detail: x });
+        }, function (error) {
+            _this.messageService.add({ severity: 'error', summary: 'Fel', detail: "Status: " + error.status + ". Detaljer: " + error.error });
+        });
     };
     UserComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -1866,7 +1934,8 @@ var UserComponent = /** @class */ (function () {
             styles: [__webpack_require__("../../../../../src/app/user/user.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_user_service__["a" /* UserService */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_router__["ActivatedRoute"]])
+            __WEBPACK_IMPORTED_MODULE_2__angular_router__["ActivatedRoute"],
+            __WEBPACK_IMPORTED_MODULE_3_primeng_components_common_messageservice__["MessageService"]])
     ], UserComponent);
     return UserComponent;
 }());
@@ -1878,7 +1947,7 @@ var UserComponent = /** @class */ (function () {
 /***/ "../../../../../src/assets/header.png":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "header.b4076b792001bfc6200b.png";
+module.exports = __webpack_require__.p + "header.28521147caea6bfe06cc.png";
 
 /***/ }),
 

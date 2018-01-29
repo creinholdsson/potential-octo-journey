@@ -1,6 +1,6 @@
 <a *ngFor="let game of games" routerLink="/game/{{game.id}}">
   <div class="test">
-    <img src="../../assets/icons/{{game.sportIcon}}.png" class="icon" />
+    <img src="{{game.sportIcon}}" class="icon" />
     <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{game.title}}</h5>
         <small>{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>

@@ -25,7 +25,7 @@
 
         <div *ngIf="game.gameType == 0">
           Poäng rätt vinnare <br />
-          <p-dropdown [options]="points" [(ngModel)]="game.winnerResult" name="winnerResult" [style]="{'width':'433px'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+          <p-dropdown [options]="points" [(ngModel)]="game.pointsWinner" name="pointsWinner" [style]="{'width':'433px'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
         </div>
         
         Beskrivning <br/>
