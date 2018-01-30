@@ -19,6 +19,7 @@ using PyeongchangKampen.Models;
 using PyeongchangKampen.Repostory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
+using System.IO;
 
 namespace PyeongchangKampen
 {
@@ -41,10 +42,10 @@ namespace PyeongchangKampen
         {
             if (_HostingEnvironment.IsProduction())
             {
-                services.Configure<MvcOptions>(options =>
-                {
-                    options.Filters.Add(new RequireHttpsAttribute());
-                });
+                //services.Configure<MvcOptions>(options =>
+                //{
+                //    options.Filters.Add(new RequireHttpsAttribute());
+                //});
             }
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -119,17 +120,31 @@ namespace PyeongchangKampen
                 app.UseDeveloperExceptionPage();
             }
 
-            if (env.IsProduction())
-            {
+            app.Use(async (context, next) => {
+                await next();
+                if (context.Response.StatusCode == 404 &&
+                   !Path.HasExtension(context.Request.Path.Value) &&
+                   !context.Request.Path.Value.StartsWith("/api/"))
+                {
+                    context.Request.Path = "/index.html";
+                    await next();
+                }
+            });
 
-                var options = new RewriteOptions()
-                        .AddRedirectToHttps();
-
-                app.UseRewriter(options);
-            }
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            //if (env.IsProduction())
+            //{
+
+            //    var options = new RewriteOptions()
+            //        .AddRedirectToHttpsPermanent();
+
+            //    app.UseRewriter(options);
+            //}
+
+            
 
             
 
