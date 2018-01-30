@@ -88,36 +88,35 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng_http_loader_ng_http_loader_module__ = __webpack_require__("../../../../ng-http-loader/ng-http-loader.module.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng_http_loader_ng_http_loader_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_ng_http_loader_ng_http_loader_module__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_primeng_primeng__ = __webpack_require__("../../../../primeng/primeng.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_primeng_primeng___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_primeng_primeng__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_primeng_components_common_messageservice__ = __webpack_require__("../../../../primeng/components/common/messageservice.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_primeng_components_common_messageservice___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_primeng_components_common_messageservice__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__interceptors_token_interceptor__ = __webpack_require__("../../../../../src/app/interceptors/token.interceptor.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__navmenu_navmenu_component__ = __webpack_require__("../../../../../src/app/navmenu/navmenu.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__game_list_game_list_component__ = __webpack_require__("../../../../../src/app/game-list/game-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__footer_footer_component__ = __webpack_require__("../../../../../src/app/footer/footer.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__index_index_component__ = __webpack_require__("../../../../../src/app/index/index.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__game_game_component__ = __webpack_require__("../../../../../src/app/game/game.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__services_game_service__ = __webpack_require__("../../../../../src/app/services/game.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__directives_order_by_pipe__ = __webpack_require__("../../../../../src/app/directives/order-by-pipe.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__game_create_game_create_component__ = __webpack_require__("../../../../../src/app/game-create/game-create.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__login_component_login_component_component__ = __webpack_require__("../../../../../src/app/login-component/login-component.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__services_authentication_service_service__ = __webpack_require__("../../../../../src/app/services/authentication-service.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__register_register_component__ = __webpack_require__("../../../../../src/app/register/register.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__directives_taken_username_directive__ = __webpack_require__("../../../../../src/app/directives/taken-username.directive.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__user_user_component__ = __webpack_require__("../../../../../src/app/user/user.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__game_edit_game_edit_component__ = __webpack_require__("../../../../../src/app/game-edit/game-edit.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__directives_has_permission_directive__ = __webpack_require__("../../../../../src/app/directives/has-permission.directive.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__top_list_top_list_component__ = __webpack_require__("../../../../../src/app/top-list/top-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__limit_to_pipe__ = __webpack_require__("../../../../../src/app/limit-to.pipe.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ng_http_loader_ng_http_loader_module__ = __webpack_require__("../../../../ng-http-loader/ng-http-loader.module.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ng_http_loader_ng_http_loader_module___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_ng_http_loader_ng_http_loader_module__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_primeng_primeng__ = __webpack_require__("../../../../primeng/primeng.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_primeng_primeng___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_primeng_primeng__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_primeng_components_common_messageservice__ = __webpack_require__("../../../../primeng/components/common/messageservice.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_primeng_components_common_messageservice___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_primeng_components_common_messageservice__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__interceptors_token_interceptor__ = __webpack_require__("../../../../../src/app/interceptors/token.interceptor.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__navmenu_navmenu_component__ = __webpack_require__("../../../../../src/app/navmenu/navmenu.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__game_list_game_list_component__ = __webpack_require__("../../../../../src/app/game-list/game-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__footer_footer_component__ = __webpack_require__("../../../../../src/app/footer/footer.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__index_index_component__ = __webpack_require__("../../../../../src/app/index/index.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__game_game_component__ = __webpack_require__("../../../../../src/app/game/game.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__services_game_service__ = __webpack_require__("../../../../../src/app/services/game.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__directives_order_by_pipe__ = __webpack_require__("../../../../../src/app/directives/order-by-pipe.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__game_create_game_create_component__ = __webpack_require__("../../../../../src/app/game-create/game-create.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__login_component_login_component_component__ = __webpack_require__("../../../../../src/app/login-component/login-component.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__services_authentication_service_service__ = __webpack_require__("../../../../../src/app/services/authentication-service.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__register_register_component__ = __webpack_require__("../../../../../src/app/register/register.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__directives_taken_username_directive__ = __webpack_require__("../../../../../src/app/directives/taken-username.directive.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__user_user_component__ = __webpack_require__("../../../../../src/app/user/user.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__services_user_service__ = __webpack_require__("../../../../../src/app/services/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__game_edit_game_edit_component__ = __webpack_require__("../../../../../src/app/game-edit/game-edit.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__directives_has_permission_directive__ = __webpack_require__("../../../../../src/app/directives/has-permission.directive.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__top_list_top_list_component__ = __webpack_require__("../../../../../src/app/top-list/top-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__limit_to_pipe__ = __webpack_require__("../../../../../src/app/limit-to.pipe.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -156,72 +155,70 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
 var appRoutes = [
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_17__index_index_component__["a" /* IndexComponent */] },
-    { path: 'game/add', component: __WEBPACK_IMPORTED_MODULE_21__game_create_game_create_component__["a" /* GameCreateComponent */] },
-    { path: 'game/edit/:id', component: __WEBPACK_IMPORTED_MODULE_28__game_edit_game_edit_component__["a" /* GameEditComponent */] },
-    { path: 'game/:id', component: __WEBPACK_IMPORTED_MODULE_18__game_game_component__["a" /* GameComponent */] },
-    { path: 'register', component: __WEBPACK_IMPORTED_MODULE_24__register_register_component__["a" /* RegisterComponent */] },
-    { path: 'user/:username', component: __WEBPACK_IMPORTED_MODULE_26__user_user_component__["a" /* UserComponent */] },
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_16__index_index_component__["a" /* IndexComponent */] },
+    { path: 'game/add', component: __WEBPACK_IMPORTED_MODULE_20__game_create_game_create_component__["a" /* GameCreateComponent */] },
+    { path: 'game/edit/:id', component: __WEBPACK_IMPORTED_MODULE_27__game_edit_game_edit_component__["a" /* GameEditComponent */] },
+    { path: 'game/:id', component: __WEBPACK_IMPORTED_MODULE_17__game_game_component__["a" /* GameComponent */] },
+    { path: 'register', component: __WEBPACK_IMPORTED_MODULE_23__register_register_component__["a" /* RegisterComponent */] },
+    { path: 'user/:username', component: __WEBPACK_IMPORTED_MODULE_25__user_user_component__["a" /* UserComponent */] },
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_6__angular_core__["NgModule"])({
+        Object(__WEBPACK_IMPORTED_MODULE_5__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_13__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_14__navmenu_navmenu_component__["a" /* NavmenuComponent */],
-                __WEBPACK_IMPORTED_MODULE_15__game_list_game_list_component__["a" /* GameListComponent */],
-                __WEBPACK_IMPORTED_MODULE_16__footer_footer_component__["a" /* FooterComponent */],
-                __WEBPACK_IMPORTED_MODULE_17__index_index_component__["a" /* IndexComponent */],
-                __WEBPACK_IMPORTED_MODULE_18__game_game_component__["a" /* GameComponent */],
-                __WEBPACK_IMPORTED_MODULE_20__directives_order_by_pipe__["a" /* OrderByPipe */],
-                __WEBPACK_IMPORTED_MODULE_21__game_create_game_create_component__["a" /* GameCreateComponent */],
-                __WEBPACK_IMPORTED_MODULE_22__login_component_login_component_component__["a" /* LoginComponentComponent */],
-                __WEBPACK_IMPORTED_MODULE_24__register_register_component__["a" /* RegisterComponent */],
-                __WEBPACK_IMPORTED_MODULE_25__directives_taken_username_directive__["a" /* TakenUsernameDirective */],
-                __WEBPACK_IMPORTED_MODULE_26__user_user_component__["a" /* UserComponent */],
-                __WEBPACK_IMPORTED_MODULE_28__game_edit_game_edit_component__["a" /* GameEditComponent */],
-                __WEBPACK_IMPORTED_MODULE_29__directives_has_permission_directive__["a" /* HasPermissionDirective */],
-                __WEBPACK_IMPORTED_MODULE_30__top_list_top_list_component__["a" /* TopListComponent */],
-                __WEBPACK_IMPORTED_MODULE_31__limit_to_pipe__["a" /* LimitToPipe */]
+                __WEBPACK_IMPORTED_MODULE_12__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_13__navmenu_navmenu_component__["a" /* NavmenuComponent */],
+                __WEBPACK_IMPORTED_MODULE_14__game_list_game_list_component__["a" /* GameListComponent */],
+                __WEBPACK_IMPORTED_MODULE_15__footer_footer_component__["a" /* FooterComponent */],
+                __WEBPACK_IMPORTED_MODULE_16__index_index_component__["a" /* IndexComponent */],
+                __WEBPACK_IMPORTED_MODULE_17__game_game_component__["a" /* GameComponent */],
+                __WEBPACK_IMPORTED_MODULE_19__directives_order_by_pipe__["a" /* OrderByPipe */],
+                __WEBPACK_IMPORTED_MODULE_20__game_create_game_create_component__["a" /* GameCreateComponent */],
+                __WEBPACK_IMPORTED_MODULE_21__login_component_login_component_component__["a" /* LoginComponentComponent */],
+                __WEBPACK_IMPORTED_MODULE_23__register_register_component__["a" /* RegisterComponent */],
+                __WEBPACK_IMPORTED_MODULE_24__directives_taken_username_directive__["a" /* TakenUsernameDirective */],
+                __WEBPACK_IMPORTED_MODULE_25__user_user_component__["a" /* UserComponent */],
+                __WEBPACK_IMPORTED_MODULE_27__game_edit_game_edit_component__["a" /* GameEditComponent */],
+                __WEBPACK_IMPORTED_MODULE_28__directives_has_permission_directive__["a" /* HasPermissionDirective */],
+                __WEBPACK_IMPORTED_MODULE_29__top_list_top_list_component__["a" /* TopListComponent */],
+                __WEBPACK_IMPORTED_MODULE_30__limit_to_pipe__["a" /* LimitToPipe */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_2__angular_router__["RouterModule"].forRoot(appRoutes, { enableTracing: true }),
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["BrowserModule"],
-                __WEBPACK_IMPORTED_MODULE_9_primeng_primeng__["InputTextModule"],
-                __WEBPACK_IMPORTED_MODULE_9_primeng_primeng__["DialogModule"],
-                __WEBPACK_IMPORTED_MODULE_9_primeng_primeng__["ButtonModule"],
-                __WEBPACK_IMPORTED_MODULE_9_primeng_primeng__["CardModule"],
-                __WEBPACK_IMPORTED_MODULE_9_primeng_primeng__["DropdownModule"],
-                __WEBPACK_IMPORTED_MODULE_9_primeng_primeng__["InputTextareaModule"],
+                __WEBPACK_IMPORTED_MODULE_8_primeng_primeng__["InputTextModule"],
+                __WEBPACK_IMPORTED_MODULE_8_primeng_primeng__["DialogModule"],
+                __WEBPACK_IMPORTED_MODULE_8_primeng_primeng__["ButtonModule"],
+                __WEBPACK_IMPORTED_MODULE_8_primeng_primeng__["CardModule"],
+                __WEBPACK_IMPORTED_MODULE_8_primeng_primeng__["DropdownModule"],
+                __WEBPACK_IMPORTED_MODULE_8_primeng_primeng__["InputTextareaModule"],
                 __WEBPACK_IMPORTED_MODULE_3__angular_forms__["FormsModule"],
                 __WEBPACK_IMPORTED_MODULE_3__angular_forms__["ReactiveFormsModule"],
-                __WEBPACK_IMPORTED_MODULE_9_primeng_primeng__["CalendarModule"],
-                __WEBPACK_IMPORTED_MODULE_9_primeng_primeng__["GrowlModule"],
-                __WEBPACK_IMPORTED_MODULE_7__angular_http__["a" /* HttpModule */],
+                __WEBPACK_IMPORTED_MODULE_8_primeng_primeng__["CalendarModule"],
+                __WEBPACK_IMPORTED_MODULE_8_primeng_primeng__["GrowlModule"],
+                __WEBPACK_IMPORTED_MODULE_6__angular_http__["a" /* HttpModule */],
                 __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["HttpClientModule"],
-                __WEBPACK_IMPORTED_MODULE_8_ng_http_loader_ng_http_loader_module__["NgHttpLoaderModule"],
-                __WEBPACK_IMPORTED_MODULE_9_primeng_primeng__["ChartModule"],
-                __WEBPACK_IMPORTED_MODULE_11__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot()
+                __WEBPACK_IMPORTED_MODULE_7_ng_http_loader_ng_http_loader_module__["NgHttpLoaderModule"],
+                __WEBPACK_IMPORTED_MODULE_8_primeng_primeng__["ChartModule"],
+                __WEBPACK_IMPORTED_MODULE_10__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot()
             ],
             providers: [
-                { provide: __WEBPACK_IMPORTED_MODULE_5__angular_common__["APP_BASE_HREF"], useValue: '/' },
-                __WEBPACK_IMPORTED_MODULE_19__services_game_service__["a" /* GameService */],
-                __WEBPACK_IMPORTED_MODULE_10_primeng_components_common_messageservice__["MessageService"],
-                __WEBPACK_IMPORTED_MODULE_27__services_user_service__["a" /* UserService */],
-                __WEBPACK_IMPORTED_MODULE_23__services_authentication_service_service__["a" /* AuthenticationService */],
+                __WEBPACK_IMPORTED_MODULE_18__services_game_service__["a" /* GameService */],
+                __WEBPACK_IMPORTED_MODULE_9_primeng_components_common_messageservice__["MessageService"],
+                __WEBPACK_IMPORTED_MODULE_26__services_user_service__["a" /* UserService */],
+                __WEBPACK_IMPORTED_MODULE_22__services_authentication_service_service__["a" /* AuthenticationService */],
                 {
                     provide: __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["HTTP_INTERCEPTORS"],
-                    useClass: __WEBPACK_IMPORTED_MODULE_12__interceptors_token_interceptor__["a" /* TokenInterceptor */],
+                    useClass: __WEBPACK_IMPORTED_MODULE_11__interceptors_token_interceptor__["a" /* TokenInterceptor */],
                     multi: true
                 },
-                __WEBPACK_IMPORTED_MODULE_29__directives_has_permission_directive__["a" /* HasPermissionDirective */]
+                __WEBPACK_IMPORTED_MODULE_28__directives_has_permission_directive__["a" /* HasPermissionDirective */]
             ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_13__app_component__["a" /* AppComponent */]]
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_12__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
     return AppModule;
@@ -1081,7 +1078,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/game/game.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"game != null\">\n  <h1>{{game.title}}</h1>\n    <div class=\"row\" *ngIf=\"game.gameType == 1\">\n        <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n            <p-card title=\"Spelinformation\">\n                <img src=\"{{game.sportIcon}}\" class=\"sportIcon\" />\n                <p>{{game.description}}</p>\n                <p>Rätt placering ger {{game.pointsResult}} poäng</p>\n                <p *ngIf=\"game.scoreTeam1 != null\"><b>Slutgiltig placering</b>: {{game.scoreTeam1}}</p>\n                <p *ngIf=\"game.isOpenForBets == false && game.scoreTeam1 == null\">Inget resultat ännu</p>\n\n            \n                <div *ngIf=\"game.isOpenForBets\">\n                    <h3>Tippa placering</h3>\n                    Sista tid att tippa: {{game.startsOn | date: 'yyyy-MM-dd HH:mm'}} <br />\n                    Har du redan tippat på spelet uppdateras din tippade placering.\n                    <p-dropdown [options]=\"availableOptionsPlacement\" [(ngModel)]=\"selectedResult1\"></p-dropdown>\n                    <br /> <br />\n                    <p-button icon=\"fa fa-play\" styleClass=\"ui-button-success\" label=\"Tippa\" (click)=\"placeBet()\"></p-button>\n                </div>\n\n                <p><br /><a routerLink=\"/game/edit/{{game.id}}\" [appHasPermission]=\"'Administrator'\" pButton label=\"Uppdatera spel\"></a></p>\n            </p-card>\n            <br /> <br />\n        </div>\n\n        <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n\n            <p-card *ngIf=\"game.gameType == 1\" title=\"Tippade placeringar\">\n                <div class=\"d-flex w-100 justify-content-between\">\n                    <h5 class=\"mb-1\">Namn</h5>\n                    <h5 class=\"mb-1\">Resultat</h5>\n                </div>\n                <div class=\"w-100\" style=\"border-bottom: 1px solid lightgray\"></div>\n                <div *ngFor=\"let bet of bets\">\n                    <div class=\"d-flex w-100 justify-content-between\">\n                        <span class=\"mb-1\">{{bet.userName}}</span>\n                        <span class=\"mb-1\">{{bet.scoreTeam1}} \n                            <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsResult\" class=\"fa fa-trophy gold\"></i>\n                            <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsWinner\" class=\"fa fa-trophy silver\"></i>\n                        </span>\n                    </div>\n                </div>\n                <div *ngIf=\"bets && bets.length == 0\">\n                    Inga tippade placeringar.\n                </div>\n            </p-card>\n        </div>\n    </div>\n    <div class=\"row\" *ngIf=\"game.gameType == 0\">\n            <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n                <p-card title=\"Spelinformation\">\n                    <img src=\"{{game.sportIcon}}\" class=\"sportIcon\" />\n                    <p>{{game.description}}</p>\n                    <p>Rätt resultat ger {{game.pointsResult}} poäng, medan rätt vinnare ger {{game.pointsWinner}} poäng</p>\n\n                    <p *ngIf=\"game.scoreTeam1 != null && game.scoreTeam2 != null\"><b>Slutgiltigt resultat: {{game.scoreTeam1}}-{{game.scoreTeam2}}</b></p>\n                    <p *ngIf=\"game.isOpenForBets == false && game.scoreTeam1 == null && game.scoreTeam2 == null\">Inget resultat ännu</p>\n                \n\n                    <div *ngIf=\"isBettingOpen\">\n                        <h3>Tippa resultat</h3>\n                        Sista tid att tippa: {{game.startsOn | date }} <br />\n                        Har du redan tippat på spelet uppdateras ditt tippade resultat. <br /> <br />\n                        <p-dropdown [options]=\"availableOptionsResult\" [(ngModel)]=\"selectedResult1\"></p-dropdown> - \n                        <p-dropdown [options]=\"availableOptionsResult\" [(ngModel)]=\"selectedResult2\"></p-dropdown>\n                        <br /> <br />\n                        <p-button icon=\"fa fa-play\" styleClass=\"ui-button-success\" label=\"Tippa\" (click)=\"placeBet()\"></p-button>\n                    </div>\n\n                    <p><br /><a routerLink=\"/game/edit/{{game.id}}\" [appHasPermission]=\"'Administrator'\" pButton label=\"Uppdatera spel\"></a></p>\n\n                </p-card>\n                <br /> <br />\n            </div>\n    \n            <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n                <p-card title=\"Tippade resultat\">\n                    <div *ngIf=\"bets && bets.length > 0\">\n                        <div class=\"d-flex w-100 justify-content-between\">\n                            <h5 class=\"mb-1\">Namn</h5>\n                            <h5 class=\"mb-1\">Resultat</h5>\n                        </div>\n                        <div class=\"w-100\" style=\"border-bottom: 1px solid lightgray\"></div>\n                        <div *ngFor=\"let bet of bets | orderBy: {property: 'userName', direction: -1}\">\n                            <div class=\"d-flex w-100 justify-content-between\">\n                                <span class=\"mb-1\">{{bet.userName}}</span>\n                                <span class=\"mb-1\">{{bet.scoreTeam1}}-{{bet.scoreTeam2}}\n                                    <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsResult\" class=\"fa fa-trophy gold\"></i>\n                                    <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsWinner\" class=\"fa fa-trophy silver\"></i>\n                                </span>\n                            </div>\n                        </div>\n                    </div>\n                    <div *ngIf=\"bets && bets.length == 0\">\n                        Inga tippade resultat.\n                    </div>\n                </p-card>\n            </div>\n        </div>\n\n</div>\n\n"
+module.exports = "<div *ngIf=\"game != null\">\n  <h1>{{game.title}}</h1>\n    <div class=\"row\" *ngIf=\"game.gameType == 1\">\n        <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n            <p-card title=\"Spelinformation\">\n                <img src=\"{{game.sportIcon}}\" class=\"sportIcon\" />\n                <p>{{game.description}}</p>\n                <p>Rätt placering ger {{game.pointsResult}} poäng</p>\n                <p *ngIf=\"game.scoreTeam1 != null\"><b>Slutgiltig placering</b>: {{game.scoreTeam1}}</p>\n                <p *ngIf=\"game.isOpenForBets == false && game.scoreTeam1 == null\">Inget resultat ännu</p>\n\n            \n                <div *ngIf=\"game.isOpenForBets\">\n                    <h3>Tippa placering</h3>\n                    Sista tid att tippa: {{game.startsOn | date: 'yyyy-MM-dd HH:mm'}} <br />\n                    Har du redan tippat på spelet uppdateras din tippade placering.\n                    <p-dropdown [options]=\"availableOptionsPlacement\" [(ngModel)]=\"selectedResult1\"></p-dropdown>\n                    <br /> <br />\n                    <p-button icon=\"fa fa-play\" styleClass=\"ui-button-success\" label=\"Tippa\" (click)=\"placeBet()\"></p-button>\n                </div>\n\n                <p><br /><a routerLink=\"/game/edit/{{game.id}}\" [appHasPermission]=\"'Administrator'\" pButton label=\"Uppdatera spel\"></a></p>\n            </p-card>\n            <br /> <br />\n        </div>\n\n        <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n\n            <p-card *ngIf=\"game.gameType == 1\" title=\"Tippade placeringar\">\n                <div class=\"d-flex w-100 justify-content-between\">\n                    <h5 class=\"mb-1\">Namn</h5>\n                    <h5 class=\"mb-1\">Resultat</h5>\n                </div>\n                <div class=\"w-100\" style=\"border-bottom: 1px solid lightgray\"></div>\n                <div *ngFor=\"let bet of bets | orderBy: 'userName'\">\n                    <div class=\"d-flex w-100 justify-content-between\">\n                        <span class=\"mb-1\">{{bet.userName}}</span>\n                        <span class=\"mb-1\">{{bet.scoreTeam1}} \n                            <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsResult\" class=\"fa fa-trophy gold\"></i>\n                            <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsWinner\" class=\"fa fa-trophy silver\"></i>\n                        </span>\n                    </div>\n                </div>\n                <div *ngIf=\"bets && bets.length == 0\">\n                    Inga tippade placeringar.\n                </div>\n            </p-card>\n        </div>\n    </div>\n    <div class=\"row\" *ngIf=\"game.gameType == 0\">\n            <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n                <p-card title=\"Spelinformation\">\n                    <img src=\"{{game.sportIcon}}\" class=\"sportIcon\" />\n                    <p>{{game.description}}</p>\n                    <p>Rätt resultat ger {{game.pointsResult}} poäng, medan rätt vinnare ger {{game.pointsWinner}} poäng</p>\n\n                    <p *ngIf=\"game.scoreTeam1 != null && game.scoreTeam2 != null\"><b>Slutgiltigt resultat: {{game.scoreTeam1}}-{{game.scoreTeam2}}</b></p>\n                    <p *ngIf=\"game.isOpenForBets == false && game.scoreTeam1 == null && game.scoreTeam2 == null\">Inget resultat ännu</p>\n                \n\n                    <div *ngIf=\"isBettingOpen\">\n                        <h3>Tippa resultat</h3>\n                        Sista tid att tippa: {{game.startsOn | date }} <br />\n                        Har du redan tippat på spelet uppdateras ditt tippade resultat. <br /> <br />\n                        <p-dropdown [options]=\"availableOptionsResult\" [(ngModel)]=\"selectedResult1\"></p-dropdown> - \n                        <p-dropdown [options]=\"availableOptionsResult\" [(ngModel)]=\"selectedResult2\"></p-dropdown>\n                        <br /> <br />\n                        <p-button icon=\"fa fa-play\" styleClass=\"ui-button-success\" label=\"Tippa\" (click)=\"placeBet()\"></p-button>\n                    </div>\n\n                    <p><br /><a routerLink=\"/game/edit/{{game.id}}\" [appHasPermission]=\"'Administrator'\" pButton label=\"Uppdatera spel\"></a></p>\n\n                </p-card>\n                <br /> <br />\n            </div>\n    \n            <div class=\"col col-lg-6 col-md-12 col-sm-12 col-xs-12\">\n                <p-card title=\"Tippade resultat\">\n                    <div *ngIf=\"bets && bets.length > 0\">\n                        <div class=\"d-flex w-100 justify-content-between\">\n                            <h5 class=\"mb-1\">Namn</h5>\n                            <h5 class=\"mb-1\">Resultat</h5>\n                        </div>\n                        <div class=\"w-100\" style=\"border-bottom: 1px solid lightgray\"></div>\n                        <div *ngFor=\"let bet of bets | orderBy: 'userName'\">\n                            <div class=\"d-flex w-100 justify-content-between\">\n                                <span class=\"mb-1\">{{bet.userName}}</span>\n                                <span class=\"mb-1\">{{bet.scoreTeam1}}-{{bet.scoreTeam2}}\n                                    <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsResult\" class=\"fa fa-trophy gold\"></i>\n                                    <i *ngIf=\"bet.awardedPoints != null && bet.awardedPoints == game.pointsWinner\" class=\"fa fa-trophy silver\"></i>\n                                </span>\n                            </div>\n                        </div>\n                    </div>\n                    <div *ngIf=\"bets && bets.length == 0\">\n                        Inga tippade resultat.\n                    </div>\n                </p-card>\n            </div>\n        </div>\n\n</div>\n\n"
 
 /***/ }),
 
@@ -1368,7 +1365,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "#login-dp{\r\n    margin-left: -170px;\r\n    min-width: 250px;\r\n    padding: 14px;\r\n    overflow:hidden;\r\n    background-color:rgba(255,255,255);\r\n}\r\n#login-dp .help-block{\r\n    font-size:12px    \r\n}\r\n#login-dp .bottom{\r\n    background-color:rgba(255,255,255,.8);\r\n    border-top:1px solid #ddd;\r\n    clear:both;\r\n    padding:14px;\r\n}\r\n#login-dp .form-group {\r\n    margin-bottom: 10px;\r\n}\r\n@media (max-width: 768px) {\r\n    #login-dp {\r\n        margin-left: 0;\r\n    }\r\n }", ""]);
+exports.push([module.i, "#login-dp{\r\n    margin-left: -170px;\r\n    min-width: 250px;\r\n    padding: 14px;\r\n    overflow:hidden;\r\n    background-color:rgba(255,255,255);\r\n}\r\n#login-dp .help-block{\r\n    font-size:12px    \r\n}\r\n#login-dp .bottom{\r\n    background-color:rgba(255,255,255,.8);\r\n    border-top:1px solid #ddd;\r\n    clear:both;\r\n    padding:14px;\r\n}\r\n.error-message {\r\n    color: red;\r\n}\r\n#login-dp .form-group {\r\n    margin-bottom: 10px;\r\n}\r\n@media (max-width: 768px) {\r\n    #login-dp {\r\n        margin-left: 0;\r\n    }\r\n }", ""]);
 
 // exports
 
@@ -1381,7 +1378,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/login-component/login-component.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<ul class=\"nav navbar-nav navbar-right\">\n<li class=\"nav-item dropdown\" *ngIf=\"user == null\" ngbDropdown #loginDropdown=\"ngbDropdown\">\n  <a href=\"\" (click)=\"$event.preventDefault()\" ngbDropdownToggle class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\">Logga in <span class=\"caret\"></span></a>\n  <ul id=\"login-dp\" class=\"dropdown-menu\" ngbDropdownMenu>\n    <li>\n      <div class=\"row\" (click)=\"$event.stopPropagation(); loginDropdown.open();\">\n        <div class=\"col col-lg-12\">\n          <form #loginForm=\"ngForm\" (ngSubmit)=\"login()\">\n            <div class=\"form-group\">\n              <input pInputText type=\"text\" placeholder=\"användarnamn\" [(ngModel)]=\"username\" name=\"username\" required />\n            </div>\n            <div class=\"form-group\">\n              <input pInputText type=\"password\" placeholder=\"lösenord\" [(ngModel)]=\"password\" name=\"password\" required />\n            </div>\n            <div class=\"form-group\">\n              <p-button type=\"submit\" [disabled]=\"!loginForm.form.valid\" label=\"Logga in\" icon=\"fa fa-sign-in\"></p-button>\n            </div>\n          </form>\n          <a routerLink=\"/register\" (click)=\"loginDropdown.close();\">Registrera</a>\n        </div>\n      </div>\n    </li>\n  </ul>\n</li>\n<li class=\"nav-item dropdown\" *ngIf=\"user != null\" ngbDropdown #loginDropdown=\"ngbDropdown\">\n    <a href=\"\" (click)=\"$event.preventDefault()\" ngbDropdownToggle class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\">{{user.username}}</a>\n    <ul id=\"login-dp\" class=\"dropdown-menu\" ngbDropdownMenu>\n      <li>\n        <div class=\"row\" (click)=\"$event.stopPropagation(); loginDropdown.open();\">\n          <div class=\"col col-lg-12\">\n            <ul class=\"list-unstyled\">\n              <li><a routerLink=\"/user/{{user.username}}\">Profil</a></li>\n              <li><a href=\"\" (click)=\"$event.preventDefault();signOut()\">Logga ut</a></li>\n            </ul>\n          </div>\n        </div>\n      </li>\n    </ul>\n  </li>\n</ul>"
+module.exports = "<ul class=\"nav navbar-nav navbar-right\">\n<li class=\"nav-item dropdown\" *ngIf=\"user == null\" ngbDropdown #loginDropdown=\"ngbDropdown\">\n  <a href=\"\" (click)=\"$event.preventDefault()\" ngbDropdownToggle class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\">Logga in <span class=\"caret\"></span></a>\n  <ul id=\"login-dp\" class=\"dropdown-menu\" ngbDropdownMenu>\n    <li>\n      <div class=\"row\" (click)=\"$event.stopPropagation(); loginDropdown.open();\">\n        <div class=\"col col-lg-12\">\n          <form #loginForm=\"ngForm\" (ngSubmit)=\"login()\">\n            <div class=\"form-group\">\n              <input pInputText type=\"text\" placeholder=\"användarnamn\" [(ngModel)]=\"username\" name=\"username\" required />\n            </div>\n            <div class=\"form-group\">\n              <input pInputText type=\"password\" placeholder=\"lösenord\" [(ngModel)]=\"password\" name=\"password\" required />\n            </div>\n            <p *ngIf=\"logonFailed\" class=\"error-message\">Användarnamnet eller lösenordet är felaktigt.</p>\n\n            <div class=\"form-group\">\n              <p-button type=\"submit\" [disabled]=\"!loginForm.form.valid\" label=\"Logga in\" icon=\"fa fa-sign-in\"></p-button>\n            </div>\n          </form>\n          <p><a routerLink=\"/register\" (click)=\"loginDropdown.close();\">Registrera</a></p>\n        </div>\n      </div>\n    </li>\n  </ul>\n</li>\n<li class=\"nav-item dropdown\" *ngIf=\"user != null\" ngbDropdown #loginDropdown=\"ngbDropdown\">\n    <a href=\"\" (click)=\"$event.preventDefault()\" ngbDropdownToggle class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\">{{user.username}}</a>\n    <ul id=\"login-dp\" class=\"dropdown-menu\" ngbDropdownMenu>\n      <li>\n        <div class=\"row\" (click)=\"$event.stopPropagation(); loginDropdown.open();\">\n          <div class=\"col col-lg-12\">\n            <ul class=\"list-unstyled\">\n              <li><a routerLink=\"/user/{{user.username}}\">Profil</a></li>\n              <li><a href=\"\" (click)=\"$event.preventDefault();signOut()\">Logga ut</a></li>\n            </ul>\n          </div>\n        </div>\n      </li>\n    </ul>\n  </li>\n</ul>"
 
 /***/ }),
 
@@ -1410,12 +1407,15 @@ var LoginComponentComponent = /** @class */ (function () {
         this.password = null;
         this.isLoggedIn = false;
         this.user = null;
+        this.logonFailed = false;
     }
     LoginComponentComponent.prototype.login = function () {
         var _this = this;
+        this.logonFailed = false;
         this.authenticationService.signIn(this.username, this.password).then(function (result) {
             _this.user = _this.authenticationService.getUser();
         }, function (rejected) {
+            _this.logonFailed = true;
             _this.user = null;
         });
     };
@@ -1749,7 +1749,7 @@ var AuthenticationService = /** @class */ (function () {
                 localStorage.setItem('user', JSON.stringify(result));
                 _this.dispatcher.emit(new __WEBPACK_IMPORTED_MODULE_6__domain_auth_authentication_event__["a" /* AuthenticationEvent */](true));
                 resolve(true);
-            }, function (reject) {
+            }, function (rejected) {
                 reject(false);
             });
         });
@@ -1912,7 +1912,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".table-borderless > tbody > tr > td,\r\n.table-borderless > tbody > tr > th,\r\n.table-borderless > tfoot > tr > td,\r\n.table-borderless > tfoot > tr > th,\r\n.table-borderless > thead > tr > td,\r\n.table-borderless > thead > tr > th {\r\n    border: none;\r\n}", ""]);
+exports.push([module.i, ".table-borderless > tbody > tr > td,\r\n.table-borderless > tbody > tr > th,\r\n.table-borderless > tfoot > tr > td,\r\n.table-borderless > tfoot > tr > th,\r\n.table-borderless > thead > tr > td,\r\n.table-borderless > thead > tr > th {\r\n    border: none;\r\n}\r\n\r\n.clickable {\r\n    cursor: pointer;\r\n}", ""]);
 
 // exports
 
@@ -1925,7 +1925,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/top-list/top-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <a *ngFor=\"let user of topList\" routerLink=\"/user/{{user.username}}\">\n  <div class=\"w-100\">\n    <div class=\"row\">\n      <div class=\"col-lg-1\"><h6 class=\"mb-1\">{{user.rank}}</h6></div>\n      <div class=\"col-lg-8\"><h6 class=\"mb-1\">{{user.username}}</h6></div>\n      <div class=\"col-lg-2\"><h6 class=\"mb-1\">{{user.totalPoints}}</h6></div>\n    </div>\n      \n      <h6 class=\"mb-1\">{{user.username}}</h6>\n      <h6 class=\"mb-1\">{{user.totalPoints}}</h6> \n  </div> \n</a> -->\n<table class=\"table table-borderless\">\n  <tbody>\n    <tr *ngFor=\"let user of topList\" routerLink=\"/user/{{user.username}}\">\n      <td class=\"col-lg-1\">{{user.rank}}</td>\n      <td class=\"col-lg-8\">{{user.username}}</td>\n      <td class=\"col-lg-3\">{{user.totalPoints}}</td>\n    </tr>\n  </tbody>\n</table>"
+module.exports = "<!-- <a *ngFor=\"let user of topList\" routerLink=\"/user/{{user.username}}\">\n  <div class=\"w-100\">\n    <div class=\"row\">\n      <div class=\"col-lg-1\"><h6 class=\"mb-1\">{{user.rank}}</h6></div>\n      <div class=\"col-lg-8\"><h6 class=\"mb-1\">{{user.username}}</h6></div>\n      <div class=\"col-lg-2\"><h6 class=\"mb-1\">{{user.totalPoints}}</h6></div>\n    </div>\n      \n      <h6 class=\"mb-1\">{{user.username}}</h6>\n      <h6 class=\"mb-1\">{{user.totalPoints}}</h6> \n  </div> \n</a> -->\n<table class=\"table table-borderless\">\n  <tbody>\n    <tr *ngFor=\"let user of topList\" routerLink=\"/user/{{user.username}}\" class=\"clickable\">\n      <td class=\"col-lg-1\">{{user.rank}}</td>\n      <td class=\"col-lg-8\">{{user.username}}</td>\n      <td class=\"col-lg-3\">{{user.totalPoints}}</td>\n    </tr>\n  </tbody>\n</table>"
 
 /***/ }),
 
@@ -1996,7 +1996,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/user/user.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"user != null\">\n  <h1>{{user.username}}</h1>\n  <p-button [appHasPermission]=\"'Administrator'\" label=\"Gör till administratör\" (click)=\"makeAdministrator()\"></p-button>\n  <div class=\"row\">\n      <div class=\"col-12 col-sm-12 col-md-6 col-lg-6\">\n        <p-card title=\"Tippningar (avslutade spel)\"></p-card>\n      </div>\n      <div class=\"col-12 col-sm-12 col-md-6 col-lg-6\">\n          <p-card title=\"Poängutveckling\">\n            <p-chart type=\"line\" [data]=\"data\" [options]=\"options\"></p-chart>\n          </p-card>\n        </div>\n  </div>\n</div>\n"
+module.exports = "<div *ngIf=\"user != null\">\n  <h1>{{user.username}}</h1>\n  <p-button [appHasPermission]=\"'Administrator'\" label=\"Gör till administratör\" (click)=\"makeAdministrator()\"></p-button>\n  <div class=\"row\">\n      <div class=\"col-12 col-sm-12 col-md-6 col-lg-6\">\n        <p-card title=\"Tippningar (avslutade spel)\">\n            <div class=\"row\">\n                <div class=\"col-lg-2\"><b>Datum</b></div>\n                <div class=\"col-lg-8\"><b>Spel</b></div>\n                <div class=\"col-lg-2\"><b>Poäng</b></div>\n              </div>\n\n          <div *ngFor=\"let bet of bets\" class=\"row\">\n              <div class=\"col-lg-2\"><a routerLink=\"/game/{{bet.gameId}}\">{{bet.gameStartedOn | date: 'yyyy-MM-dd'}}</a></div>\n              <div class=\"col-lg-8\"><a routerLink=\"/game/{{bet.gameId}}\">{{bet.gameTitle | limitTo: 20}}</a></div>\n              <div class=\"col-lg-2\"><a routerLink=\"/game/{{bet.gameId}}\">{{bet.awardedPoints}}</a></div>\n          </div>\n\n\n        </p-card>\n      </div>\n      <div class=\"col-12 col-sm-12 col-md-6 col-lg-6\">\n          <p-card title=\"Poängutveckling\">\n            <p-chart type=\"line\" [data]=\"data\" [options]=\"options\"></p-chart>\n          </p-card>\n        </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2029,11 +2029,20 @@ var UserComponent = /** @class */ (function () {
         this.route = route;
         this.messageService = messageService;
         this.user = null;
+        this.bets = null;
         this.data = {
             labels: [],
             datasets: []
         };
         this.options = {
+            scales: {
+                xAxes: [{
+                        type: 'time',
+                        time: {
+                            unit: 'day'
+                        }
+                    }]
+            },
             title: {
                 display: false,
                 text: 'My Title',
@@ -2049,12 +2058,15 @@ var UserComponent = /** @class */ (function () {
         var username = this.route.snapshot.paramMap.get('username');
         this.userService.getUser(username).subscribe(function (user) {
             _this.user = user;
-            _this.userService.getUserBets(username).subscribe(function (bets) { return _this.initializeGraph(bets); });
+            _this.userService.getUserBets(username).subscribe(function (bets) {
+                _this.initializeGraph(bets);
+                _this.bets = bets;
+            });
         });
     };
     UserComponent.prototype.initializeGraph = function (bets) {
         var labels = [];
-        var dataset = [{ label: this.user.username, data: [], borderColor: '#4bc0c0' }];
+        var dataset = [{ label: this.user.username, data: [], borderColor: '#4bc0c0', fill: false }];
         for (var _i = 0, bets_1 = bets; _i < bets_1.length; _i++) {
             var bet = bets_1[_i];
             labels.push(new Date(bet.gameStartedOn));

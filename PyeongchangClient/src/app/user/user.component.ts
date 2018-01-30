@@ -35,7 +35,12 @@ export class UserComponent implements OnInit {
     },
     legend: {
         position: 'none'
-    }
+    },
+    elements: {
+      line: {
+          tension: 0, // disables bezier curves
+      }
+  }
 };
 
   constructor(
