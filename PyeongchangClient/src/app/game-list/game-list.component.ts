@@ -12,13 +12,28 @@ import { HasPermissionDirective } from '../directives/has-permission.directive';
 })
 export class GameListComponent implements OnInit {
   @Input() gameType: string;
+  @Input() orderBy: string = 'startsOn';
+  @Input() reverseOrder: boolean = false;
+  @Input() itemsShown: number = 5;
   games: Game[];
+  hasMoreItems: boolean = false;
 
   constructor(private gameService: GameService) { }
 
   getOpenGames(): void {
-    
-    this.gameService.getGames(this.gameType).subscribe(games=> this.games = games);
+    this.gameService.getGames(this.gameType).subscribe(games=> {
+      this.games = games;
+      if(this.games.length > this.itemsShown) {
+        this.hasMoreItems = true;
+      }
+    });
+  }
+
+  showMoreItems(): void {
+    this.itemsShown += 5;
+    if(this.itemsShown >= this.games.length) {
+      this.hasMoreItems = false;
+    }
   }
 
   ngOnInit() {
