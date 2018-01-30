@@ -32,6 +32,7 @@ import { GameEditComponent } from './game-edit/game-edit.component';
 import { HasPermissionDirective } from './directives/has-permission.directive';
 import { TopListComponent } from './top-list/top-list.component';
 import { LimitToPipe } from './limit-to.pipe';
+import * as moment from 'moment';
 
 
 const appRoutes: Routes = [

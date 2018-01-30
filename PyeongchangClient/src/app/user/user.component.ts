@@ -12,6 +12,7 @@ import { Bet } from '../domain/bet';
 })
 export class UserComponent implements OnInit {
   user: User = null;
+  bets: Bet[] = null;
 
   data : any = {
     labels: [],
@@ -19,6 +20,14 @@ export class UserComponent implements OnInit {
   }
 
   options = {
+    scales: {
+      xAxes: [{
+        type: 'time',
+        time: {
+          unit: 'day'
+      }
+    }]
+    },
     title: {
         display: false,
         text: 'My Title',
@@ -38,14 +47,17 @@ export class UserComponent implements OnInit {
     const username = this.route.snapshot.paramMap.get('username');
     this.userService.getUser(username).subscribe(user =>  {
       this.user = user;
-      this.userService.getUserBets(username).subscribe(bets => this.initializeGraph(bets));
+      this.userService.getUserBets(username).subscribe(bets => {
+        this.initializeGraph(bets);
+        this.bets = bets;
+      });
     });
     
   }
 
   initializeGraph(bets: Bet[]): void {
     var labels = [];
-    var dataset = [{label: this.user.username, data: [], borderColor: '#4bc0c0'}];
+    var dataset = [{label: this.user.username, data: [], borderColor: '#4bc0c0', fill: false}];
 
     for(let bet of bets) {
       labels.push(new Date(bet.gameStartedOn));

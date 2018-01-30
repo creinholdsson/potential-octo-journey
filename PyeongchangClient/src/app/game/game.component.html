@@ -32,7 +32,7 @@
                     <h5 class="mb-1">Resultat</h5>
                 </div>
                 <div class="w-100" style="border-bottom: 1px solid lightgray"></div>
-                <div *ngFor="let bet of bets">
+                <div *ngFor="let bet of bets | orderBy: 'userName'">
                     <div class="d-flex w-100 justify-content-between">
                         <span class="mb-1">{{bet.userName}}</span>
                         <span class="mb-1">{{bet.scoreTeam1}} 
@@ -82,7 +82,7 @@
                             <h5 class="mb-1">Resultat</h5>
                         </div>
                         <div class="w-100" style="border-bottom: 1px solid lightgray"></div>
-                        <div *ngFor="let bet of bets | orderBy: {property: 'userName', direction: -1}">
+                        <div *ngFor="let bet of bets | orderBy: 'userName'">
                             <div class="d-flex w-100 justify-content-between">
                                 <span class="mb-1">{{bet.userName}}</span>
                                 <span class="mb-1">{{bet.scoreTeam1}}-{{bet.scoreTeam2}}

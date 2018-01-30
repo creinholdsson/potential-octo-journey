@@ -3,7 +3,21 @@
   <p-button [appHasPermission]="'Administrator'" label="Gör till administratör" (click)="makeAdministrator()"></p-button>
   <div class="row">
       <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-        <p-card title="Tippningar (avslutade spel)"></p-card>
+        <p-card title="Tippningar (avslutade spel)">
+            <div class="row">
+                <div class="col-lg-2"><b>Datum</b></div>
+                <div class="col-lg-8"><b>Spel</b></div>
+                <div class="col-lg-2"><b>Poäng</b></div>
+              </div>
+
+          <div *ngFor="let bet of bets" class="row">
+              <div class="col-lg-2"><a routerLink="/game/{{bet.gameId}}">{{bet.gameStartedOn | date: 'yyyy-MM-dd'}}</a></div>
+              <div class="col-lg-8"><a routerLink="/game/{{bet.gameId}}">{{bet.gameTitle | limitTo: 20}}</a></div>
+              <div class="col-lg-2"><a routerLink="/game/{{bet.gameId}}">{{bet.awardedPoints}}</a></div>
+          </div>
+
+
+        </p-card>
       </div>
       <div class="col-12 col-sm-12 col-md-6 col-lg-6">
           <p-card title="Poängutveckling">
