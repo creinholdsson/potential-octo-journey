@@ -21,12 +21,15 @@ namespace PyeongchangKampen.Controllers
         private IGameRepository _Repository;
         private ILogger<GameController> _Logger;
         private IBetRepository _BetRepository;
+        private ISportRepository _SportRepository;
 
-        public GameController(IGameRepository repository, ILogger<GameController> logger, IBetRepository betRepository)
+        public GameController(IGameRepository repository, ILogger<GameController> logger, IBetRepository betRepository, ISportRepository sportRepository)
         {
             _Repository = repository;
             _Logger = logger;
             _BetRepository = betRepository;
+            _SportRepository = sportRepository;
+
         }
 
         [HttpGet]
@@ -87,6 +90,12 @@ namespace PyeongchangKampen.Controllers
             }
 
             var game = await _Repository.GetGameAsync(gameId);
+            if(game.Sport.Id != gameDto.SportId)
+            {
+                game.Sport = await _SportRepository.GetSportAsync(gameDto.SportId);
+            }
+
+            
             Mapper.Map(gameDto, game, typeof(GameForUpdateDto), typeof(Game));
 
 
@@ -104,6 +113,16 @@ namespace PyeongchangKampen.Controllers
                 }
                 await _BetRepository.UpdateBets(bets);
             }
+            else
+            {
+                var bets = await _BetRepository.GetBets(game);
+                foreach(var bet in bets)
+                {
+                    bet.AwardedPoints = null;
+                }
+                await _BetRepository.UpdateBets(bets);
+            }
+
             await _Repository.UpdateGame(game);
             return Ok(Mapper.Map<GameForRetrieveDto>(game));
         }
@@ -135,7 +154,7 @@ namespace PyeongchangKampen.Controllers
                 {
                     if(bet.ScoreTeam1.Value == scoreTeam1 && bet.ScoreTeam2.Value == scoreTeam2)
                     {
-                        bet.AwardedPoints = pointsWinner;
+                        bet.AwardedPoints = pointsResult;
                     }
                     else if(scoreTeam1 == scoreTeam2 && bet.ScoreTeam1.Value == bet.ScoreTeam2.Value)
                     {
