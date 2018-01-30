@@ -13,15 +13,18 @@ export class LoginComponentComponent implements OnInit {
   password: string = null;
   isLoggedIn: boolean = false;
   user: User = null;
+  logonFailed: boolean = false;
 
   constructor(private authenticationService: AuthenticationService) { }
 
 
 
   login() {
+    this.logonFailed = false;
     this.authenticationService.signIn(this.username, this.password).then(result=> {
       this.user = this.authenticationService.getUser();
     }, rejected => {
+      this.logonFailed = true;
       this.user = null;
     });
   }

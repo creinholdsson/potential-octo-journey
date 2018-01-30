@@ -89,7 +89,7 @@ export class AuthenticationService {
           localStorage.setItem('user', JSON.stringify(result));
           this.dispatcher.emit(new AuthenticationEvent(true));
           resolve(true);
-        }, reject => {
+        }, rejected => {
           reject(false);
         }
       );
