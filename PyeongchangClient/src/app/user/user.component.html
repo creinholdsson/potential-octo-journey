@@ -2,24 +2,30 @@
   <h1>{{user.username}}</h1>
   <p-button [appHasPermission]="'Administrator'" label="Gör till administratör" (click)="makeAdministrator()"></p-button>
   <div class="row">
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 content-column">
         <p-card title="Tippningar (avslutade spel)">
-            <div class="row">
-                <div class="col-lg-2"><b>Datum</b></div>
-                <div class="col-lg-8"><b>Spel</b></div>
-                <div class="col-lg-2"><b>Poäng</b></div>
+            <div class="row header">
+                <div class="col-sm-3"><b>Datum</b></div>
+                <div class="col-sm-7"><b>Spel</b></div>
+                <div class="col-sm-2"><b>Poäng</b></div>
               </div>
 
-          <div *ngFor="let bet of bets" class="row">
-              <div class="col-lg-2"><a routerLink="/game/{{bet.gameId}}">{{bet.gameStartedOn | date: 'yyyy-MM-dd'}}</a></div>
-              <div class="col-lg-8"><a routerLink="/game/{{bet.gameId}}">{{bet.gameTitle | limitTo: 20}}</a></div>
-              <div class="col-lg-2"><a routerLink="/game/{{bet.gameId}}">{{bet.awardedPoints}}</a></div>
+          <div class="row">
+            <div class="col-sm-12"></div>
+          </div>
+
+          <div>
+            <a *ngFor="let bet of bets" class="row content" routerLink="/game/{{bet.gameId}}">
+              <div class="col-sm-3">{{bet.gameStartedOn | date: 'yyyy-MM-dd'}}</div>
+              <div class="col-sm-7">{{bet.gameTitle | limitTo: 30}}</div>
+              <div class="col-sm-2">{{bet.awardedPoints}}</div>
+            </a>
           </div>
 
 
         </p-card>
       </div>
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 content-column">
           <p-card title="Poängutveckling">
             <p-chart type="line" [data]="data" [options]="options"></p-chart>
           </p-card>

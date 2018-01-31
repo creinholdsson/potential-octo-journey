@@ -13,9 +13,9 @@
 <table class="table table-borderless">
   <tbody>
     <tr *ngFor="let user of topList" routerLink="/user/{{user.username}}" class="clickable">
-      <td class="col-lg-1">{{user.rank}}</td>
-      <td class="col-lg-8">{{user.username}}</td>
-      <td class="col-lg-3">{{user.totalPoints}}</td>
+      <td class="col-sm-1">{{user.rank}}</td>
+      <td class="col-sm-8">{{user.username}}</td>
+      <td class="col-sm-3">{{user.totalPoints}}</td>
     </tr>
   </tbody>
 </table>
