@@ -965,7 +965,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".test {\r\n    min-height: 100px;\r\n}\r\n\r\n\r\n\r\n.test>img.icon {\r\n    opacity: 0.4;\r\n    right: 20px;\r\n    position: absolute;\r\n    height: 60px;\r\n    width: 60px;\r\n}\r\n\r\n\r\n\r\na:hover {\r\n    text-decoration: none;\r\n    color: #000;\r\n}\r\n", ""]);
+exports.push([module.i, ".test {\r\n    min-height: 100px;\r\n    margin: 0;\r\n}\r\n\r\n\r\n.test>img.icon {\r\n    opacity: 0.4;\r\n    right: 20px;\r\n    position: absolute;\r\n    height: 60px;\r\n    width: 60px;\r\n}\r\n\r\n\r\na:hover {\r\n  background-color: #f5f5f5 !important;\r\n  text-decoration: none;\r\n  color: #000;\r\n}\r\n\r\n\r\na {\r\n  display: block;\r\n  padding: 0;\r\n  margin: 0;\r\n}\r\n", ""]);
 
 // exports
 
@@ -978,7 +978,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/game-list/game-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<a *ngFor=\"let game of games | orderBy: orderBy : reverseOrder; let i=index\" routerLink=\"/game/{{game.id}}\">\n  <div class=\"test\" *ngIf=\"i<itemsShown\">\n    <img src=\"{{game.sportIcon}}\" class=\"icon\" />\n    <div class=\"d-flex w-100 justify-content-between\">\n        <h5 class=\"mb-1\">{{game.title}}</h5>\n        <small>{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>\n    </div>\n    <p class=\"mb-3\">{{game.description | limitTo: 55}}</p>\n  </div>\n</a>\n<p>\n  <p-button *ngIf=\"hasMoreItems\" (click)=\"showMoreItems()\" label=\"Visa fler\"></p-button>\n</p>\n"
+module.exports = "<div class=\"row\">\n  <div class=\"col-12\">\r\n    <a *ngFor=\"let game of games | orderBy: orderBy : reverseOrder; let i=index\" routerLink=\"/game/{{game.id}}\">\r\n      <div class=\"test\" *ngIf=\"i<itemsShown\">\r\n        <img src=\"{{game.sportIcon}}\" class=\"icon\" />\r\n        <div class=\"d-flex w-100 justify-content-between\">\r\n          <h5 class=\"mb-1\">{{game.title}}</h5>\r\n          <small>{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>\r\n        </div>\r\n        <p class=\"mb-3\">{{game.description | limitTo: 55}}</p>\r\n      </div>\r\n    </a>\r\n  </div>\n</div>\n\n<p>\n  <p-button *ngIf=\"hasMoreItems\" (click)=\"showMoreItems()\" label=\"Visa fler\"></p-button>\n</p>\n"
 
 /***/ }),
 
@@ -1912,7 +1912,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".table-borderless > tbody > tr > td,\r\n.table-borderless > tbody > tr > th,\r\n.table-borderless > tfoot > tr > td,\r\n.table-borderless > tfoot > tr > th,\r\n.table-borderless > thead > tr > td,\r\n.table-borderless > thead > tr > th {\r\n    border: none;\r\n}\r\n\r\n.clickable {\r\n    cursor: pointer;\r\n}", ""]);
+exports.push([module.i, ".table-borderless > tbody > tr > td,\r\n.table-borderless > tbody > tr > th,\r\n.table-borderless > tfoot > tr > td,\r\n.table-borderless > tfoot > tr > th,\r\n.table-borderless > thead > tr > td,\r\n.table-borderless > thead > tr > th {\r\n    border: none;\r\n}\r\n\r\n.clickable {\r\n    cursor: pointer;\r\n}\r\n\r\n.content-column {\r\n  margin-bottom: 20px;\r\n  margin-top: 20px;\r\n}\r\n\r\n.header {\r\n  font-size: large;\r\n}\r\n\r\n.content {\r\n  border-top: 1px solid #f5f5f5;\r\n  padding-top: 4px;\r\n  padding-bottom: 4px;\r\n  font-size: large;\r\n  cursor: pointer;\r\n}\r\n\r\n.content:first-of-type {\r\n  border-top: 0;\r\n}\r\n\r\n.content:hover {\r\n    background-color: #f5f5f5;\r\n  }\r\n\r\na:hover {\r\n  color: #000;\r\n  text-decoration: none;\r\n}\r\n", ""]);
 
 // exports
 
@@ -1925,7 +1925,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/top-list/top-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <a *ngFor=\"let user of topList\" routerLink=\"/user/{{user.username}}\">\n  <div class=\"w-100\">\n    <div class=\"row\">\n      <div class=\"col-lg-1\"><h6 class=\"mb-1\">{{user.rank}}</h6></div>\n      <div class=\"col-lg-8\"><h6 class=\"mb-1\">{{user.username}}</h6></div>\n      <div class=\"col-lg-2\"><h6 class=\"mb-1\">{{user.totalPoints}}</h6></div>\n    </div>\n      \n      <h6 class=\"mb-1\">{{user.username}}</h6>\n      <h6 class=\"mb-1\">{{user.totalPoints}}</h6> \n  </div> \n</a> -->\n<table class=\"table table-borderless\">\n  <tbody>\n    <tr *ngFor=\"let user of topList\" routerLink=\"/user/{{user.username}}\" class=\"clickable\">\n      <td class=\"col-lg-1\">{{user.rank}}</td>\n      <td class=\"col-lg-8\">{{user.username}}</td>\n      <td class=\"col-lg-3\">{{user.totalPoints}}</td>\n    </tr>\n  </tbody>\n</table>"
+module.exports = "<div>\r\n  <a *ngFor=\"let user of topList\" class=\"row content\" routerLink=\"/user/{{user.username}}\">\r\n    <div class=\"col-2\">{{user.rank}}</div>\r\n    <div class=\"col-8\">{{user.username | limitTo: 20}}</div>\r\n    <div class=\"col-2 text-align-right\">{{user.totalPoints}}</div>\r\n  </a>\r\n</div>\n"
 
 /***/ }),
 
@@ -1983,7 +1983,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "\r\n.content-column {\r\n  margin-bottom: 20px;\r\n  margin-top: 20px;\r\n}\r\n\r\n.header{\r\n  font-size: large;\r\n}\r\n\r\n.content {\r\n  border-top: 1px solid #f5f5f5;\r\n  padding-top: 4px;\r\n  padding-bottom: 4px;\r\n  font-size: large;\r\n  cursor: pointer;\r\n}\r\n\r\n.content:hover {\r\n  background-color: #f5f5f5;\r\n}\r\n\r\na:hover {\r\n  color: #000;\r\n  text-decoration: none;\r\n}\r\n", ""]);
 
 // exports
 
@@ -1996,7 +1996,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/user/user.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"user != null\">\n  <h1>{{user.username}}</h1>\n  <p-button [appHasPermission]=\"'Administrator'\" label=\"Gör till administratör\" (click)=\"makeAdministrator()\"></p-button>\n  <div class=\"row\">\n      <div class=\"col-12 col-sm-12 col-md-6 col-lg-6\">\n        <p-card title=\"Tippningar (avslutade spel)\">\n            <div class=\"row\">\n                <div class=\"col-lg-2\"><b>Datum</b></div>\n                <div class=\"col-lg-8\"><b>Spel</b></div>\n                <div class=\"col-lg-2\"><b>Poäng</b></div>\n              </div>\n\n          <div *ngFor=\"let bet of bets\" class=\"row\">\n              <div class=\"col-lg-2\"><a routerLink=\"/game/{{bet.gameId}}\">{{bet.gameStartedOn | date: 'yyyy-MM-dd'}}</a></div>\n              <div class=\"col-lg-8\"><a routerLink=\"/game/{{bet.gameId}}\">{{bet.gameTitle | limitTo: 20}}</a></div>\n              <div class=\"col-lg-2\"><a routerLink=\"/game/{{bet.gameId}}\">{{bet.awardedPoints}}</a></div>\n          </div>\n\n\n        </p-card>\n      </div>\n      <div class=\"col-12 col-sm-12 col-md-6 col-lg-6\">\n          <p-card title=\"Poängutveckling\">\n            <p-chart type=\"line\" [data]=\"data\" [options]=\"options\"></p-chart>\n          </p-card>\n        </div>\n  </div>\n</div>\n"
+module.exports = "<div *ngIf=\"user != null\">\n  <h1>{{user.username}}</h1>\n  <p-button [appHasPermission]=\"'Administrator'\" label=\"Gör till administratör\" (click)=\"makeAdministrator()\"></p-button>\n  <div class=\"row\">\n      <div class=\"col-12 col-sm-12 col-md-6 col-lg-6 content-column\">\n        <p-card title=\"Tippningar (avslutade spel)\">\n            <div class=\"row header\">\n                <div class=\"col-sm-3\"><b>Datum</b></div>\n                <div class=\"col-sm-7\"><b>Spel</b></div>\n                <div class=\"col-sm-2\"><b>Poäng</b></div>\n              </div>\n\n          <div class=\"row\">\n            <div class=\"col-sm-12\"></div>\n          </div>\n\n          <div>\r\n            <a *ngFor=\"let bet of bets\" class=\"row content\" routerLink=\"/game/{{bet.gameId}}\">\r\n              <div class=\"col-sm-3\">{{bet.gameStartedOn | date: 'yyyy-MM-dd'}}</div>\r\n              <div class=\"col-sm-7\">{{bet.gameTitle | limitTo: 30}}</div>\r\n              <div class=\"col-sm-2\">{{bet.awardedPoints}}</div>\r\n            </a>\r\n          </div>\n\n\n        </p-card>\n      </div>\n      <div class=\"col-12 col-sm-12 col-md-6 col-lg-6 content-column\">\n          <p-card title=\"Poängutveckling\">\n            <p-chart type=\"line\" [data]=\"data\" [options]=\"options\"></p-chart>\n          </p-card>\n        </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2107,7 +2107,7 @@ var UserComponent = /** @class */ (function () {
 /***/ "../../../../../src/assets/header.png":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "header.28521147caea6bfe06cc.png";
+module.exports = __webpack_require__.p + "header.cf7a9ea2f879c1afe190.png";
 
 /***/ }),
 
