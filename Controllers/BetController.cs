@@ -36,6 +36,7 @@ namespace PyeongchangKampen.Controllers
             var bet = await _Repository.GetBet(betId);
             if(bet == null)
             {
+                _Logger.LogInformation($"Tried to reach bet with id {betId} which failed");
                 return NotFound();
             }
 
@@ -63,6 +64,7 @@ namespace PyeongchangKampen.Controllers
             var currentUserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
             if (currentUserId == null)
             {
+                _Logger.LogWarning($"Token validation failed, user {User.Identity.Name} is lacking information in token");
                 return BadRequest("Supplied token lacks information");
             }
             var bets = await _Repository.GetBets(new ApplicationUser { Id = currentUserId.Value });
@@ -93,22 +95,27 @@ namespace PyeongchangKampen.Controllers
 
             if(game == null)
             {
+                _Logger.LogWarning($"User {User.Identity.Name} tried to place bet on {betDto.GameId} which doesnt exist");
                 ModelState.AddModelError(nameof(betDto.GameId), "Not a valid game id");
                 return BadRequest(ModelState);
             }
             if(game.IsOpenForBets == false)
             {
+                _Logger.LogWarning($"User {User.Identity.Name} tried to place bet on {betDto.GameId} which isnt open for bets");
                 ModelState.AddModelError(nameof(betDto.GameId), "Not open for bets");
+                return BadRequest(ModelState);
             }
             
             var bet = Mapper.Map<Bet>(betDto);
             var currentUserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
             if (currentUserId == null)
             {
+                _Logger.LogWarning($"Token validation failed, user {User.Identity.Name} is lacking information in token");
                 return BadRequest("Supplied token lacks information");
             }
             bet.User = new ApplicationUser { Id = currentUserId.Value };
             bet = await _Repository.AddBet(bet);
+            _Logger.LogInformation($"User {User.Identity.Name} placed a bet {betDto.ScoreTeam1}-{betDto.ScoreTeam2} on game {betDto.GameId}");
             return CreatedAtRoute("GetBet", new { betId = bet.Id }, Mapper.Map<BetForRetrieveDto>(bet));
         }
 

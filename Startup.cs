@@ -20,6 +20,7 @@ using PyeongchangKampen.Repostory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using System.IO;
+using Serilog;
 
 namespace PyeongchangKampen
 {
@@ -113,12 +114,23 @@ namespace PyeongchangKampen
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            var seriLogger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .Enrich.FromLogContext()
+                .WriteTo.ApplicationInsightsEvents(Configuration.GetValue<string>("ApplicationInsights:InstrumentationKey"))
+                .CreateLogger();
+
+            loggerFactory.AddSerilog();
+
+            seriLogger.Information("Serilog have started");
+            seriLogger.Information("Starting up logging for {Name}", typeof(Startup).Namespace);
 
             app.Use(async (context, next) => {
                 await next();

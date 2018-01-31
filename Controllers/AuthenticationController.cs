@@ -76,6 +76,7 @@ namespace PyeongchangKampen.Controllers
                 signingCredentials: credentials
                 );
 
+            _Logger.LogInformation($"User {signInDto} logged in");
             return Ok(new SignInForRetrieveDto { Username = signInDto.Username, Token = new JwtSecurityTokenHandler().WriteToken(token), Roles = roles.ToArray() });
         }
 
@@ -93,6 +94,8 @@ namespace PyeongchangKampen.Controllers
             {
                 return NotFound();
             }
+
+
 
             return Ok(Mapper.Map<UserForRetrieve>(user));
         }
@@ -113,11 +116,15 @@ namespace PyeongchangKampen.Controllers
             var creationsResult = await _UserManager.CreateAsync(user, userDto.Password);
             if (creationsResult.Succeeded)
             {
+                _Logger.LogInformation($"Created user {userDto.Username}");
+
                 return Ok(CreateToken(user));
             }
             else
             {
                 AddErrorsToModelState(creationsResult);
+
+                _Logger.LogWarning($"Failed to create user {userDto.Username}");
                 return BadRequest(ModelState);
             }
 
@@ -150,6 +157,8 @@ namespace PyeongchangKampen.Controllers
             var result = await _UserManager.AddToRoleAsync(user, "Administrator");
             if(result.Succeeded)
             {
+                _Logger.LogInformation($"{User.Identity.Name} added {username} as administrator");
+
                 return Ok("User added to role");
             }
             return BadRequest(result.Errors);

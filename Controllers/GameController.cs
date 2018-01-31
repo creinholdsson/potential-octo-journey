@@ -77,6 +77,7 @@ namespace PyeongchangKampen.Controllers
             }
 
             game = await _Repository.AddGameAsync(game);
+            _Logger.LogInformation($"{User.Identity.Name} created game {gameDto.Title} with sport {gameDto.SportId}");
             return CreatedAtRoute("GetGame", new { gameId = game.Id }, Ok(Mapper.Map<GameForRetrieveDto>(game)));
         }
 
@@ -124,6 +125,7 @@ namespace PyeongchangKampen.Controllers
             }
 
             await _Repository.UpdateGame(game);
+            _Logger.LogInformation($"{User.Identity.Name} updated game {gameDto.Title} with sport {gameDto.SportId}");
             return Ok(Mapper.Map<GameForRetrieveDto>(game));
         }
 
