@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 namespace PyeongchangKampen.Controllers
 {
     [Route("/api/auth")]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class AuthenticationController : Controller
     {
         private TokenConfigurationParameters _TokenParameters;

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using PyeongchangKampen.Models;
 using PyeongchangKampen.Models.DTO.Creation;
@@ -17,17 +18,25 @@ using System.Threading.Tasks;
 namespace PyeongchangKampen.Controllers
 {
     [Route("/api/bets")]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class BetController: Controller
     {
+        public static readonly string CACHE_KEY_BETS_USER = "CACHE_KEY_BETS_USER";
+        public static readonly string CACHE_KEY_BETS_GAME = "CACHE_KEY_BETS_GAME";
         private IBetRepository _Repository;
         private IGameRepository _GameRepository;
         private ILogger<BetController> _Logger;
+        private IMemoryCache _Cache;
 
-        public BetController(IBetRepository repository, ILogger<BetController> logger, IGameRepository gameRepository)
+
+
+        public BetController(IBetRepository repository, ILogger<BetController> logger, 
+            IGameRepository gameRepository, IMemoryCache cache)
         {
             _Repository = repository;
             _GameRepository = gameRepository;
             _Logger = logger;
+            _Cache = cache;
         }
 
         [HttpGet("{betId:int}", Name = "GetBet")]
@@ -53,8 +62,18 @@ namespace PyeongchangKampen.Controllers
         [HttpGet("game/{gameId:int}")]
         public async Task<IActionResult> GetBets(int gameId)
         {
-            var bets = await _Repository.GetBets(new Models.Game { Id = gameId });
-            return Ok(Mapper.Map<IEnumerable<BetForRetrieveDto>>(bets));
+            var cacheKey = CACHE_KEY_BETS_GAME + gameId;
+            IEnumerable<BetForRetrieveDto> betsForRetrieve;
+            
+            if(_Cache.TryGetValue(cacheKey, out betsForRetrieve) == false)
+            {
+                var bets = await _Repository.GetBets(new Models.Game { Id = gameId });
+                betsForRetrieve = Mapper.Map<IEnumerable<BetForRetrieveDto>>(bets);
+
+                _Cache.Set(cacheKey, betsForRetrieve);
+            }
+
+            return Ok(betsForRetrieve);
         }
 
         [Authorize]
@@ -75,16 +94,18 @@ namespace PyeongchangKampen.Controllers
         [HttpGet("user/{username}")]
         public async Task<IActionResult> GetBetsForUser(string username, int leagueId)
         {
+
             var bets = await _Repository.GetBetsForUserName(new ApplicationUser { UserName = username }, leagueId);
-            var mapped = Mapper.Map<IEnumerable<BetForRetrieveDto>>(bets).OrderBy(x => x.GameStartedOn);
+            var betsForRetrieve = Mapper.Map<IEnumerable<BetForRetrieveDto>>(bets).OrderBy(x => x.GameStartedOn);
             var accumulated = 0;
-            foreach(var bet in mapped)
+            foreach (var bet in betsForRetrieve)
             {
                 accumulated += bet.AwardedPoints.HasValue ? bet.AwardedPoints.Value : 0;
-                bet.AccumulatedScore = accumulated;                
+                bet.AccumulatedScore = accumulated;
             }
 
-            return Ok(mapped);
+
+            return Ok(betsForRetrieve);
         }
 
         [Authorize]
@@ -116,6 +137,7 @@ namespace PyeongchangKampen.Controllers
             bet.User = new ApplicationUser { Id = currentUserId.Value };
             bet = await _Repository.AddBet(bet);
             _Logger.LogInformation($"User {User.Identity.Name} placed a bet {betDto.ScoreTeam1}-{betDto.ScoreTeam2} on game {betDto.GameId}");
+            _Cache.Remove(CACHE_KEY_BETS_GAME + betDto.GameId);
             return CreatedAtRoute("GetBet", new { betId = bet.Id }, Mapper.Map<BetForRetrieveDto>(bet));
         }
 

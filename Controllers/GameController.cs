@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using PyeongchangKampen.Models;
 using PyeongchangKampen.Models.DTO.Creation;
 using PyeongchangKampen.Models.DTO.Retrieve;
@@ -16,36 +18,64 @@ using System.Threading.Tasks;
 namespace PyeongchangKampen.Controllers
 {
     [Route("/api/games")]
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class GameController : Controller
     {
+        public static readonly string CACHE_KEY_GAME = "CACHE_KEY_GAME";
         private IGameRepository _Repository;
         private ILogger<GameController> _Logger;
         private IBetRepository _BetRepository;
         private ISportRepository _SportRepository;
+        private IMemoryCache _Cache;
 
-        public GameController(IGameRepository repository, ILogger<GameController> logger, IBetRepository betRepository, ISportRepository sportRepository)
+        public GameController(IGameRepository repository, ILogger<GameController> logger, IBetRepository betRepository, 
+            ISportRepository sportRepository, IMemoryCache cache)
         {
             _Repository = repository;
             _Logger = logger;
             _BetRepository = betRepository;
             _SportRepository = sportRepository;
-
+            _Cache = cache;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetGames(string filter = null)
         {
-            var games = await _Repository.GetGamesAsync();
+            IEnumerable<GameForRetrieveDto> gamesToRetrieve;
+            
+
             if(filter == "open")
             {
-                games = games.Where(x => x.IsOpenForBets == true);
+                if(_Cache.TryGetValue(CACHE_KEY_GAME+"open", out gamesToRetrieve) == false)
+                {
+                    var games = await _Repository.GetGamesAsync();
+                    games = games.Where(x => x.IsOpenForBets == true);
+                    gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
+                    _Cache.Set(CACHE_KEY_GAME + "open", gamesToRetrieve);
+                }
             }
-            if(filter == "closed")
+            else if(filter == "closed")
             {
-                games = games.Where(x => x.IsOpenForBets == false);
+                if (_Cache.TryGetValue(CACHE_KEY_GAME + "closed", out gamesToRetrieve) == false)
+                {
+                    var games = await _Repository.GetGamesAsync();
+                    games = games.Where(x => x.IsOpenForBets == false);
+                    gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
+                    _Cache.Set(CACHE_KEY_GAME + "closed", gamesToRetrieve);
+                }
+            }
+            else
+            {
+                if (_Cache.TryGetValue(CACHE_KEY_GAME, out gamesToRetrieve) == false)
+                {
+                    var games = await _Repository.GetGamesAsync();
+                    gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
+                    _Cache.Set(CACHE_KEY_GAME, gamesToRetrieve);
+                }
             }
 
-            return Ok(Mapper.Map<IEnumerable<GameForRetrieveDto>>(games));
+
+            return Ok(gamesToRetrieve);
         }
 
         [HttpGet("{gameId}", Name = "GetGame")]
@@ -78,6 +108,10 @@ namespace PyeongchangKampen.Controllers
 
             game = await _Repository.AddGameAsync(game);
             _Logger.LogInformation($"{User.Identity.Name} created game {gameDto.Title} with sport {gameDto.SportId}");
+
+            _Cache.Remove(CACHE_KEY_GAME);
+            _Cache.Remove(CACHE_KEY_GAME+"closed");
+            _Cache.Remove(CACHE_KEY_GAME+"open");
             return CreatedAtRoute("GetGame", new { gameId = game.Id }, Ok(Mapper.Map<GameForRetrieveDto>(game)));
         }
 
@@ -125,6 +159,11 @@ namespace PyeongchangKampen.Controllers
             }
 
             await _Repository.UpdateGame(game);
+
+            _Cache.Remove(CACHE_KEY_GAME);
+            _Cache.Remove(CACHE_KEY_GAME + "closed");
+            _Cache.Remove(CACHE_KEY_GAME + "open");
+            _Cache.Remove(BetController.CACHE_KEY_BETS_GAME + gameId);
             _Logger.LogInformation($"{User.Identity.Name} updated game {gameDto.Title} with sport {gameDto.SportId}");
             return Ok(Mapper.Map<GameForRetrieveDto>(game));
         }

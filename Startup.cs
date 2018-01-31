@@ -98,6 +98,7 @@ namespace PyeongchangKampen
                 };
             });
 
+            services.AddMemoryCache();
             services.Configure<TokenConfigurationParameters>(options => Configuration.GetSection("Token").Bind(options));
 
             // Add service and create Policy with options
