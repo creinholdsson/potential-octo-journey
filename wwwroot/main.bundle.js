@@ -2050,6 +2050,11 @@ var UserComponent = /** @class */ (function () {
             },
             legend: {
                 position: 'none'
+            },
+            elements: {
+                line: {
+                    tension: 0,
+                }
             }
         };
     }
