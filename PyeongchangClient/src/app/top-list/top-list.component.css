@@ -10,3 +10,33 @@
 .clickable {
     cursor: pointer;
 }
+
+.content-column {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.header {
+  font-size: large;
+}
+
+.content {
+  border-top: 1px solid #f5f5f5;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: large;
+  cursor: pointer;
+}
+
+.content:first-of-type {
+  border-top: 0;
+}
+
+  .content:hover {
+    background-color: #f5f5f5;
+  }
+
+a:hover {
+  color: #000;
+  text-decoration: none;
+}
