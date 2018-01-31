@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using PyeongchangKampen.Models;
 using PyeongchangKampen.Models.DTO.Creation;
@@ -17,13 +18,16 @@ namespace PyeongchangKampen.Controllers
     [Route("/api/leagues")]
     public class LeagueController: Controller
     {
+        public static readonly string CACHE_KEY_TOP_LIST = "CACHE_KEY_LEAGUE_TOPLIST";
         private ILeagueRepository _Repository;
         private ILogger<LeagueController> _Logger;
+        private IMemoryCache _Cache;
 
-        public LeagueController(ILeagueRepository repository, ILogger<LeagueController> logger)
+        public LeagueController(ILeagueRepository repository, ILogger<LeagueController> logger, IMemoryCache memoryCache)
         {
             _Repository = repository;
             _Logger = logger;
+            _Cache = memoryCache;
         }
 
         [HttpGet]
@@ -74,15 +78,24 @@ namespace PyeongchangKampen.Controllers
         [HttpGet("{leagueId:int}/toplist")]
         public async Task<IActionResult> GetToplist(int leagueId)
         {
-            var topList = await _Repository.GetTopList(new League { Id = leagueId });
-            var topListRanked = topList.Select(s => new ApplicationUser {
-                Id = s.Id,
-                UserName = s.UserName,
-                TotalPoints = s.TotalPoints,
-                Rank = topList.Count(x => x.TotalPoints > s.TotalPoints) + 1
-            });
+            IEnumerable<UserForRetrieve> usersForRetrieve;
+            var cacheKey = CACHE_KEY_TOP_LIST + leagueId;
 
-            return Ok(Mapper.Map<IEnumerable<UserForRetrieve>>(topListRanked.OrderBy(x=>x.Rank)));
+            if(_Cache.TryGetValue(cacheKey, out usersForRetrieve) == false)
+            {
+                var topList = await _Repository.GetTopList(new League { Id = leagueId });
+                var topListRanked = topList.Select(s => new ApplicationUser
+                {
+                    Id = s.Id,
+                    UserName = s.UserName,
+                    TotalPoints = s.TotalPoints,
+                    Rank = topList.Count(x => x.TotalPoints > s.TotalPoints) + 1
+                });
+                usersForRetrieve = Mapper.Map<IEnumerable<UserForRetrieve>>(topListRanked.OrderBy(x => x.Rank));
+                _Cache.Set(cacheKey, usersForRetrieve);
+            }
+
+            return Ok(usersForRetrieve);
         }
 
     }
