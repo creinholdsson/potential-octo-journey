@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using System.IO;
 using Serilog;
+using Serilog.Events;
 
 namespace PyeongchangKampen
 {
@@ -123,12 +124,13 @@ namespace PyeongchangKampen
             }
 
             var seriLogger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
+                .MinimumLevel.Information()
                 .Enrich.FromLogContext()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .WriteTo.ApplicationInsightsEvents(Configuration.GetValue<string>("ApplicationInsights:InstrumentationKey"))
                 .CreateLogger();
 
-            loggerFactory.AddSerilog();
+            loggerFactory.AddSerilog(seriLogger);
 
             seriLogger.Information("Serilog have started");
             seriLogger.Information("Starting up logging for {Name}", typeof(Startup).Namespace);

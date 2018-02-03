@@ -22,15 +22,28 @@ export class HasPermissionDirective implements OnInit {
   }
 
   applyPermission(role: string): void {
-    if(this.hasPermission) {
-      if(this.authenticationService.hasRole(this.hasPermission)) {
-        console.log('User has permission');
-        this.renderer.setElementStyle(this.element.nativeElement, 'display', 'inline-block');
+    let hasCorrectPermission: boolean = false;
+    if (this.hasPermission != null) {
+      console.log(this.hasPermission.length);
+      if (this.hasPermission.length == 0 && this.authenticationService.isAuthenticated()) {
+        console.log('got empty permission, will show if authenticated');
+        hasCorrectPermission = true;
       }
       else {
-        console.log('User doesnt have permission');
-        this.renderer.setElementStyle(this.element.nativeElement, 'display', 'none');
+        if (this.authenticationService.hasRole(this.hasPermission)) {
+          hasCorrectPermission = true;
+        }
+        else {
+          hasCorrectPermission = false;  
+        }
       }
+    }
+
+    if (hasCorrectPermission) {
+      this.renderer.setElementStyle(this.element.nativeElement, 'display', 'inline-block');
+    }
+    else {
+      this.renderer.setElementStyle(this.element.nativeElement, 'display', 'none');
     }
   }
 

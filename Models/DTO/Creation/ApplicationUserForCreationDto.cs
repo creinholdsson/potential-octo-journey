@@ -21,5 +21,9 @@ namespace PyeongchangKampen.Models.DTO.Creation
         [DataType(DataType.Password)]
         [MinLength(5)]
         public string Password { get; set; }
+
+        [RegularExpression(@"^(\+)*([\d\- ]{6,})$")]
+        [Required]
+        public string PhoneNumber { get; set; }
     }
 }

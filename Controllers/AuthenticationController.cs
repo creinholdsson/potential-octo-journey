@@ -113,7 +113,9 @@ namespace PyeongchangKampen.Controllers
             {
                 UserName = userDto.Username,
                 Email = userDto.Email,
+                PhoneNumber = userDto.PhoneNumber
             };
+
             var creationsResult = await _UserManager.CreateAsync(user, userDto.Password);
             if (creationsResult.Succeeded)
             {

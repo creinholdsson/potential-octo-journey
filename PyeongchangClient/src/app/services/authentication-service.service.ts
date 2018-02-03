@@ -121,6 +121,10 @@ export class AuthenticationService {
     return false;
   }
 
+  isAuthenticated(): boolean {
+    return this.getUser() != null;
+  }
+
 
 
 

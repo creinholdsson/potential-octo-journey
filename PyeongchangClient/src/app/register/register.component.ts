@@ -22,13 +22,17 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.registerForm = new FormGroup({
       'username': new FormControl(this.user.username, [
-        Validators.required, 
-        Validators.minLength(5), 
+        Validators.required,
+        Validators.minLength(5),
         Validators.maxLength(25),
         Validators.pattern('^[a-zA-Z-_0-9]+$')
       ]),
       'email': new FormControl(this.user.email, [
         Validators.required, Validators.email
+      ]),
+      'phoneNumber': new FormControl(this.user.phoneNumber, [
+        Validators.required,
+        Validators.pattern('^[\+]*[0-9\- ]{6,}$')
       ]),
       'passwords': new FormGroup({
         'password': new FormControl(this.user.password, [
@@ -72,7 +76,7 @@ export class RegisterComponent implements OnInit {
     this.user.username = this.registerForm.value.username;
     this.user.email = this.registerForm.value.email;
     this.user.password = this.registerForm.value.passwords.password;
-
+    this.user.phoneNumber = this.registerForm.value.phoneNumber;
     this.authenticationService.checkUsername(this.user.username).then(x=> {
       if(x) {
         this.authenticationService.createUser(this.user);

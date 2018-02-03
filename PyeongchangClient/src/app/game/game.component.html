@@ -10,7 +10,7 @@
                 <p *ngIf="game.isOpenForBets == false && game.scoreTeam1 == null">Inget resultat ännu</p>
 
             
-                <div *ngIf="game.isOpenForBets">
+                <div *ngIf="game.isOpenForBets" [appHasPermission]="''">
                     <h3>Tippa placering</h3>
                     Sista tid att tippa: {{game.startsOn | date: 'yyyy-MM-dd HH:mm'}} <br />
                     Har du redan tippat på spelet uppdateras din tippade placering.
@@ -58,7 +58,7 @@
                     <p *ngIf="game.isOpenForBets == false && game.scoreTeam1 == null && game.scoreTeam2 == null">Inget resultat ännu</p>
                 
 
-                    <div *ngIf="isBettingOpen">
+                    <div *ngIf="isBettingOpen" [appHasPermission]="''">
                         <h3>Tippa resultat</h3>
                         Sista tid att tippa: {{game.startsOn | date }} <br />
                         Har du redan tippat på spelet uppdateras ditt tippade resultat. <br /> <br />
