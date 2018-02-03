@@ -184,7 +184,7 @@ namespace PyeongchangKampen.Controllers
                 await _EmailService.SendEmailAsync(user.Email, "Användaruppgifter", $@"
                     Hej {user.UserName} <br /> <br />
                     Du har begärt användaruppgifter för PyeongchangKampen. Ditt användarnamn på sidan är {user.UserName}. <br /><br />
-                    Vill du nollställa ditt lösenord trycker du <a href='https://pyeongchangkampen.azurewebsites.net/reset?token={UrlEncoder.Default.Encode(token)}&id={user.Id}'>här</a><br /><br />
+                    Vill du nollställa ditt lösenord trycker du <a href='https://pyeongchangkampen.azurewebsites.net/user/reset?token={UrlEncoder.Default.Encode(token)}&id={user.Id}'>här</a><br /><br />
                     (alternativt klistrar in denna länk: https://pyeongchangkampen.azurewebsites.net/user/reset?token={UrlEncoder.Default.Encode(token)}&id={user.Id})");
             }
             return Ok();
