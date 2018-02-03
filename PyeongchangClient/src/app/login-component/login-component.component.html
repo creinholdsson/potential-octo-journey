@@ -13,11 +13,11 @@
               <input pInputText type="password" placeholder="lösenord" [(ngModel)]="password" name="password" required />
             </div>
             <p *ngIf="logonFailed" class="error-message">Användarnamnet eller lösenordet är felaktigt.</p>
-
             <div class="form-group">
               <p-button type="submit" [disabled]="!loginForm.form.valid" label="Logga in" icon="fa fa-sign-in"></p-button>
             </div>
           </form>
+          <p><a routerLink="/user/requestreset" (click)="loginDropdown.close();">Glömt användarnamn/lösenord?</a></p>
           <p><a routerLink="/register" (click)="loginDropdown.close();">Registrera</a></p>
         </div>
       </div>

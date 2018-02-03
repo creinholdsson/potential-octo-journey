@@ -33,6 +33,8 @@ import { HasPermissionDirective } from './directives/has-permission.directive';
 import { TopListComponent } from './top-list/top-list.component';
 import { LimitToPipe } from './limit-to.pipe';
 import * as moment from 'moment';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RequestPasswordResetComponent } from './request-password-reset/request-password-reset.component';
 
 
 const appRoutes: Routes = [
@@ -41,6 +43,8 @@ const appRoutes: Routes = [
   { path: 'game/edit/:id', component: GameEditComponent },
   { path: 'game/:id', component: GameComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'user/requestreset', component: RequestPasswordResetComponent },
+  { path: 'user/reset', component: ResetPasswordComponent },
   { path: 'user/:username', component: UserComponent }, 
 ];
 
@@ -61,7 +65,9 @@ const appRoutes: Routes = [
     GameEditComponent,
     HasPermissionDirective,
     TopListComponent,
-    LimitToPipe
+    LimitToPipe,
+    ResetPasswordComponent,
+    RequestPasswordResetComponent
   ],
   imports: [
     RouterModule.forRoot(

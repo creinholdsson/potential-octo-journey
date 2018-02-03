@@ -10,6 +10,7 @@ import { UsernameAvailableResponse } from '../domain/auth/username-available-res
 import { MessageService } from 'primeng/components/common/messageservice';
 import { Router } from '@angular/router';
 import { AuthenticationEvent } from '../domain/auth/authentication-event';
+import { UserForPasswordReset } from '../domain/auth/user-for-password-reset';
 
 
 @Injectable()
@@ -125,7 +126,13 @@ export class AuthenticationService {
     return this.getUser() != null;
   }
 
+  resetPassword(userId: string, user: UserForPasswordReset): Observable<string> {
+    return this.httpClient.post<string>(this.usersBaseUrl  + userId + '/reset', user);
+  }
 
+  requestResetPassword(email: string): Observable<string> {
+    return this.httpClient.post<string>(this.usersBaseUrl + 'passwordReset', { email: email });
+  }
 
 
 }

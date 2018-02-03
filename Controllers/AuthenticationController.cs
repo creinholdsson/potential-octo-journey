@@ -9,12 +9,14 @@ using PyeongchangKampen.Configuration;
 using PyeongchangKampen.Models;
 using PyeongchangKampen.Models.DTO.Creation;
 using PyeongchangKampen.Models.DTO.Retrieve;
+using PyeongchangKampen.Services;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace PyeongchangKampen.Controllers
@@ -27,16 +29,19 @@ namespace PyeongchangKampen.Controllers
         private UserManager<ApplicationUser> _UserManager;
         private SignInManager<ApplicationUser> _SignInManager;
         private ILogger<AuthenticationController> _Logger;
+        private IEmailService _EmailService;
 
         public AuthenticationController(IOptions<TokenConfigurationParameters> tokenParameters,
                     UserManager<ApplicationUser> userManager,
                     SignInManager<ApplicationUser> signInManager,
-                    ILogger<AuthenticationController> logger)
+                    ILogger<AuthenticationController> logger,
+                    IEmailService emailService)
         {
             _TokenParameters = tokenParameters.Value;
             _UserManager = userManager;
             _SignInManager = signInManager;
             _Logger = logger;
+            _EmailService = emailService;
         }
 
         [HttpPost("signin")]
@@ -165,6 +170,46 @@ namespace PyeongchangKampen.Controllers
                 return Ok("User added to role");
             }
             return BadRequest(result.Errors);
+        }
+
+        [HttpPost("passwordReset")]
+        public async Task<IActionResult> RequestEmailReset([FromBody]UserForPasswordResetRequest userDto)
+        {
+            var user = await _UserManager.FindByEmailAsync(userDto.Email);
+            if(user != null)
+            {
+                var token = await _UserManager.GeneratePasswordResetTokenAsync(user);
+                _Logger.LogInformation($"Sending request for reset link to {userDto.Email}");
+
+                await _EmailService.SendEmailAsync(user.Email, "Användaruppgifter", $@"
+                    Hej {user.UserName} <br /> <br />
+                    Du har begärt användaruppgifter för PyeongchangKampen. Ditt användarnamn på sidan är {user.UserName}. <br /><br />
+                    Vill du nollställa ditt lösenord trycker du <a href='https://pyeongchangkampen.azurewebsites.net/reset?token={UrlEncoder.Default.Encode(token)}&id={user.Id}'>här</a><br /><br />
+                    (alternativt klistrar in denna länk: https://pyeongchangkampen.azurewebsites.net/user/reset?token={UrlEncoder.Default.Encode(token)}&id={user.Id})");
+            }
+            return Ok();
+        }
+
+        [HttpPost("{userId}/reset")]
+        public async Task<IActionResult> EmailReset(string userId, [FromBody]UserForPasswordReset userDto)
+        {
+            var user = await _UserManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                ModelState.AddModelError("UserId", "No user with that id");
+            }
+
+            _Logger.LogInformation($"Got request to reset password for {user.UserName}");
+
+            var result = await _UserManager.ResetPasswordAsync(user, userDto.Token, userDto.Password);
+            if(result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(result.Errors);
+            }
         }
 
 

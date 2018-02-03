@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Rewrite;
 using System.IO;
 using Serilog;
 using Serilog.Events;
+using PyeongchangKampen.Services;
 
 namespace PyeongchangKampen
 {
@@ -79,6 +80,7 @@ namespace PyeongchangKampen
 
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = false;
+                
             });
 
             services.AddAuthentication(options=>
@@ -101,6 +103,7 @@ namespace PyeongchangKampen
 
             services.AddMemoryCache();
             services.Configure<TokenConfigurationParameters>(options => Configuration.GetSection("Token").Bind(options));
+            services.Configure<EmailSettings>(options => Configuration.GetSection("EmailSettings").Bind(options));
 
             // Add service and create Policy with options
             services.AddCors(options =>
@@ -112,6 +115,7 @@ namespace PyeongchangKampen
                     .AllowCredentials());
             });
 
+            services.AddSingleton<IEmailService, EmailService>();
             services.AddMvc();
         }
 
