@@ -7,6 +7,8 @@ import {SelectItem} from 'primeng/primeng';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+  msgs: any[];
+
     constructor() { }
     
     ngOnInit() {
