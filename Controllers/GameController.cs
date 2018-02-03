@@ -164,6 +164,7 @@ namespace PyeongchangKampen.Controllers
             _Cache.Remove(CACHE_KEY_GAME + "closed");
             _Cache.Remove(CACHE_KEY_GAME + "open");
             _Cache.Remove(BetController.CACHE_KEY_BETS_GAME + gameId);
+            _Cache.Remove(LeagueController.CACHE_KEY_TOP_LIST + 1);
             _Logger.LogInformation($"{User.Identity.Name} updated game {gameDto.Title} with sport {gameDto.SportId}");
             return Ok(Mapper.Map<GameForRetrieveDto>(game));
         }
