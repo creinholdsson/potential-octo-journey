@@ -9,7 +9,7 @@ import { BetForCreation } from '../domain/bet-for-creation';
 import { Bet } from '../domain/bet';
 
 interface BetOption {
-  label: number,
+  label: string,
   value: number
 }
 
@@ -23,60 +23,33 @@ export class GameComponent implements OnInit {
   bet: Bet;
   bets: Bet[];
   isBettingOpen: boolean = false;
-  availableOptionsPlacement: BetOption[] = [
-    {label: 1,  value: 1},
-    {label: 2,  value: 2},
-    {label: 3,  value: 3},
-    {label: 4,  value: 4},
-    {label: 5,  value: 5},
-    {label: 6,  value: 6},
-    {label: 7,  value: 7},
-    {label: 8,  value: 8},
-    {label: 9,  value: 9},
-    {label: 10, value: 10},
-    {label: 11, value: 11},
-    {label: 12, value: 12},
-    {label: 13, value: 13},
-    {label: 14, value: 14},
-    {label: 15, value: 15}
-  ];
-  availableOptionsResult: BetOption[] = [
-    {label: 1,  value: 1},
-    {label: 2,  value: 2},
-    {label: 3,  value: 3},
-    {label: 4,  value: 4},
-    {label: 5,  value: 5},
-    {label: 6,  value: 6},
-    {label: 7,  value: 7},
-    {label: 8,  value: 8},
-    {label: 9,  value: 9},
-    {label: 10, value: 10},
-    {label: 11, value: 11},
-    {label: 12, value: 12},
-    {label: 13, value: 13},
-    {label: 14, value: 14},
-    {label: 15, value: 15}
-  ];
-  selectedResult1: number = 1;
-  selectedResult2: number = 1;
+  availableOptionsPlacement: BetOption[] = [];
+  availableOptionsResult: BetOption[] = [];
+  selectedResult1: number = 0;
+  selectedResult2: number = 0;
 
 
   constructor(
     private gameService: GameService,
     private route: ActivatedRoute,
     private location: Location
-  ) { }
+  ) {
+    for (let i: number = 0; i <= 50; i++) {
+      this.availableOptionsPlacement.push({ label: i.toString(), value: i });
+      this.availableOptionsResult.push({ label: i.toString(), value: i });
+    }
+  }
 
   getGame(id: number): void {
     this.gameService.getGame(id).subscribe(game => { 
       this.game = game; 
       this.isBettingOpen = new Date(game.startsOn) > new Date();
       if(game.gameType == 0) {
-        this.selectedResult1 = 1;
-        this.selectedResult2 = 1;
+        this.selectedResult1 = 0;
+        this.selectedResult2 = 0;
       }
       else {
-        this.selectedResult1 = 1;
+        this.selectedResult1 = 0;
         this.selectedResult2 = null;
       }
     } );

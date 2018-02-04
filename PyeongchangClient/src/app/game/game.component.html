@@ -13,7 +13,7 @@
                 <div *ngIf="game.isOpenForBets" [appHasPermission]="''">
                     <h3>Tippa placering</h3>
                     Sista tid att tippa: {{game.startsOn | date: 'yyyy-MM-dd HH:mm'}} <br />
-                    Har du redan tippat på spelet uppdateras din tippade placering.
+                    Har du redan tippat på spelet uppdateras din tippade placering.<br />
                     <p-dropdown [options]="availableOptionsPlacement" [(ngModel)]="selectedResult1"></p-dropdown>
                     <br /> <br />
                     <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
@@ -59,13 +59,13 @@
                 
 
                     <div *ngIf="isBettingOpen" [appHasPermission]="''">
-                        <h3>Tippa resultat</h3>
-                        Sista tid att tippa: {{game.startsOn | date }} <br />
-                        Har du redan tippat på spelet uppdateras ditt tippade resultat. <br /> <br />
-                        <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult1"></p-dropdown> - 
-                        <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult2"></p-dropdown>
-                        <br /> <br />
-                        <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
+                      <h3>Tippa resultat</h3>
+                      Sista tid att tippa: {{game.startsOn | date: 'yyyy-MM-dd HH:mm' }} <br />
+                      Har du redan tippat på spelet uppdateras ditt tippade resultat. <br /> <br />
+                      <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult1"></p-dropdown> -
+                      <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult2"></p-dropdown>
+                      <br /> <br />
+                      <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
                     </div>
 
                     <p><br /><a routerLink="/game/edit/{{game.id}}" [appHasPermission]="'Administrator'" pButton label="Uppdatera spel"></a></p>

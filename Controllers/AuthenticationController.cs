@@ -217,7 +217,8 @@ namespace PyeongchangKampen.Controllers
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, user.UserName)
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_TokenParameters.SigningKey));
