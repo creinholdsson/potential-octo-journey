@@ -200,6 +200,10 @@ namespace PyeongchangKampen.Controllers
                     {
                         bet.AwardedPoints = pointsResult;
                     }
+                    else if(scoreTeam1 == scoreTeam2 && bet.ScoreTeam1.Value == bet.ScoreTeam2.Value)
+                    {
+                        bet.AwardedPoints = pointsForWinnerResult;
+                    }
                     else if(scoreTeam1 < scoreTeam2 && bet.ScoreTeam1.Value < bet.ScoreTeam2.Value)
                     {
                         bet.AwardedPoints = pointsForWinnerResult;
