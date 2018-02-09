@@ -6,7 +6,9 @@
                 <img src="{{game.sportIcon}}" class="sportIcon" />
                 <p>{{game.description}}</p>
                 <p>Rätt placering ger {{game.pointsResult}} poäng</p>
-                <p *ngIf="game.scoreTeam1 != null"><b>Slutgiltig placering</b>: {{game.scoreTeam1}}</p>
+                <p *ngIf="game.scoreTeam1 != null">
+                  <b>Slutgiltig placering</b>: {{game.scoreTeam1 == -2 ? 'DNS' : game.scoreTeam1 == -1 ? 'DNF' : game.scoreTeam1}}
+                </p>
                 <p *ngIf="game.isOpenForBets == false && game.scoreTeam1 == null">Inget resultat ännu</p>
 
             
@@ -29,7 +31,7 @@
             <p-card *ngIf="game.gameType == 1" title="Tippade placeringar">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">Namn</h5>
-                    <h5 class="mb-1">Resultat</h5>
+                    <h5 class="mb-1">Tippat</h5>
                 </div>
                 <div class="w-100" style="border-bottom: 1px solid lightgray"></div>
                 <div *ngFor="let bet of bets | orderBy: 'userName'">
@@ -79,7 +81,7 @@
                     <div *ngIf="bets && bets.length > 0">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Namn</h5>
-                            <h5 class="mb-1">Resultat</h5>
+                            <h5 class="mb-1">Tippat</h5>
                         </div>
                         <div class="w-100" style="border-bottom: 1px solid lightgray"></div>
                         <div *ngFor="let bet of bets | orderBy: 'userName'">

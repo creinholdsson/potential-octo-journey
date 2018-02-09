@@ -48,6 +48,8 @@ export class GameEditComponent implements OnInit {
     for (let i: number = 0; i <= 50; i++) {
       this.possibleResults.push({ label: i.toString(), value: i });
     }
+    this.possibleResults.push({ label: 'DNS', value: -2 });
+    this.possibleResults.push({ label: 'DNF', value: -1 });
   }
 
   getGame(id: number) {
