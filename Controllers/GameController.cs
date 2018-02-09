@@ -46,7 +46,8 @@ namespace PyeongchangKampen.Controllers
 
             if(filter == "open")
             {
-                if(_Cache.TryGetValue(CACHE_KEY_GAME+"open", out gamesToRetrieve) == false)
+                if(_Cache.TryGetValue(CACHE_KEY_GAME+"open", out gamesToRetrieve) == false 
+                    || (gamesToRetrieve != null && HasGameChangedStatus(gamesToRetrieve) == false))
                 {
                     var games = await _Repository.GetGamesAsync();
                     games = games.Where(x => x.IsOpenForBets == true);
@@ -56,7 +57,8 @@ namespace PyeongchangKampen.Controllers
             }
             else if(filter == "closed")
             {
-                if (_Cache.TryGetValue(CACHE_KEY_GAME + "closed", out gamesToRetrieve) == false)
+                if (_Cache.TryGetValue(CACHE_KEY_GAME + "closed", out gamesToRetrieve) == false 
+                    || (gamesToRetrieve != null && HasGameChangedStatus(gamesToRetrieve) == false))
                 {
                     var games = await _Repository.GetGamesAsync();
                     games = games.Where(x => x.IsOpenForBets == false);
@@ -66,14 +68,14 @@ namespace PyeongchangKampen.Controllers
             }
             else
             {
-                if (_Cache.TryGetValue(CACHE_KEY_GAME, out gamesToRetrieve) == false)
+                if (_Cache.TryGetValue(CACHE_KEY_GAME, out gamesToRetrieve) == false 
+                    || (gamesToRetrieve != null && HasGameChangedStatus(gamesToRetrieve) == false))
                 {
                     var games = await _Repository.GetGamesAsync();
                     gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
                     _Cache.Set(CACHE_KEY_GAME, gamesToRetrieve);
                 }
             }
-
 
             return Ok(gamesToRetrieve);
         }
@@ -214,5 +216,18 @@ namespace PyeongchangKampen.Controllers
 
             }
         }
+
+        private bool HasGameChangedStatus(IEnumerable<GameForRetrieveDto> games)
+        {
+            foreach(var game in games)
+            {
+                if(game.StartsOn >= DateTime.UtcNow)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }
