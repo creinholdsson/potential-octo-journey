@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "prod-build": "ng build --output-path=../wwwroot/ --env=prod",
+    "prod-build": "ng build --output-path=../wwwroot/ --env=prod --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
