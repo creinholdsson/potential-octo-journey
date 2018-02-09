@@ -4,16 +4,16 @@
     <p-card>
       <form #gameForm="ngForm" (ngSubmit)="addGame(null)">
         Titel <br />
-        <input type="text" pInputText [(ngModel)]="game.title" name="title" size="45" required/>
+        <input type="text" pInputText [(ngModel)]="game.title" name="title"  required/>
         <br /> <br />
 
 
         Sport <br />
-        <p-dropdown [options]="sports" [(ngModel)]="game.sportId" name="sportId" autoDisplayFirst="false" [style]="{'width':'433px'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
+        <p-dropdown [options]="sports" [(ngModel)]="game.sportId" name="sportId" autoDisplayFirst="false" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
         <br /> <br />
 
         Typ <br />
-        <p-dropdown [options]="gameTypes" [(ngModel)]="game.gameType" name="gameType" autoDisplayFirst="false" [style]="{'width':'433px'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
+        <p-dropdown [options]="gameTypes" [(ngModel)]="game.gameType" name="gameType" autoDisplayFirst="false" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
         <br /><br />
         
         Starttid <br />
@@ -21,11 +21,11 @@
         <br /><br />
 
         Poäng rätt resultat <br />
-        <p-dropdown [options]="points" [(ngModel)]="game.pointsResult" name="pointsResult" [style]="{'width':'433px'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
+        <p-dropdown [options]="points" [(ngModel)]="game.pointsResult" name="pointsResult" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
 
         <div *ngIf="game.gameType == 0">
           Poäng rätt vinnare <br />
-          <p-dropdown [options]="points" [(ngModel)]="game.pointsWinner" name="pointsWinner" [style]="{'width':'433px'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+          <p-dropdown [options]="points" [(ngModel)]="game.pointsWinner" name="pointsWinner" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
         </div>
         
         Beskrivning <br/>
