@@ -35,7 +35,10 @@ export class GameComponent implements OnInit {
     private location: Location
   ) {
     for (let i: number = 0; i <= 50; i++) {
-      this.availableOptionsPlacement.push({ label: i.toString(), value: i });
+      if (i > 0) {
+        this.availableOptionsPlacement.push({ label: i.toString(), value: i });
+      }
+
       this.availableOptionsResult.push({ label: i.toString(), value: i });
     }
   }
@@ -49,7 +52,7 @@ export class GameComponent implements OnInit {
         this.selectedResult2 = 0;
       }
       else {
-        this.selectedResult1 = 0;
+        this.selectedResult1 = 1;
         this.selectedResult2 = null;
       }
     } );

@@ -38,6 +38,10 @@ export class GameEditComponent implements OnInit {
   possibleResults: OptionValue<string>[] = [
     { label: 'Inget', value: null }
   ]
+
+  possiblePlacements: OptionValue<string>[] = [
+    { label: 'Inget', value: null }
+  ]
   game : GameForUpdate = new GameForUpdate();
   gameId: number;
 
@@ -46,10 +50,14 @@ export class GameEditComponent implements OnInit {
     private router: Router,
     private messageService: MessageService) {
     for (let i: number = 0; i <= 50; i++) {
+      if (i > 0) {
+        this.possiblePlacements.push({ label: i.toString(), value: i });
+      }
+
       this.possibleResults.push({ label: i.toString(), value: i });
     }
-    this.possibleResults.push({ label: 'DNS', value: -2 });
-    this.possibleResults.push({ label: 'DNF', value: -1 });
+    this.possiblePlacements.push({ label: 'DNS', value: -2 });
+    this.possiblePlacements.push({ label: 'DNF', value: -1 });
   }
 
   getGame(id: number) {

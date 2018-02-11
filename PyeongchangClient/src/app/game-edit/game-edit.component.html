@@ -38,7 +38,7 @@
           <p-dropdown [options]="possibleResults" [(ngModel)]="game.scoreTeam2" name="scoreTeam2" placeholder="V&auml;lj ett alternativ"></p-dropdown>
         </div>
         <div *ngIf="game.gameType == 1">
-            <p-dropdown [options]="possibleResults" [(ngModel)]="game.scoreTeam1" name="scoreTeam1" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+            <p-dropdown [options]="possiblePlacements" [(ngModel)]="game.scoreTeam1" name="scoreTeam1" placeholder="V&auml;lj ett alternativ"></p-dropdown>
         </div>
 
         <br /> <br />
