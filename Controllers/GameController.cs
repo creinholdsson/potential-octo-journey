@@ -47,21 +47,28 @@ namespace PyeongchangKampen.Controllers
             if(filter == "open")
             {
                 if(_Cache.TryGetValue(CACHE_KEY_GAME+"open", out gamesToRetrieve) == false 
-                    || (gamesToRetrieve != null && HasGameChangedStatus(gamesToRetrieve) == false))
+                    || (gamesToRetrieve != null && HasGameChangedStatus(gamesToRetrieve) == true))
                 {
                     var games = await _Repository.GetGamesAsync();
                     games = games.Where(x => x.IsOpenForBets == true);
                     gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
-                    _Cache.Set(CACHE_KEY_GAME + "open", gamesToRetrieve);
+                    var firstToExpire = gamesToRetrieve.OrderBy(x => x.StartsOn).FirstOrDefault();
+                    if (firstToExpire != null)
+                    {
+                        _Cache.Set(CACHE_KEY_GAME + "open", gamesToRetrieve, new DateTimeOffset(firstToExpire.StartsOn));
+                    }
+                    else
+                    {
+                        _Cache.Set(CACHE_KEY_GAME + "open", gamesToRetrieve);
+                    }
                 }
             }
             else if(filter == "closed")
             {
-                if (_Cache.TryGetValue(CACHE_KEY_GAME + "closed", out gamesToRetrieve) == false 
-                    || (gamesToRetrieve != null && HasGameChangedStatus(gamesToRetrieve) == false))
+                if (_Cache.TryGetValue(CACHE_KEY_GAME + "closed", out gamesToRetrieve) == false)
                 {
                     var games = await _Repository.GetGamesAsync();
-                    games = games.Where(x => x.IsOpenForBets == false);
+                    games = games.Where(x => x.IsOpenForBets == false && x.ScoreTeam1.HasValue);
                     gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
                     _Cache.Set(CACHE_KEY_GAME + "closed", gamesToRetrieve);
                 }
@@ -69,7 +76,7 @@ namespace PyeongchangKampen.Controllers
             else
             {
                 if (_Cache.TryGetValue(CACHE_KEY_GAME, out gamesToRetrieve) == false 
-                    || (gamesToRetrieve != null && HasGameChangedStatus(gamesToRetrieve) == false))
+                    || (gamesToRetrieve != null && HasGameChangedStatus(gamesToRetrieve) == true))
                 {
                     var games = await _Repository.GetGamesAsync();
                     gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
