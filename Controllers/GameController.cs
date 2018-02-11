@@ -75,8 +75,7 @@ namespace PyeongchangKampen.Controllers
             }
             else
             {
-                if (_Cache.TryGetValue(CACHE_KEY_GAME, out gamesToRetrieve) == false 
-                    || (gamesToRetrieve != null && HasGameChangedStatus(gamesToRetrieve) == true))
+                if (_Cache.TryGetValue(CACHE_KEY_GAME, out gamesToRetrieve) == false)
                 {
                     var games = await _Repository.GetGamesAsync();
                     gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
