@@ -35,11 +35,13 @@ import { LimitToPipe } from './limit-to.pipe';
 import * as moment from 'moment';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RequestPasswordResetComponent } from './request-password-reset/request-password-reset.component';
+import { AllGamesComponent } from './all-games/all-games.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: IndexComponent},
   { path: 'game/add', component: GameCreateComponent },
+  { path: 'game/all', component: AllGamesComponent },
   { path: 'game/edit/:id', component: GameEditComponent },
   { path: 'game/:id', component: GameComponent },
   { path: 'register', component: RegisterComponent },
@@ -67,7 +69,8 @@ const appRoutes: Routes = [
     TopListComponent,
     LimitToPipe,
     ResetPasswordComponent,
-    RequestPasswordResetComponent
+    RequestPasswordResetComponent,
+    AllGamesComponent
   ],
   imports: [
     RouterModule.forRoot(

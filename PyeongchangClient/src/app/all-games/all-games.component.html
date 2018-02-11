@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="col-12 col-lg-6">
+    <p-card title="Alla spel">
+      <app-game-list [gameType]="'all'" [itemsShown]="50"></app-game-list>
+      <p><a routerLink="/game/add" [appHasPermission]="'Administrator'" pButton label="Lägg till nytt spel" id="#createlink"></a></p>
+    </p-card>
+  </div>
+</div>
