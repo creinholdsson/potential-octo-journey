@@ -1,9 +1,16 @@
 <div class="row">
   <div class="col-12">
     <a *ngFor="let game of games | orderBy: orderBy : reverseOrder; let i=index" routerLink="/game/{{game.id}}">
+      
       <div class="test" *ngIf="i<itemsShown">
+          
         <img src="{{game.sportIcon}}" class="icon" />
+
         <div class="d-flex w-100 justify-content-between">
+          <div class="game-indicator concluded" *ngIf="game.isConcluded"></div>
+          <div class="game-indicator open-not-played" *ngIf="game.isOpenForBets && !game.hasUserPlacedBet"></div>
+          <div class="game-indicator open-played" *ngIf="game.isOpenForBets && game.hasUserPlacedBet"></div>
+          <div class="game-indicator closed-no-result" *ngIf="!game.isOpenForBets && !game.isConcluded"></div>
           <h5 class="mb-1">{{game.title}}</h5>
           <small>{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>
         </div>

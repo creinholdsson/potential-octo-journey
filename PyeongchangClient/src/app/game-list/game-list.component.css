@@ -20,6 +20,34 @@ a:hover {
 
 a {
   display: block;
-  padding: 0;
+  padding-left: 6px;
+  padding-right: 2px;
   margin: 0;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.game-indicator {
+  position: absolute;
+  width: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  left: 3px;
+  height: 45px;
+}
+
+.game-indicator.open-not-played {
+  background-color: #F8B31F;
+}
+
+.game-indicator.open-played {
+  background-color: #039741;
+}
+
+.game-indicator.concluded {
+  background-color: #0079C2;
+}
+
+.game-indicator.closed-no-result {
+  background-color: #E61C44;
 }

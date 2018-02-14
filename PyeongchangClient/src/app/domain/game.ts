@@ -13,4 +13,6 @@ export class Game {
     pointsWinner: number;
     sportName: string;
     sportIcon: string;
+    hasUserPlacedBet: boolean;
+    isConcluded: boolean;
 }
