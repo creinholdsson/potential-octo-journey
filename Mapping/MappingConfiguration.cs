@@ -51,7 +51,11 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.PointsResult, context => context.MapFrom(src => src.PointsResult))
                     .ForMember(dest => dest.PointsWinner, context => context.MapFrom(src => src.PointsWinner))
                     .ForMember(dest => dest.SportName, context => context.ResolveUsing(src => src.Sport == null ? string.Empty : src.Sport.Name))
-                    .ForMember(dest => dest.SportIcon, context=> context.ResolveUsing(src => src.Sport == null ? "default" : src.Sport.Icon));
+                    .ForMember(dest => dest.SportIcon, context => context.ResolveUsing(src => src.Sport == null ? "default" : src.Sport.Icon))
+                    .ForMember(dest => dest.Bets, context => context.ResolveUsing(src => src.Bets == null ? new List<string>() : src.Bets.Select(x => x.UserId)))
+                    .ForMember(dest => dest.HasUserPlacedBet, context => context.ResolveUsing(src => false))
+                    .ForMember(dest => dest.IsConcluded, context => context.ResolveUsing(src=> src.ScoreTeam1.HasValue ? true : false));
+
 
                 config.CreateMap<GameForCreationDto, Game>()
                     .ForMember(dest => dest.Description, context => context.MapFrom(src => src.Description))
@@ -64,7 +68,8 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.PointsWinner, context => context.MapFrom(src=>src.PointsWinner))
                     .ForMember(dest => dest.ScoreTeam1, context => context.Ignore())
                     .ForMember(dest => dest.ScoreTeam2, context => context.Ignore())
-                    .ForMember(dest => dest.Id, context => context.Ignore());
+                    .ForMember(dest => dest.Id, context => context.Ignore())
+                    .ForMember(dest => dest.Bets, context => context.Ignore());
 
                 config.CreateMap<GameForUpdateDto, Game>()
                     .ForMember(dest => dest.Description, context => context.MapFrom(src => src.Description))
@@ -77,7 +82,8 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.ScoreTeam1, context => context.MapFrom(src => src.ScoreTeam1))
                     .ForMember(dest => dest.ScoreTeam2, context => context.MapFrom(src => src.ScoreTeam2))
                     .ForMember(dest => dest.StartsOn, context => context.MapFrom(src => src.StartsOn))
-                    .ForMember(dest => dest.Title, context => context.MapFrom(src => src.Title));
+                    .ForMember(dest => dest.Title, context => context.MapFrom(src => src.Title))
+                    .ForMember(dest => dest.Bets, context => context.Ignore());
 
                 config.CreateMap<Bet, BetForRetrieveDto>()
                     .ForMember(dest => dest.AwardedPoints, context => context.MapFrom(src => src.AwardedPoints))
@@ -99,7 +105,8 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.ScoreTeam1, context => context.MapFrom(src => src.ScoreTeam1))
                     .ForMember(dest => dest.ScoreTeam2, context => context.MapFrom(src => src.ScoreTeam2))
                     .ForMember(dest => dest.User, context => context.Ignore())
-                    .ForMember(dest => dest.Id, context => context.Ignore());
+                    .ForMember(dest => dest.Id, context => context.Ignore())
+                    .ForMember(dest => dest.UserId, context => context.Ignore());
 
                 config.CreateMap<ApplicationUser, UserForRetrieve>()
                     .ForMember(dest => dest.Id, context => context.MapFrom(src => src.Id))

@@ -24,6 +24,9 @@ namespace PyeongchangKampen.Models.DTO.Retrieve
 
         public string SportName { get; set; }
         public string SportIcon { get; set; }
+        public IEnumerable<string> Bets { get; set; }
+        public bool HasUserPlacedBet { get; set; }
+        public bool IsConcluded { get; set; }
 
     }
 }

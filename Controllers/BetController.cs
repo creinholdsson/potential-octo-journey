@@ -138,6 +138,7 @@ namespace PyeongchangKampen.Controllers
             bet = await _Repository.AddBet(bet);
             _Logger.LogInformation($"User {User.Identity.Name} placed a bet {betDto.ScoreTeam1}-{betDto.ScoreTeam2} on game {betDto.GameId}");
             _Cache.Remove(CACHE_KEY_BETS_GAME + betDto.GameId);
+            _Cache.Remove(GameController.CACHE_KEY_GAME + "open");
             return CreatedAtRoute("GetBet", new { betId = bet.Id }, Mapper.Map<BetForRetrieveDto>(bet));
         }
 

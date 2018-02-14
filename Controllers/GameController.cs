@@ -12,6 +12,7 @@ using PyeongchangKampen.Repostory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -80,6 +81,18 @@ namespace PyeongchangKampen.Controllers
                     var games = await _Repository.GetGamesAsync();
                     gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
                     _Cache.Set(CACHE_KEY_GAME, gamesToRetrieve);
+                }
+            }
+
+            var currentUserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+            if (currentUserId != null)
+            {
+                foreach (var game in gamesToRetrieve)
+                {
+                    if(game.Bets.Contains(currentUserId.Value))
+                    {
+                        game.HasUserPlacedBet = true;
+                    }
                 }
             }
 

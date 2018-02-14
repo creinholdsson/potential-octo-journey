@@ -39,7 +39,7 @@ namespace PyeongchangKampen.Repostory
 
         public async Task<IEnumerable<Game>> GetGamesAsync()
         {
-            return await _DbContext.Game.Include(x=>x.Sport).ToListAsync();
+            return await _DbContext.Game.Include(x=>x.Sport).Include(x=>x.Bets).ToListAsync();
         }
 
         public async Task<IEnumerable<Game>> GetGamesAsync(int leagueId)
