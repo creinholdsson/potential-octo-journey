@@ -103,11 +103,20 @@ namespace PyeongchangKampen.Controllers
         public async Task<IActionResult> GetGame(int gameId)
         {
             var game = await _Repository.GetGameAsync(gameId);
+            
             if (game == null)
             {
                 return NotFound();
             }
-            return Ok(Mapper.Map<GameForRetrieveDto>(game));
+
+            var currentUserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+            var mapped = Mapper.Map<GameForRetrieveDto>(game);
+            if (currentUserId != null && mapped.Bets.Contains(currentUserId.Value))
+            {
+                mapped.HasUserPlacedBet = true;
+            }
+
+            return Ok(mapped);
         }
 
         [HttpGet("league/{leagueId:int}")]
