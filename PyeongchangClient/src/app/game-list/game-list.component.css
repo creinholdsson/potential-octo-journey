@@ -51,3 +51,7 @@ a {
 .game-indicator.closed-no-result {
   background-color: #E61C44;
 }
+
+.no-break {
+  white-space: nowrap;
+}

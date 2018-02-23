@@ -12,7 +12,7 @@
           <div class="game-indicator open-played" *ngIf="game.isOpenForBets && game.hasUserPlacedBet"></div>
           <div class="game-indicator closed-no-result" *ngIf="!game.isOpenForBets && !game.isConcluded"></div>
           <h5 class="mb-1">{{game.title}}</h5>
-          <small>{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>
+          <small class="no-break">{{game.startsOn | date: 'yyyy-MM-dd HH:mm'}}</small>
         </div>
         <p class="mb-3">{{game.description | limitTo: 55}}</p>
       </div>
