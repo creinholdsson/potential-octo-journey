@@ -1,8 +1,12 @@
 <div>
   <a *ngFor="let user of topList" class="row content" routerLink="/user/{{user.username}}">
-    <div class="col-2">{{user.rank}}</div>
-    <div class="col-8">{{user.username | limitTo: 20}}</div>
-    <div class="col-2 text-align-right">{{user.totalPoints}}</div>
+    <div class="col-1">{{user.rank}}</div>
+    <div class="col-7">{{user.username | limitTo: 20}}</div>
+    <div class="col-3 text-align-right">{{user.totalPoints}}
+
+    <small *ngIf="user.trailingPoints == 0">(-)</small>
+    <small *ngIf="user.trailingPoints < 0">(<small class="red">{{user.trailingPoints}}</small>)</small>
+    </div>
   </a>
 
   <p *ngIf="topList.length == 0">Inga avslutade spel</p>

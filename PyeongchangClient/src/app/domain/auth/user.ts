@@ -4,4 +4,5 @@ export class User {
     roles: string[];
     totalPoints: number;
     rank: number = 0;
+    trailingPoints: number = 0;
 }

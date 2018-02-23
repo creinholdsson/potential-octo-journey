@@ -112,7 +112,9 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.Id, context => context.MapFrom(src => src.Id))
                     .ForMember(dest => dest.Username, context => context.MapFrom(src=>src.UserName))
                     .ForMember(dest => dest.TotalPoints, context => context.MapFrom(src=>src.TotalPoints))
-                    .ForMember(dest => dest.Rank, context => context.MapFrom(src=>src.Rank));
+                    .ForMember(dest => dest.Rank, context => context.MapFrom(src=>src.Rank))
+                    .ForMember(dest => dest.TrailingPoints, context => context.Ignore());
+
 
             });
 

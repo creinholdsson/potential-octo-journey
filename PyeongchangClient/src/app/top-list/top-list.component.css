@@ -40,3 +40,7 @@ a:hover {
   color: #000;
   text-decoration: none;
 }
+
+small.red {
+  color: orangered;
+}
