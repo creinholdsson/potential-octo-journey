@@ -92,6 +92,15 @@ namespace PyeongchangKampen.Controllers
                     Rank = topList.Count(x => x.TotalPoints > s.TotalPoints) + 1
                 });
                 usersForRetrieve = Mapper.Map<IEnumerable<UserForRetrieve>>(topListRanked.OrderBy(x => x.Rank));
+                var leader = usersForRetrieve.FirstOrDefault();
+                if(leader != null)
+                {
+                    foreach(var user in usersForRetrieve)
+                    {
+                        user.TrailingPoints = user.TotalPoints - leader.TotalPoints;
+                    }
+                }
+
                 _Cache.Set(cacheKey, usersForRetrieve);
             }
 
