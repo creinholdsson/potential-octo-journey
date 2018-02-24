@@ -4,8 +4,8 @@
     <div class="col-7">{{user.username | limitTo: 20}}</div>
     <div class="col-3 text-align-right">{{user.totalPoints}}
 
-    <small *ngIf="user.trailingPoints == 0">(-)</small>
-    <small *ngIf="user.trailingPoints < 0">(<small class="red">{{user.trailingPoints}}</small>)</small>
+    <small *ngIf="user.trailingPoints == 0"><small>-</small></small>
+    <small *ngIf="user.trailingPoints < 0"><small class="red">{{user.trailingPoints}}</small></small>
     </div>
   </a>
 
