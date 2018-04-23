@@ -11,6 +11,7 @@ namespace PyeongchangKampen.Repostory
     {
         Task<IEnumerable<League>> GetLeaguesAsync();
         Task<League> GetLeagueAsync(int id);
+        Task<League> GetLeagueAsync(string url); 
         Task<League> AddLeagueAsync(League league);
         Task DeleteLeagueAsync(League leage);
         Task<IEnumerable<ApplicationUser>> GetTopList(League league);

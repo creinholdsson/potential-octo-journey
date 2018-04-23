@@ -28,6 +28,7 @@ import { RegisterComponent } from './register/register.component';
 import { TakenUsernameDirective } from './directives/taken-username.directive';
 import { UserComponent } from './user/user.component';
 import { UserService } from './services/user.service';
+import { LeagueService } from './services/league.service';
 import { GameEditComponent } from './game-edit/game-edit.component';
 import { HasPermissionDirective } from './directives/has-permission.directive';
 import { TopListComponent } from './top-list/top-list.component';
@@ -39,11 +40,12 @@ import { AllGamesComponent } from './all-games/all-games.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component: IndexComponent},
-  { path: 'game/add', component: GameCreateComponent },
-  { path: 'game/all', component: AllGamesComponent },
-  { path: 'game/edit/:id', component: GameEditComponent },
-  { path: 'game/:id', component: GameComponent },
+  { path: '', redirectTo: 'peyongchangkampen', pathMatch: 'full' },
+  { path: ':leagueUrl', component: IndexComponent},
+  { path: ':leagueUrl/game/add', component: GameCreateComponent },
+  { path: ':leagueUrl/game/all', component: AllGamesComponent },
+  { path: ':leagueUrl/game/edit/:id', component: GameEditComponent },
+  { path: ':leagueUrl/game/:id', component: GameComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'user/requestreset', component: RequestPasswordResetComponent },
   { path: 'user/reset', component: ResetPasswordComponent },
@@ -99,6 +101,7 @@ const appRoutes: Routes = [
     GameService, 
     MessageService, 
     UserService,
+    LeagueService,
     AuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,

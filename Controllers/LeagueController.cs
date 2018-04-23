@@ -51,6 +51,19 @@ namespace PyeongchangKampen.Controllers
             return Ok(Mapper.Map<LeagueForRetrieveDto>(league));
         }
 
+        [HttpGet("{leagueUrl:string}")]
+        public async Task<IActionResult> GetLeagueByUrl(string leagueUrl)
+        {
+            var league = await _Repository.GetLeagueAsync(leagueUrl);
+
+            if(league == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(Mapper.Map<LeagueForRetrieveDto>(league));
+        }
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddLeague([FromBody] LeagueForCreationDto leagueDto)

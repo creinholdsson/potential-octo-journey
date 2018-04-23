@@ -34,6 +34,11 @@ namespace PyeongchangKampen.Repostory
             return _DbContext.Leagues.FindAsync(id);
         }
 
+        public Task<League> GetLeagueAsync(string url)
+        {
+            return _DbContext.Leagues.FirstOrDefaultAsync(x => x.Url.Equals(url, StringComparison.InvariantCultureIgnoreCase));
+        }
+
         public async Task<IEnumerable<League>> GetLeaguesAsync()
         {
             return await _DbContext.Leagues.ToListAsync();
