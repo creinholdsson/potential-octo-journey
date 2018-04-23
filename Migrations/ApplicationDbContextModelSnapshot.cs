@@ -246,6 +246,8 @@ namespace PyeongchangKampen.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("Url");
+
                     b.HasKey("Id");
 
                     b.ToTable("Leagues");
@@ -326,7 +328,7 @@ namespace PyeongchangKampen.Migrations
             modelBuilder.Entity("PyeongchangKampen.Models.Bet", b =>
                 {
                     b.HasOne("PyeongchangKampen.Models.Game", "Game")
-                        .WithMany()
+                        .WithMany("Bets")
                         .HasForeignKey("GameId");
 
                     b.HasOne("PyeongchangKampen.Models.ApplicationUser", "User")

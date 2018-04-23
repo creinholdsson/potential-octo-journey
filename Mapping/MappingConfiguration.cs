@@ -25,7 +25,9 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.Name, context => context.MapFrom(src => src.Name))
                     .ForMember(dest => dest.Id, context => context.Ignore())
                     .ForMember(dest => dest.Games, context => context.Ignore())
-                    .ForMember(dest => dest.LeagueSports, context => context.Ignore());
+                    .ForMember(dest => dest.LeagueSports, context => context.Ignore())
+                    .ForMember(dest => dest.Url, context => context.MapFrom(src => src.Url));
+
 
                 config.CreateMap<Sport, SportForRetrieveDto>()
                     .ForMember(dest => dest.Id, context => context.MapFrom(src => src.Id))

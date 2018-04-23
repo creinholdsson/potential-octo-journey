@@ -9,5 +9,6 @@ namespace PyeongchangKampen.Models.DTO.Creation
     public class LeagueForCreationDto
     {
         public string Name { get; set; }
+        public string Url { get; set; }
     }
 }
