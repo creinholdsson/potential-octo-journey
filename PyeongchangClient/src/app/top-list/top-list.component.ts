@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { User } from '../domain/auth/user';
+import { League } from '../domain/league';
 
 @Component({
   selector: 'app-top-list',
@@ -8,13 +9,13 @@ import { User } from '../domain/auth/user';
   styleUrls: ['./top-list.component.css']
 })
 export class TopListComponent implements OnInit {
-
+  @Input() league: League;
   topList: User[];
 
   constructor(private gameService: GameService) { }
 
   ngOnInit() {
-    this.getTopList();
+    
   }
 
   getTopList() {
@@ -23,4 +24,9 @@ export class TopListComponent implements OnInit {
     });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.league) {
+      this.getTopList();
+    }
+  }
 }

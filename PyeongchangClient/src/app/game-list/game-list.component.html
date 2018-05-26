@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="games">
   <div class="col-12">
     <a *ngFor="let game of games | orderBy: orderBy : reverseOrder; let i=index" routerLink="/game/{{game.id}}">
       

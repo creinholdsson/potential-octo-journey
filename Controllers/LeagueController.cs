@@ -19,6 +19,7 @@ namespace PyeongchangKampen.Controllers
     public class LeagueController: Controller
     {
         public static readonly string CACHE_KEY_TOP_LIST = "CACHE_KEY_LEAGUE_TOPLIST";
+        public static readonly string CACHE_KEY_LEAGUE = "CACHE_KEY_LEAGUE";
         private ILeagueRepository _Repository;
         private ILogger<LeagueController> _Logger;
         private IMemoryCache _Cache;
@@ -51,17 +52,23 @@ namespace PyeongchangKampen.Controllers
             return Ok(Mapper.Map<LeagueForRetrieveDto>(league));
         }
 
-        [HttpGet("{leagueUrl:string}")]
+        [HttpGet("{leagueUrl}")]
         public async Task<IActionResult> GetLeagueByUrl(string leagueUrl)
         {
-            var league = await _Repository.GetLeagueAsync(leagueUrl);
-
-            if(league == null)
+            LeagueForRetrieveDto leagueDto;
+            if(_Cache.TryGetValue(CACHE_KEY_LEAGUE + leagueUrl, out leagueDto) == false)
             {
-                return NotFound();
-            }
+                var league = await _Repository.GetLeagueAsync(leagueUrl);
 
-            return Ok(Mapper.Map<LeagueForRetrieveDto>(league));
+                if (league == null)
+                {
+                    return NotFound();
+                }
+                leagueDto = Mapper.Map<LeagueForRetrieveDto>(league);
+                _Cache.Set(CACHE_KEY_LEAGUE + leagueUrl, leagueDto);
+            }
+            
+            return Ok(leagueDto);
         }
 
         [Authorize]

@@ -44,7 +44,7 @@ namespace PyeongchangKampen.Repostory
 
         public async Task<IEnumerable<Game>> GetGamesAsync(int leagueId)
         {
-            return await _DbContext.Game.Where(x => x.League.Id == leagueId).ToListAsync();
+            return await _DbContext.Game.Where(x => x.League.Id == leagueId).Include(x=>x.Sport).Include(x=>x.Bets).ToListAsync();
         }
 
         public async Task UpdateGame(Game game)

@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="topList">
   <a *ngFor="let user of topList" class="row content" routerLink="/user/{{user.username}}">
     <div class="col-1">{{user.rank}}</div>
     <div class="col-7">{{user.username | limitTo: 20}}</div>

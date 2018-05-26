@@ -37,19 +37,26 @@ import * as moment from 'moment';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RequestPasswordResetComponent } from './request-password-reset/request-password-reset.component';
 import { AllGamesComponent } from './all-games/all-games.component';
+import { LeagueComponent } from './league/league.component';
 
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'peyongchangkampen', pathMatch: 'full' },
-  { path: ':leagueUrl', component: IndexComponent},
-  { path: ':leagueUrl/game/add', component: GameCreateComponent },
-  { path: ':leagueUrl/game/all', component: AllGamesComponent },
-  { path: ':leagueUrl/game/edit/:id', component: GameEditComponent },
-  { path: ':leagueUrl/game/:id', component: GameComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'user/requestreset', component: RequestPasswordResetComponent },
-  { path: 'user/reset', component: ResetPasswordComponent },
-  { path: 'user/:username', component: UserComponent }, 
+  { path: '', redirectTo: 'pyeongchangkampen', pathMatch: 'full' },
+  {
+    path: ':leagueUrl', component: LeagueComponent, children:
+      [
+        { path: '', component: IndexComponent },
+        { path: 'game/add', component: GameCreateComponent },
+        { path: 'game/all', component: AllGamesComponent },
+        { path: 'game/edit/:id', component: GameEditComponent },
+        { path: 'game/:id', component: GameComponent },
+        { path: 'register', component: RegisterComponent },
+        { path: 'user/requestreset', component: RequestPasswordResetComponent },
+        { path: 'user/reset', component: ResetPasswordComponent },
+        { path: 'user/:username', component: UserComponent }, 
+      ]
+  },
+  
 ];
 
 @NgModule({
@@ -63,6 +70,7 @@ const appRoutes: Routes = [
     OrderByPipe,
     GameCreateComponent,
     LoginComponentComponent,
+    LeagueComponent,
     RegisterComponent,
     TakenUsernameDirective,
     UserComponent,

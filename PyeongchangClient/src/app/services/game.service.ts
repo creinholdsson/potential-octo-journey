@@ -19,10 +19,10 @@ export class GameService {
   private leagueUrl = environment.apiBaseUrl + 'api/leagues'
   constructor(private http: HttpClient) { }
 
-  getGames(filter: string = null): Observable<Game[]> {
+  getGames(leagueId: number, filter: string = null): Observable<Game[]> {
     let gamesUrl: string = this.openGamesUrl;
-    if(filter != null) {
-      gamesUrl = gamesUrl + '/?filter=' + filter; 
+    if (filter != null) {
+      gamesUrl = gamesUrl + '/league/' + leagueId +'/?filter=' + filter; 
     }
       
     return this.http.get<Game[]>(gamesUrl);

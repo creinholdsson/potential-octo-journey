@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Game } from '../domain/game';
 import { CardModule } from 'primeng/primeng';
 import { ButtonModule } from 'primeng/primeng';
 import { GameService } from '../services/game.service';
 import { HasPermissionDirective } from '../directives/has-permission.directive';
+import { League } from '../domain/league';
 
 @Component({
   selector: 'app-game-list',
@@ -15,13 +16,14 @@ export class GameListComponent implements OnInit {
   @Input() orderBy: string = 'startsOn';
   @Input() reverseOrder: boolean = false;
   @Input() itemsShown: number = 5;
+  @Input() league: League;
   games: Game[];
   hasMoreItems: boolean = false;
 
   constructor(private gameService: GameService) { }
 
   getOpenGames(): void {
-    this.gameService.getGames(this.gameType).subscribe(games=> {
+    this.gameService.getGames(this.league.id, this.gameType).subscribe(games => {
       this.games = games;
       if(this.games.length > this.itemsShown) {
         this.hasMoreItems = true;
@@ -37,7 +39,11 @@ export class GameListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getOpenGames();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.league) {
+      this.getOpenGames();
+    }
+  }
 }

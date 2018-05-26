@@ -39,48 +39,51 @@ namespace PyeongchangKampen.Controllers
             _Cache = cache;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetGames(string filter = null)
+        [HttpGet("league/{leagueId:int}")]
+        public async Task<IActionResult> GetGames(int leagueId, string filter = null)
         {
             IEnumerable<GameForRetrieveDto> gamesToRetrieve;
             
 
             if(filter == "open")
             {
-                if(_Cache.TryGetValue(CACHE_KEY_GAME+"open", out gamesToRetrieve) == false 
+                var cacheKey = CACHE_KEY_GAME + leagueId + "open";
+                if (_Cache.TryGetValue(cacheKey, out gamesToRetrieve) == false 
                     || (gamesToRetrieve != null && HasGameChangedStatus(gamesToRetrieve) == true))
                 {
-                    var games = await _Repository.GetGamesAsync();
+                    var games = await _Repository.GetGamesAsync(leagueId);
                     games = games.Where(x => x.IsOpenForBets == true);
                     gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
                     var firstToExpire = gamesToRetrieve.OrderBy(x => x.StartsOn).FirstOrDefault();
                     if (firstToExpire != null)
                     {
-                        _Cache.Set(CACHE_KEY_GAME + "open", gamesToRetrieve, new DateTimeOffset(firstToExpire.StartsOn));
+                        _Cache.Set(cacheKey, gamesToRetrieve, new DateTimeOffset(firstToExpire.StartsOn));
                     }
                     else
                     {
-                        _Cache.Set(CACHE_KEY_GAME + "open", gamesToRetrieve);
+                        _Cache.Set(cacheKey, gamesToRetrieve);
                     }
                 }
             }
             else if(filter == "closed")
             {
-                if (_Cache.TryGetValue(CACHE_KEY_GAME + "closed", out gamesToRetrieve) == false)
+                var cacheKey = CACHE_KEY_GAME + leagueId + "closed";
+                if (_Cache.TryGetValue(cacheKey, out gamesToRetrieve) == false)
                 {
                     var games = await _Repository.GetGamesAsync();
                     games = games.Where(x => x.IsOpenForBets == false && x.ScoreTeam1.HasValue);
                     gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
-                    _Cache.Set(CACHE_KEY_GAME + "closed", gamesToRetrieve);
+                    _Cache.Set(cacheKey, gamesToRetrieve);
                 }
             }
             else
             {
-                if (_Cache.TryGetValue(CACHE_KEY_GAME, out gamesToRetrieve) == false)
+                var cacheKey = CACHE_KEY_GAME + leagueId;
+                if (_Cache.TryGetValue(cacheKey, out gamesToRetrieve) == false)
                 {
                     var games = await _Repository.GetGamesAsync();
                     gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
-                    _Cache.Set(CACHE_KEY_GAME, gamesToRetrieve);
+                    _Cache.Set(cacheKey, gamesToRetrieve);
                 }
             }
 
@@ -119,12 +122,12 @@ namespace PyeongchangKampen.Controllers
             return Ok(mapped);
         }
 
-        [HttpGet("league/{leagueId:int}")]
-        public async Task<IActionResult> GetGames(int leagueId)
-        {
-            var games = await _Repository.GetGamesAsync(leagueId);
-            return Ok(Mapper.Map<IEnumerable<GameForRetrieveDto>>(games));
-        }
+        //[HttpGet("league/{leagueId:int}")]
+        //public async Task<IActionResult> GetGames(int leagueId)
+        //{
+        //    var games = await _Repository.GetGamesAsync(leagueId);
+        //    return Ok(Mapper.Map<IEnumerable<GameForRetrieveDto>>(games));
+        //}
 
         [Authorize(Roles = "Administrator")]
         [HttpPost]

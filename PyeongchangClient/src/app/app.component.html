@@ -1,14 +1,8 @@
-<header>
-    <app-navmenu></app-navmenu>
-</header>
-
-<main role="main" class="container" id="main-container">
-    <spinner spinner="sk-wave"></spinner>
-    <div baseZIndex="-999999999">
-        <p-growl [(value)]="msgs"></p-growl>
-    </div>
-    <router-outlet></router-outlet>
-</main>
+<spinner spinner="sk-wave"></spinner>
+<div baseZIndex="-999999999">
+  <p-growl [(value)]="msgs"></p-growl>
+</div>
+<router-outlet></router-outlet>
 
 
 
