@@ -52,7 +52,7 @@ export class GameService {
     return this.http.put<Game>(this.openGamesUrl + '/' + game.id, game);
   }
 
-  getTopList(): Observable<User[]> {
-    return this.http.get<User[]>(this.leagueUrl + '/1/toplist');
+  getTopList(leagueId: number): Observable<User[]> {
+    return this.http.get<User[]>(this.leagueUrl + '/' + leagueId + '/toplist');
   }
 }

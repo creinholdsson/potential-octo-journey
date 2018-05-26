@@ -19,7 +19,8 @@ export class TopListComponent implements OnInit {
   }
 
   getTopList() {
-    this.gameService.getTopList().subscribe(toplist => {
+    this.gameService.getTopList(this.league.id).subscribe(toplist => {
+      console.log()
       this.topList = toplist;
     });
   }
