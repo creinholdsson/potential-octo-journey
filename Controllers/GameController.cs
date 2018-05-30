@@ -70,7 +70,7 @@ namespace PyeongchangKampen.Controllers
                 var cacheKey = CACHE_KEY_GAME + leagueId + "closed";
                 if (_Cache.TryGetValue(cacheKey, out gamesToRetrieve) == false)
                 {
-                    var games = await _Repository.GetGamesAsync();
+                    var games = await _Repository.GetGamesAsync(leagueId);
                     games = games.Where(x => x.IsOpenForBets == false && x.ScoreTeam1.HasValue);
                     gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
                     _Cache.Set(cacheKey, gamesToRetrieve);
@@ -81,7 +81,7 @@ namespace PyeongchangKampen.Controllers
                 var cacheKey = CACHE_KEY_GAME + leagueId;
                 if (_Cache.TryGetValue(cacheKey, out gamesToRetrieve) == false)
                 {
-                    var games = await _Repository.GetGamesAsync();
+                    var games = await _Repository.GetGamesAsync(leagueId);
                     gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
                     _Cache.Set(cacheKey, gamesToRetrieve);
                 }
