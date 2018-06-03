@@ -9,7 +9,7 @@
 
 
         Sport <br />
-        <p-dropdown [options]="sports" [(ngModel)]="game.sportId" name="sportId" autoDisplayFirst="false" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
+        <p-dropdown [options]="sports" [(ngModel)]="game.sportId" (onChange)="onSportChange($event.value)" name="sportId" autoDisplayFirst="false" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
         <br /> <br />
 
         Typ <br />
@@ -26,6 +26,14 @@
         <div *ngIf="game.gameType == 0">
           Poäng rätt vinnare <br />
           <p-dropdown [options]="points" [(ngModel)]="game.pointsWinner" name="pointsWinner" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+        </div>
+
+        <div *ngIf="game.gameType == 2">
+          Hemmalag <br />
+          <p-dropdown [options]="teams" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+          <br />
+          Bortalag <br />
+          <p-dropdown [options]="teams" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
         </div>
         
         Beskrivning <br/>

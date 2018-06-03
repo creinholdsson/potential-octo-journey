@@ -74,7 +74,7 @@ export class GameEditComponent implements OnInit {
     this.gameService.getSports(this.league.id).subscribe(sports => {
       this.sports = [];
       for (let sport of sports) {
-        var newSport = new OptionValue<string>();
+        var newSport = new OptionValue<string>(0,'');
         newSport.label = sport.name;
         newSport.value = sport.id;
         this.sports.push(newSport);

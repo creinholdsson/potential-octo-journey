@@ -38,6 +38,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { RequestPasswordResetComponent } from './request-password-reset/request-password-reset.component';
 import { AllGamesComponent } from './all-games/all-games.component';
 import { LeagueComponent } from './league/league.component';
+import { TeamService } from './services/team.service';
 
 
 const appRoutes: Routes = [
@@ -110,6 +111,7 @@ const appRoutes: Routes = [
     MessageService, 
     UserService,
     LeagueService,
+    TeamService,
     AuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,

@@ -7,6 +7,9 @@ import { GameForCreation } from '../domain/game-for-creation';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { League } from '../domain/league';
 import { LeagueService } from '../services/league.service';
+import { GameType } from '../domain/gameType';
+import { TeamService } from '../services/team.service';
+import { Team } from '../domain/team';
 
 @Component({
   selector: 'app-game-create',
@@ -15,6 +18,7 @@ import { LeagueService } from '../services/league.service';
 })
 export class GameCreateComponent implements OnInit {
   league: League;
+  teams: OptionValue<string>[] = [];
   gameTypes: OptionValue<string>[] = [];
   sports: OptionValue<string>[] = [];
   points: OptionValue<string>[] = [
@@ -41,19 +45,20 @@ export class GameCreateComponent implements OnInit {
   constructor(
     private gameService: GameService,
     private messageSerive: MessageService,
-    private leagueService: LeagueService) {
+    private leagueService: LeagueService,
+    private teamService: TeamService) {
    }
   
   getSports() {
     this.gameService.getSports(this.league.id).subscribe(sports => {
       this.sports = [];
       for (let sport of sports) {
-        var newSport = new OptionValue<string>();
+        var newSport = new OptionValue<string>(0,'');
         newSport.label = sport.name;
         newSport.value = sport.id;
         this.sports.push(newSport);
       }
-      this.gameTypes = [{label: 'Resultat', value: 0 }, {label: 'Placering', value: 1 }];
+      this.gameTypes = [{ label: 'Resultat', value: 0 }, { label: 'Placering', value: 1 }, { label: 'Lagspel', value: GameType.TeamGame }];
     })
   }
 
@@ -78,4 +83,14 @@ export class GameCreateComponent implements OnInit {
     this.game.leagueId = this.league.id;
   }
 
+
+  onSportChange() {
+    this.teams = [];
+    this.teamService.getTeams(this.league.id, this.game.sportId).subscribe(teams => {
+      for (let team of teams) {
+        var t = new OptionValue<string>(team.id, team.name);
+        this.teams.push(t);
+      }
+    });
+  }
 }

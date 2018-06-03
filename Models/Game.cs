@@ -39,7 +39,8 @@ namespace PyeongchangKampen.Models
     public enum GameType
     {
         Result,
-        Placement
+        Placement,
+        TeamGame
     }
 
 }
