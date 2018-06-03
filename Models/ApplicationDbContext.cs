@@ -30,7 +30,19 @@ namespace PyeongchangKampen.Models
                 .HasOne(x => x.League)
                 .WithMany(l => l.LeagueSports)
                 .HasForeignKey(y => y.LeagueId);
-           
+
+            builder.Entity<TeamLeague>().HasKey(x => new { x.LeagueId, x.TeamId });
+
+            builder.Entity<TeamLeague>()
+                .HasOne(x => x.Team)
+                .WithMany(t => t.TeamLeagues)
+                .HasForeignKey(y => y.TeamId);
+
+            builder.Entity<TeamLeague>()
+                .HasOne(l => l.League)
+                .WithMany(l => l.TeamLeagues)
+                .HasForeignKey(l => l.LeagueId);
+
         }
 
         public DbSet<Bet> Bets { get; set; }
@@ -38,6 +50,7 @@ namespace PyeongchangKampen.Models
         public DbSet<League> Leagues { get; set; }
         public DbSet<Sport> Sports { get; set; }
         public DbSet<LeagueSport> LeagueSports { get; set; }
-
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<TeamLeague> TeamLeagues { get; set; }
     }
 }

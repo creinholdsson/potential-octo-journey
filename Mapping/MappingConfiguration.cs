@@ -28,8 +28,8 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.Games, context => context.Ignore())
                     .ForMember(dest => dest.LeagueSports, context => context.Ignore())
                     .ForMember(dest => dest.Url, context => context.MapFrom(src => src.Url))
-                    .ForMember(dest => dest.ImageUrl, context => context.MapFrom(src => src.ImageUrl));
-
+                    .ForMember(dest => dest.ImageUrl, context => context.MapFrom(src => src.ImageUrl))
+                    .ForMember(dest => dest.TeamLeagues, context => context.Ignore());
 
                 config.CreateMap<Sport, SportForRetrieveDto>()
                     .ForMember(dest => dest.Id, context => context.MapFrom(src => src.Id))
@@ -41,7 +41,8 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.Icon, context => context.MapFrom(src => src.Icon))
                     .ForMember(dest => dest.Games, context => context.Ignore())
                     .ForMember(dest => dest.Id, context => context.Ignore())
-                    .ForMember(dest => dest.LeagueSports, context => context.Ignore());
+                    .ForMember(dest => dest.LeagueSports, context => context.Ignore())
+                    .ForMember(dest => dest.Teams, context => context.Ignore());
 
                 config.CreateMap<Game, GameForRetrieveDto>()
                     .ForMember(dest => dest.Description, context => context.MapFrom(src => src.Description))
@@ -58,7 +59,11 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.SportIcon, context => context.ResolveUsing(src => src.Sport == null ? "default" : src.Sport.Icon))
                     .ForMember(dest => dest.Bets, context => context.ResolveUsing(src => src.Bets == null ? new List<string>() : src.Bets.Select(x => x.UserId)))
                     .ForMember(dest => dest.HasUserPlacedBet, context => context.ResolveUsing(src => false))
-                    .ForMember(dest => dest.IsConcluded, context => context.ResolveUsing(src=> src.ScoreTeam1.HasValue ? true : false));
+                    .ForMember(dest => dest.IsConcluded, context => context.ResolveUsing(src => src.ScoreTeam1.HasValue ? true : false))
+                    .ForMember(dest => dest.Team1Name, context => context.ResolveUsing(src => src.Team1 != null ? src.Team1.Name : null))
+                    .ForMember(dest => dest.Team2Name, context => context.ResolveUsing(src => src.Team2 != null ? src.Team2.Name : null))
+                    .ForMember(dest => dest.Team1ImageUrl, context => context.ResolveUsing(src => src.Team1 != null ? src.Team1.ImageUrl : null))
+                    .ForMember(dest => dest.Team2ImageUrl, context => context.ResolveUsing(src => src.Team2 != null ? src.Team2.ImageUrl : null));
 
 
                 config.CreateMap<GameForCreationDto, Game>()
@@ -68,12 +73,15 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.StartsOn, context => context.MapFrom(src => src.StartsOn))
                     .ForMember(dest => dest.Sport, context => context.ResolveUsing(src => new Sport { Id = src.SportId }))
                     .ForMember(dest => dest.League, context => context.ResolveUsing(src => new League { Id = src.LeagueId }))
-                    .ForMember(dest => dest.PointsResult, context => context.MapFrom(src=>src.PointsResult))
-                    .ForMember(dest => dest.PointsWinner, context => context.MapFrom(src=>src.PointsWinner))
+                    .ForMember(dest => dest.PointsResult, context => context.MapFrom(src => src.PointsResult))
+                    .ForMember(dest => dest.PointsWinner, context => context.MapFrom(src => src.PointsWinner))
                     .ForMember(dest => dest.ScoreTeam1, context => context.Ignore())
                     .ForMember(dest => dest.ScoreTeam2, context => context.Ignore())
                     .ForMember(dest => dest.Id, context => context.Ignore())
-                    .ForMember(dest => dest.Bets, context => context.Ignore());
+                    .ForMember(dest => dest.Bets, context => context.Ignore())
+                    .ForMember(dest => dest.Team1, context => context.ResolveUsing(src => src.Team1Id.HasValue ? new Team { Id = src.Team1Id.Value } : null))
+                    .ForMember(dest => dest.Team2, context => context.ResolveUsing(src => src.Team1Id.HasValue ? new Team { Id = src.Team2Id.Value } : null));
+
 
                 config.CreateMap<GameForUpdateDto, Game>()
                     .ForMember(dest => dest.Description, context => context.MapFrom(src => src.Description))
@@ -87,7 +95,9 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.ScoreTeam2, context => context.MapFrom(src => src.ScoreTeam2))
                     .ForMember(dest => dest.StartsOn, context => context.MapFrom(src => src.StartsOn))
                     .ForMember(dest => dest.Title, context => context.MapFrom(src => src.Title))
-                    .ForMember(dest => dest.Bets, context => context.Ignore());
+                    .ForMember(dest => dest.Bets, context => context.Ignore())
+                    .ForMember(dest => dest.Team1, context => context.ResolveUsing(src => src.Team1Id.HasValue ? new Team { Id = src.Team1Id.Value } : null))
+                    .ForMember(dest => dest.Team2, context => context.ResolveUsing(src => src.Team1Id.HasValue ? new Team { Id = src.Team2Id.Value } : null));
 
                 config.CreateMap<Bet, BetForRetrieveDto>()
                     .ForMember(dest => dest.AwardedPoints, context => context.MapFrom(src => src.AwardedPoints))
@@ -119,7 +129,10 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.Rank, context => context.MapFrom(src=>src.Rank))
                     .ForMember(dest => dest.TrailingPoints, context => context.Ignore());
 
-
+                config.CreateMap<Team, TeamForRetrieve>()
+                    .ForMember(dest => dest.Id, context => context.MapFrom(src => src.Id))
+                    .ForMember(dest => dest.ImageUrl, context => context.MapFrom(src => src.ImageUrl))
+                    .ForMember(dest => dest.Name, context => context.MapFrom(src => src.Name));
             });
 
             

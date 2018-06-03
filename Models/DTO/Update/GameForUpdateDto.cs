@@ -18,5 +18,7 @@ namespace PyeongchangKampen.Models.DTO.Update
         public int PointsResult { get; set; }
         public int? PointsWinner { get; set; }
         public DateTime StartsOn { get; set; }
+        public int? Team1Id { get; set; }
+        public int? Team2Id { get; set; }
     }
 }

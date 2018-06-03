@@ -31,6 +31,9 @@ namespace PyeongchangKampen.Models
         [NotMapped]
         public bool IsOpenForBets { get { return DateTime.Now < StartsOn; } }
         public virtual ICollection<Bet> Bets { get; set; }
+
+        public Team Team1 { get; set; }
+        public Team Team2 { get; set; }
     }
 
     public enum GameType

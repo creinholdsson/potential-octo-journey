@@ -65,6 +65,7 @@ namespace PyeongchangKampen
             services.AddTransient<ISportRepository, SportRepository>();
             services.AddTransient<IGameRepository, GameRepository>();
             services.AddTransient<IBetRepository, BetRepository>();
+            services.AddTransient<ITeamRepository, TeamRepository>();
 
             services.Configure<IdentityOptions>(options =>
             {
