@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { League } from '../domain/league';
 import { LeagueService } from '../services/league.service';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-index',
@@ -11,7 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 export class IndexComponent implements OnInit {
   public league: League;
   constructor(private leagueService: LeagueService,
-    private route: ActivatedRoute,) { }
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.leagueService.getCurrentLeague().subscribe(league => {
@@ -19,4 +21,7 @@ export class IndexComponent implements OnInit {
     });
   }
 
+  sanitizeUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustStyle(`url(${url})`);
+  }
 }

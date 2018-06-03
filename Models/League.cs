@@ -11,6 +11,7 @@ namespace PyeongchangKampen.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
+        public string ImageUrl { get; set; }
         public ICollection<LeagueSport> LeagueSports { get; set; }
         public ICollection<Game> Games { get; set; }
     }

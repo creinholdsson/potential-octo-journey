@@ -19,14 +19,16 @@ namespace PyeongchangKampen.Mapping
             {
                 config.CreateMap<League, LeagueForRetrieveDto>()
                     .ForMember(dest => dest.Id, context => context.MapFrom(src => src.Id))
-                    .ForMember(dest => dest.Name, context => context.MapFrom(src => src.Name));
+                    .ForMember(dest => dest.Name, context => context.MapFrom(src => src.Name))
+                    .ForMember(dest => dest.ImageUrl, context => context.MapFrom(src => src.ImageUrl));
 
                 config.CreateMap<LeagueForCreationDto, League>()
                     .ForMember(dest => dest.Name, context => context.MapFrom(src => src.Name))
                     .ForMember(dest => dest.Id, context => context.Ignore())
                     .ForMember(dest => dest.Games, context => context.Ignore())
                     .ForMember(dest => dest.LeagueSports, context => context.Ignore())
-                    .ForMember(dest => dest.Url, context => context.MapFrom(src => src.Url));
+                    .ForMember(dest => dest.Url, context => context.MapFrom(src => src.Url))
+                    .ForMember(dest => dest.ImageUrl, context => context.MapFrom(src => src.ImageUrl));
 
 
                 config.CreateMap<Sport, SportForRetrieveDto>()
