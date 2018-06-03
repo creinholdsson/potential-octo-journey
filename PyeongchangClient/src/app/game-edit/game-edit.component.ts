@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { LeagueService } from '../services/league.service';
+import { League } from '../domain/league';
 
 @Component({
   selector: 'app-game-edit',
@@ -13,6 +15,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
   styleUrls: ['./game-edit.component.css']
 })
 export class GameEditComponent implements OnInit {
+  league: League;
   gameTypes: OptionValue<string>[] = [];
   sports: OptionValue<string>[] = [];
   points: OptionValue<string>[] = [
@@ -48,7 +51,8 @@ export class GameEditComponent implements OnInit {
   constructor(private gameService: GameService, 
     private route: ActivatedRoute, 
     private router: Router,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private leagueService: LeagueService) {
     for (let i: number = 0; i <= 50; i++) {
       if (i > 0) {
         this.possiblePlacements.push({ label: i.toString(), value: i });
@@ -67,8 +71,7 @@ export class GameEditComponent implements OnInit {
     });
   }
   getSports() {
-    this.gameService.getSports().subscribe(sports => {
-      
+    this.gameService.getSports(this.league.id).subscribe(sports => {
       this.sports = [];
       for (let sport of sports) {
         var newSport = new OptionValue<string>();
@@ -83,8 +86,13 @@ export class GameEditComponent implements OnInit {
 
   ngOnInit() {
     this.gameId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
-    this.getSports();
-    this.getGame(this.gameId);
+    this.leagueService.getCurrentLeague().subscribe(league => {
+      this.league = league;
+      this.getSports();
+      this.getGame(this.gameId);
+    })
+
+    
   }
 
   updateGame() {

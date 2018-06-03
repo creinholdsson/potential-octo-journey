@@ -5,6 +5,8 @@ import { AuthenticationService } from '../services/authentication-service.servic
 import { ValidatorFn } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
 import { ValidationErrors } from '@angular/forms';
+import { LeagueService } from '../services/league.service';
+import { League } from '../domain/league';
 
 @Component({
   selector: 'app-register',
@@ -12,12 +14,15 @@ import { ValidationErrors } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  league: League;
   registerForm: FormGroup;
   user: UserForCreation = new UserForCreation();
   passwordRepeat: string;
   usernameTaken: boolean = false;
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private leagueService: LeagueService) { }
 
   ngOnInit() {
     this.registerForm = new FormGroup({
@@ -41,8 +46,12 @@ export class RegisterComponent implements OnInit {
         'passwordRepeat': new FormControl(this.passwordRepeat, [
           Validators.required
         ])
-      }, {validators: this.areEqual})
-    })
+      }, { validators: this.areEqual })
+    });
+
+    this.leagueService.getCurrentLeague().subscribe(league => {
+      this.league = league;
+    });
   }
 
   areEqual(c: AbstractControl): ValidationErrors | null {
@@ -78,8 +87,8 @@ export class RegisterComponent implements OnInit {
     this.user.password = this.registerForm.value.passwords.password;
     this.user.phoneNumber = this.registerForm.value.phoneNumber;
     this.authenticationService.checkUsername(this.user.username).then(x=> {
-      if(x) {
-        this.authenticationService.createUser(this.user);
+      if (x) {
+        this.authenticationService.createUser(this.user, this.league.url);
       }
       else {
         this.usernameTaken = true;

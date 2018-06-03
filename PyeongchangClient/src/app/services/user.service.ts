@@ -16,8 +16,8 @@ export class UserService {
     return this.httpClient.get<User>(this.userApiBase + '/user/' + username);
   }
 
-  getUserBets(username: string): Observable<Bet[]> {
-    return this.httpClient.get<Bet[]>(this.betsApiBase + '/user/' + username + '?leagueId=1');
+  getUserBets(username: string, leagueId: number): Observable<Bet[]> {
+    return this.httpClient.get<Bet[]>(this.betsApiBase + '/user/' + username + '?leagueId=' + leagueId);
   }
 
   makeAdministrator(username: string): Observable<string> {

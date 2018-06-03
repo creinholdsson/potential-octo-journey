@@ -1,6 +1,6 @@
 export class GameForCreation {
     sportId: number;
-    leagueId: number = 1;
+    leagueId: number;
     title: string;
     description: string;
     startsOn: Date;

@@ -27,10 +27,10 @@ export class AuthenticationService {
 
 
 
-  createUser(user: UserForCreation) {
+  createUser(user: UserForCreation, leagueUrl: string) {
     return this.httpClient.post<User>(this.usersBaseUrl + '/register', user).subscribe(result=> {
       localStorage.setItem('user', JSON.stringify(result));
-      this.router.navigate(['/']);
+      this.router.navigate(['/' + leagueUrl]);
       this.messageService.add({severity: 'success', summary:'Välkommen', detail: 'Registering lyckades, du har blivit inloggad'});
       this.dispatcher.emit(new AuthenticationEvent(true));
     }, error=> {

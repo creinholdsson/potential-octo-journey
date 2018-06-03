@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { OptionValue } from '../domain/option-value';
 import { Sport } from '../domain/sport';
 import { GameService } from '../services/game.service';
 import { GameForCreation } from '../domain/game-for-creation';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { League } from '../domain/league';
+import { LeagueService } from '../services/league.service';
 
 @Component({
   selector: 'app-game-create',
@@ -12,6 +14,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
   styleUrls: ['./game-create.component.css']
 })
 export class GameCreateComponent implements OnInit {
+  league: League;
   gameTypes: OptionValue<string>[] = [];
   sports: OptionValue<string>[] = [];
   points: OptionValue<string>[] = [
@@ -35,11 +38,14 @@ export class GameCreateComponent implements OnInit {
   ];
   game : GameForCreation = new GameForCreation();
 
-  constructor(private gameService: GameService, private messageSerive: MessageService) {
+  constructor(
+    private gameService: GameService,
+    private messageSerive: MessageService,
+    private leagueService: LeagueService) {
    }
   
   getSports() {
-    this.gameService.getSports().subscribe(sports => {
+    this.gameService.getSports(this.league.id).subscribe(sports => {
       this.sports = [];
       for (let sport of sports) {
         var newSport = new OptionValue<string>();
@@ -54,13 +60,22 @@ export class GameCreateComponent implements OnInit {
   addGame(value) {
     console.log(this.game);
     this.gameService.addGame(this.game).subscribe(game => {
-      this.messageSerive.add({severity: 'success', summary:'Spel skapat', detail: 'Spelet har lagts till'});
-      this.game = new GameForCreation();
+      this.messageSerive.add({ severity: 'success', summary: 'Spel skapat', detail: 'Spelet har lagts till' });
+      this.initializeNewGame();
     });
   }
 
   ngOnInit() {
-    this.getSports();
+    this.leagueService.getCurrentLeague().subscribe(league => {
+      this.league = league;
+      this.initializeNewGame();
+      this.getSports();
+    });
+  }
+
+  initializeNewGame() {
+    this.game = new GameForCreation();
+    this.game.leagueId = this.league.id;
   }
 
 }

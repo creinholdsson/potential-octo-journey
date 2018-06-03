@@ -7,9 +7,9 @@
     <div [ngbCollapse]="!isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" [appHasPermission]="'Administrator'">
-          <a routerLink="game/all" class="nav-link">Alla spel</a>
+          <a routerLink="/{{league.url}}/game/all" class="nav-link">Alla spel</a>
         </li>        
       </ul>
-      <app-login-component></app-login-component>
+      <app-login-component [league]="league"></app-login-component>
     </div>
   </nav>

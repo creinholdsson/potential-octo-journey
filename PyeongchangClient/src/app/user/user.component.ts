@@ -4,6 +4,8 @@ import { User } from '../domain/auth/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { Bet } from '../domain/bet';
+import { LeagueService } from '../services/league.service';
+import { League } from '../domain/league';
 
 @Component({
   selector: 'app-user',
@@ -11,6 +13,7 @@ import { Bet } from '../domain/bet';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  league: League;
   user: User = null;
   bets: Bet[] = null;
 
@@ -46,17 +49,22 @@ export class UserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private leagueService: LeagueService) { }
 
   ngOnInit() {
     const username = this.route.snapshot.paramMap.get('username');
-    this.userService.getUser(username).subscribe(user =>  {
-      this.user = user;
-      this.userService.getUserBets(username).subscribe(bets => {
-        this.initializeGraph(bets);
-        this.bets = bets;
+    this.leagueService.getCurrentLeague().subscribe(league => {
+      this.league = league;
+      this.userService.getUser(username).subscribe(user => {
+        this.user = user;
+        this.userService.getUserBets(username, league.id).subscribe(bets => {
+          this.initializeGraph(bets);
+          this.bets = bets;
+        });
       });
-    });
+    })
+    
     
   }
 

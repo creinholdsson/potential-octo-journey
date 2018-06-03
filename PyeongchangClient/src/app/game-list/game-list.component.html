@@ -1,6 +1,6 @@
 <div class="row" *ngIf="games">
   <div class="col-12">
-    <a *ngFor="let game of games | orderBy: orderBy : reverseOrder; let i=index" routerLink="/game/{{game.id}}">
+    <a *ngFor="let game of games | orderBy: orderBy : reverseOrder; let i=index" routerLink="/{{league.url}}/game/{{game.id}}">
       
       <div class="test" *ngIf="i<itemsShown">
           

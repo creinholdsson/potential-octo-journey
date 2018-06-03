@@ -40,8 +40,8 @@ export class GameService {
     return this.http.get<Bet[]>(this.betsPlacementUrl + '/game/' + gameId.toString());
   }
 
-  getSports(): Observable<Sport[]> {
-    return this.http.get<Sport[]>(this.sportsUrl + '/league/1');
+  getSports(leagueId: number): Observable<Sport[]> {
+    return this.http.get<Sport[]>(this.sportsUrl + '/league/' + leagueId);
   }
 
   addGame(game: GameForCreation): Observable<Game> {

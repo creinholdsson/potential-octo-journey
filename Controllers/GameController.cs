@@ -122,13 +122,6 @@ namespace PyeongchangKampen.Controllers
             return Ok(mapped);
         }
 
-        //[HttpGet("league/{leagueId:int}")]
-        //public async Task<IActionResult> GetGames(int leagueId)
-        //{
-        //    var games = await _Repository.GetGamesAsync(leagueId);
-        //    return Ok(Mapper.Map<IEnumerable<GameForRetrieveDto>>(games));
-        //}
-
         [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> AddGame([FromBody]GameForCreationDto gameDto)
@@ -142,9 +135,9 @@ namespace PyeongchangKampen.Controllers
             game = await _Repository.AddGameAsync(game);
             _Logger.LogInformation($"{User.Identity.Name} created game {gameDto.Title} with sport {gameDto.SportId}");
 
-            _Cache.Remove(CACHE_KEY_GAME);
-            _Cache.Remove(CACHE_KEY_GAME+"closed");
-            _Cache.Remove(CACHE_KEY_GAME+"open");
+            _Cache.Remove(CACHE_KEY_GAME + gameDto.LeagueId);
+            _Cache.Remove(CACHE_KEY_GAME + gameDto.LeagueId + "closed");
+            _Cache.Remove(CACHE_KEY_GAME + gameDto.LeagueId + "open");
             return CreatedAtRoute("GetGame", new { gameId = game.Id }, Ok(Mapper.Map<GameForRetrieveDto>(game)));
         }
 
