@@ -13,7 +13,7 @@ namespace PyeongchangKampen.Models
         public ICollection<Bet> Bets { get; set; }
 
         [NotMapped]
-        public int TotalPoints { get; set; }
+        public double TotalPoints { get; set; }
 
         [NotMapped]
         public int Rank { get; set; }

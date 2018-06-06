@@ -9,6 +9,7 @@ using PyeongchangKampen.Models.DTO.Creation;
 using PyeongchangKampen.Models.DTO.Retrieve;
 using PyeongchangKampen.Models.DTO.Update;
 using PyeongchangKampen.Repostory;
+using PyeongchangKampen.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -168,16 +169,19 @@ namespace PyeongchangKampen.Controllers
             }
 
             if ((game.GameType == GameType.Placement && game.ScoreTeam1.HasValue == true) || 
-                (game.GameType == GameType.Result && game.ScoreTeam1.HasValue == true && game.ScoreTeam2.HasValue == true))
+                (
+                    (game.GameType == GameType.Result || game.GameType == GameType.TeamGame) 
+                    && game.ScoreTeam1.HasValue == true && game.ScoreTeam2.HasValue == true)
+                )
             {
                 var bets = await _BetRepository.GetBets(game);
                 if(game.GameType == GameType.Placement)
                 {
-                    AwardPointsForPlacement(bets, game.ScoreTeam1.Value, game.PointsResult.Value);
+                    AwardPointsForPlacement(bets, game.ScoreTeam1.Value, game.PointsResult.Value, game.ScoreType == ScoreType.Odds);
                 }
                 else
                 {
-                    AwardPointsForResult(bets, game.ScoreTeam1.Value, game.ScoreTeam2.Value, game.PointsResult.Value, game.PointsWinner);
+                    AwardPointsForResult(bets, game.ScoreTeam1.Value, game.ScoreTeam2.Value, game.PointsResult.Value, game.PointsWinner, game.ScoreType == ScoreType.Odds);
                 }
                 await _BetRepository.UpdateBets(bets);
             }
@@ -204,13 +208,16 @@ namespace PyeongchangKampen.Controllers
 
         
 
-        private void AwardPointsForPlacement(IEnumerable<Bet> bets, int result, int pointsResult)
+        private void AwardPointsForPlacement(IEnumerable<Bet> bets, int result, int pointsResult, bool useScoreCalculation)
         {
-           foreach(var bet in bets)
+            var correctBet = new Bet() { ScoreTeam1 = result };
+            var scoreCalculator = new ScoreCalculationService();
+            var awardedScore = useScoreCalculation ? scoreCalculator.GetScoreForCorrectBet(bets, correctBet) : pointsResult;
+            foreach(var bet in bets)
             {
                 if(bet.ScoreTeam1.HasValue && bet.ScoreTeam1.Value == result)
                 {
-                    bet.AwardedPoints = pointsResult;
+                    bet.AwardedPoints = awardedScore;
                 }
                 else
                 {
@@ -219,9 +226,12 @@ namespace PyeongchangKampen.Controllers
             }
         }
 
-        private void AwardPointsForResult(IEnumerable<Bet> bets, int scoreTeam1, int scoreTeam2, int pointsResult, int? pointsWinner)
+        private void AwardPointsForResult(IEnumerable<Bet> bets, int scoreTeam1, int scoreTeam2, int pointsResult, int? pointsWinner, bool useScoreCalculation)
         {
-            var pointsForWinnerResult = pointsWinner.HasValue ? pointsWinner.Value : 0;
+            var correctBet = new Bet() { ScoreTeam1 = scoreTeam1, ScoreTeam2 = scoreTeam2 };
+            var scoreCalculator = new ScoreCalculationService();
+            var awardedPointsResult = useScoreCalculation ? scoreCalculator.GetScoreForCorrectBet(bets, correctBet) : pointsResult;
+            var awardedPointsWinner = useScoreCalculation ? scoreCalculator.GetScoreForCorrectWinner(bets, correctBet) : pointsWinner.HasValue ? pointsWinner.Value : 0;
 
             foreach(var bet in bets)
             {
@@ -229,26 +239,25 @@ namespace PyeongchangKampen.Controllers
                 {
                     if(bet.ScoreTeam1.Value == scoreTeam1 && bet.ScoreTeam2.Value == scoreTeam2)
                     {
-                        bet.AwardedPoints = pointsResult;
+                        bet.AwardedPoints = awardedPointsResult;
                     }
                     else if(scoreTeam1 == scoreTeam2 && bet.ScoreTeam1.Value == bet.ScoreTeam2.Value)
                     {
-                        bet.AwardedPoints = pointsForWinnerResult;
+                        bet.AwardedPoints = awardedPointsWinner;
                     }
                     else if(scoreTeam1 < scoreTeam2 && bet.ScoreTeam1.Value < bet.ScoreTeam2.Value)
                     {
-                        bet.AwardedPoints = pointsForWinnerResult;
+                        bet.AwardedPoints = awardedPointsWinner;
                     }
                     else if(scoreTeam1 > scoreTeam2 && bet.ScoreTeam1.Value > bet.ScoreTeam2.Value)
                     {
-                        bet.AwardedPoints = pointsForWinnerResult;
+                        bet.AwardedPoints = awardedPointsWinner;
                     }
                 }
                 else
                 {
                     bet.AwardedPoints = 0;
                 }
-
             }
         }
 

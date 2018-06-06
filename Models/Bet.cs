@@ -22,6 +22,6 @@ namespace PyeongchangKampen.Models
         }
         public int? ScoreTeam1 { get; set; }
         public int? ScoreTeam2 { get; set; }
-        public int? AwardedPoints { get; set; }
+        public double? AwardedPoints { get; set; }
     }
 }
