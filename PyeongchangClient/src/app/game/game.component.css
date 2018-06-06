@@ -17,3 +17,12 @@ h3 {
     float: right;
     margin-top: -20px;
 }
+
+.teams {
+  float: right;
+  margin-top: -20px;
+}
+
+.teams img {
+  height: 60px;
+}

@@ -4,43 +4,65 @@
     <p-card>
       <form #gameForm="ngForm" (ngSubmit)="updateGame()">
         Titel <br />
-        <input type="text" pInputText [(ngModel)]="game.title" name="title" [style]="{'width': '100%'}" required/>
+        <input type="text" pInputText [(ngModel)]="game.title" name="title" [style]="{'width': '100%'}" required />
         <br /> <br />
-
         Sport <br />
-        <p-dropdown [options]="sports" [(ngModel)]="game.sportId" name="sportId" autoDisplayFirst="false" [style]="{'width': '100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
+        <p-dropdown
+                    [options]="sports"
+                    [(ngModel)]="game.sportId"
+                    name="sportId"
+                    autoDisplayFirst="false"
+                    [style]="{'width': '100%'}"
+                    (onChange)="onSportChange($event.value)"
+                    placeholder="V&auml;lj ett alternativ"
+                    required></p-dropdown>
         <br /> <br />
-
         Typ <br />
         <p-dropdown [options]="gameTypes" [(ngModel)]="game.gameType" name="gameType" autoDisplayFirst="false" [style]="{'width': '100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
         <br /><br />
-        
+
         Starttid <br />
         <p-calendar [(ngModel)]="game.startsOn" [showTime]="true" name="startsOn" [inline]="true" required></p-calendar>
         <br /><br />
-
         Poäng rätt resultat <br />
         <p-dropdown [options]="points" [(ngModel)]="game.pointsResult" name="pointsResult" [style]="{'width': '100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
-
         <div *ngIf="game.gameType == 0">
           Poäng rätt vinnare <br />
           <p-dropdown [options]="points" [(ngModel)]="game.pointsWinner" name="winnerResult" [style]="{'width': '100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
         </div>
-        
-        Beskrivning <br/>
-        <textarea pInputTextarea [rows]="7" [cols]="42" [style]="{'width': '100%'}" [(ngModel)]="game.description" name="description" required></textarea>
-        <br /><br />
 
+        <div *ngIf="game.gameType == 2">
+          Hemmalag <br />
+          <p-dropdown [options]="teams"
+                      [(ngModel)]="game.team1Id"
+                      [required]="game.gameType == 2"
+                      name="team1Id"
+                      [style]="{'width':'100%'}"
+                      (onChange)="onTeamsChanged($event)"
+                      placeholder="V&auml;lj ett alternativ"></p-dropdown>
+          <br />
+          Bortalag <br />
+          <p-dropdown [options]="teams"
+                      [(ngModel)]="game.team2Id"
+                      [required]="game.gameType == 2"
+                      name="team2Id"
+                      [style]="{'width':'100%'}"
+                      (onChange)="onTeamsChanged($event)"
+                      placeholder="V&auml;lj ett alternativ"></p-dropdown>
+        </div>
+
+        Beskrivning <br />
+        <textarea pInputTextarea [rows]="7" [cols]="42" [style]="{'width': '100%'}" [(ngModel)]="game.description" name="description" [required]="game.gameType != 2"></textarea>
+        <br /><br />
         Resultat
-        <div *ngIf="game.gameType == 0">
+        <div *ngIf="game.gameType == 0 || game.gameType == 2">
           <p-dropdown [options]="possibleResults" [(ngModel)]="game.scoreTeam1" name="scoreTeam1" placeholder="V&auml;lj ett alternativ"></p-dropdown>
           -
           <p-dropdown [options]="possibleResults" [(ngModel)]="game.scoreTeam2" name="scoreTeam2" placeholder="V&auml;lj ett alternativ"></p-dropdown>
         </div>
         <div *ngIf="game.gameType == 1">
-            <p-dropdown [options]="possiblePlacements" [(ngModel)]="game.scoreTeam1" name="scoreTeam1" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+          <p-dropdown [options]="possiblePlacements" [(ngModel)]="game.scoreTeam1" name="scoreTeam1" placeholder="V&auml;lj ett alternativ"></p-dropdown>
         </div>
-
         <br /> <br />
         <p-button icon="fa fa-save" type="submit" label="Spara" [disabled]="!gameForm.form.valid"></p-button>
       </form>

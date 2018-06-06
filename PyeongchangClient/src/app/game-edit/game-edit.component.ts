@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { LeagueService } from '../services/league.service';
 import { League } from '../domain/league';
+import { TeamService } from '../services/team.service';
 
 @Component({
   selector: 'app-game-edit',
@@ -16,6 +17,7 @@ import { League } from '../domain/league';
 })
 export class GameEditComponent implements OnInit {
   league: League;
+  teams: OptionValue<string>[] = [];
   gameTypes: OptionValue<string>[] = [];
   sports: OptionValue<string>[] = [];
   points: OptionValue<string>[] = [
@@ -52,7 +54,8 @@ export class GameEditComponent implements OnInit {
     private route: ActivatedRoute, 
     private router: Router,
     private messageService: MessageService,
-    private leagueService: LeagueService) {
+    private leagueService: LeagueService,
+    private teamService: TeamService) {
     for (let i: number = 0; i <= 50; i++) {
       if (i > 0) {
         this.possiblePlacements.push({ label: i.toString(), value: i });
@@ -68,6 +71,7 @@ export class GameEditComponent implements OnInit {
     this.gameService.getGame(id).subscribe(game => {
       this.game = GameForUpdate.copyFrom(game);
       this.game.startsOn = new Date(this.game.startsOn);
+      this.getTeams();      
     });
   }
   getSports() {
@@ -79,9 +83,35 @@ export class GameEditComponent implements OnInit {
         newSport.value = sport.id;
         this.sports.push(newSport);
       }
-      this.gameTypes = [{label: 'Resultat', value: 0 }, {label: 'Placering', value: 1 }];
+      this.gameTypes = [{ label: 'Resultat', value: 0 }, { label: 'Placering', value: 1 }, { label: 'Lagspel', value: 2 }];
       
     })
+  }
+
+  getTeams() {
+    this.teams = [];
+    this.teamService.getTeams(this.league.id, this.game.sportId).subscribe(teams => {
+      for (let team of teams) {
+        var t = new OptionValue<string>(team.id, team.name);
+        this.teams.push(t);
+      }
+    });
+    var team1Id = this.game.team1Id;
+    var team2Id = this.game.team2Id;
+
+    this.game.team1Id = null;
+    this.game.team2Id = null;
+
+    this.game.team1Id = team1Id;
+    this.game.team2Id = team2Id;
+  }
+
+  onSportChange() {
+    this.getTeams();
+  }
+
+  onTeamsChanged() {
+    this.game.title = `${this.getTeamNameFromId(this.game.team1Id)}-${this.getTeamNameFromId(this.game.team2Id)}`;
   }
 
   ngOnInit() {
@@ -102,4 +132,13 @@ export class GameEditComponent implements OnInit {
     })
   }
 
+
+  private getTeamNameFromId(id: number): string {
+    for (let team of this.teams) {
+      if (team.value == id) {
+        return team.label;
+      }
+    }
+    return '?';
+  }
 }

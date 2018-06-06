@@ -12,6 +12,27 @@
     width: 60px;
 }
 
+.teams {
+  opacity: 0.4;
+  padding-top: 20px;
+}
+
+  .teams .team1 {
+    height: 45px;
+    right: 80px;
+    margin-top:20px;
+    margin-right: 5px;
+    position: absolute;
+  }
+
+  .teams .team2 {
+    height: 45px;
+    right: 0;
+    margin-top: 20px;
+    margin-right: 5px;
+    position: absolute;
+  }
+
 a:hover {
   background-color: #f5f5f5 !important;
   text-decoration: none;

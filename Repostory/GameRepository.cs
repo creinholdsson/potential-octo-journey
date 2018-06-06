@@ -20,6 +20,11 @@ namespace PyeongchangKampen.Repostory
         {
             game.League = _DbContext.Leagues.FirstOrDefault(x => x.Id == game.League.Id);
             game.Sport = _DbContext.Sports.FirstOrDefault(x => x.Id == game.Sport.Id);
+            if (game.Team1 != null)
+            {
+                game.Team1 = _DbContext.Teams.FirstOrDefault(x => x.Id == game.Team1.Id);
+                game.Team2 = _DbContext.Teams.FirstOrDefault(x => x.Id == game.Team2.Id);
+            }
 
             _DbContext.Game.Add(game);
             await _DbContext.SaveChangesAsync();
@@ -34,7 +39,13 @@ namespace PyeongchangKampen.Repostory
 
         public async Task<Game> GetGameAsync(int gameId)
         {
-            return await _DbContext.Game.Include(x=>x.Sport).Include(x=>x.League).Include(x=>x.Bets).FirstOrDefaultAsync(x=>x.Id == gameId);
+            return await _DbContext.Game
+                .Include(x=>x.Sport)
+                .Include(x=>x.League)
+                .Include(x=>x.Bets)
+                .Include(x => x.Team1)
+                .Include(x => x.Team2)
+                .FirstOrDefaultAsync(x=>x.Id == gameId);
         }
 
         public async Task<IEnumerable<Game>> GetGamesAsync()
@@ -44,16 +55,16 @@ namespace PyeongchangKampen.Repostory
 
         public async Task<IEnumerable<Game>> GetGamesAsync(int leagueId)
         {
-            return await _DbContext.Game.Where(x => x.League.Id == leagueId).Include(x=>x.Sport).Include(x=>x.Bets).ToListAsync();
+            return await _DbContext.Game
+                .Where(x => x.League.Id == leagueId)
+                .Include(x=>x.Sport)
+                .Include(x=>x.Bets)
+                .Include(x=>x.Team1)
+                .Include(x=>x.Team2).ToListAsync();
         }
 
         public async Task UpdateGame(Game game)
         {
-            //var sport = _DbContext.Sports.Find(game.Sport.Id);
-            //var league = _DbContext.Leagues.Find(game.League.Id);
-            //game.Sport = sport;
-            //game.League = league;
-            //_DbContext.Attach(game);
             _DbContext.Game.Update(game);
             await _DbContext.SaveChangesAsync();
         }

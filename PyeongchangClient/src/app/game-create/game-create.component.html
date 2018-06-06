@@ -23,21 +23,35 @@
         Poäng rätt resultat <br />
         <p-dropdown [options]="points" [(ngModel)]="game.pointsResult" name="pointsResult" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
 
-        <div *ngIf="game.gameType == 0">
+        <div *ngIf="game.gameType == 0 || game.gameType == 2">
           Poäng rätt vinnare <br />
           <p-dropdown [options]="points" [(ngModel)]="game.pointsWinner" name="pointsWinner" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
         </div>
 
         <div *ngIf="game.gameType == 2">
           Hemmalag <br />
-          <p-dropdown [options]="teams" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+          <p-dropdown
+                      [options]="teams"
+                      [(ngModel)]="game.team1Id"
+                      [required]="game.gameType == 2"
+                      name="team1Id"
+                      [style]="{'width':'100%'}"
+                      (onChange)="onTeamsChanged($event)"
+                      placeholder="V&auml;lj ett alternativ"></p-dropdown>
           <br />
           Bortalag <br />
-          <p-dropdown [options]="teams" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+          <p-dropdown
+                      [options]="teams"
+                      [(ngModel)]="game.team2Id"
+                      [required]="game.gameType == 2"
+                      name="team2Id"
+                      [style]="{'width':'100%'}"
+                      (onChange)="onTeamsChanged($event)"
+                      placeholder="V&auml;lj ett alternativ"></p-dropdown>
         </div>
         
         Beskrivning <br/>
-        <textarea pInputTextarea [rows]="7" [cols]="42" [(ngModel)]="game.description" name="description" required></textarea>
+        <textarea pInputTextarea [rows]="7" [cols]="42" [(ngModel)]="game.description" name="description" [required]="game.gameType != 2"></textarea>
         <br /><br />
         <p-button icon="fa fa-save" type="submit" label="Spara" [disabled]="!gameForm.form.valid"></p-button>
       </form>

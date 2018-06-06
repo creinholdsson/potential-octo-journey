@@ -27,15 +27,17 @@ namespace PyeongchangKampen.Controllers
         private ILogger<GameController> _Logger;
         private IBetRepository _BetRepository;
         private ISportRepository _SportRepository;
+        private ITeamRepository _TeamRepository;
         private IMemoryCache _Cache;
 
         public GameController(IGameRepository repository, ILogger<GameController> logger, IBetRepository betRepository, 
-            ISportRepository sportRepository, IMemoryCache cache)
+            ISportRepository sportRepository, ITeamRepository teamRepository, IMemoryCache cache)
         {
             _Repository = repository;
             _Logger = logger;
             _BetRepository = betRepository;
             _SportRepository = sportRepository;
+            _TeamRepository = teamRepository;
             _Cache = cache;
         }
 
@@ -158,9 +160,14 @@ namespace PyeongchangKampen.Controllers
 
             
             Mapper.Map(gameDto, game, typeof(GameForUpdateDto), typeof(Game));
+            if (gameDto.Team1Id.HasValue)
+            {
+                var teams = await _TeamRepository.GetTeams();
+                game.Team1 = teams.FirstOrDefault(x => x.Id == gameDto.Team1Id.Value);
+                game.Team2 = teams.FirstOrDefault(x => x.Id == gameDto.Team2Id.Value);
+            }
 
-
-            if((game.GameType == GameType.Placement && game.ScoreTeam1.HasValue == true) || 
+            if ((game.GameType == GameType.Placement && game.ScoreTeam1.HasValue == true) || 
                 (game.GameType == GameType.Result && game.ScoreTeam1.HasValue == true && game.ScoreTeam2.HasValue == true))
             {
                 var bets = await _BetRepository.GetBets(game);

@@ -17,21 +17,21 @@
               <p-button type="submit" [disabled]="!loginForm.form.valid" label="Logga in" icon="fa fa-sign-in"></p-button>
             </div>
           </form>
-          <p><a routerLink="/{{league.url}}/user/requestreset" (click)="loginDropdown.close();">Glömt användarnamn/lösenord?</a></p>
-          <p><a routerLink="/{{league.url}}/register" (click)="loginDropdown.close();">Registrera</a></p>
+          <p><a routerLink="/{{league?.url}}/user/requestreset" (click)="loginDropdown.close();">Glömt användarnamn/lösenord?</a></p>
+          <p><a routerLink="/{{league?.url}}/register" (click)="loginDropdown.close();">Registrera</a></p>
         </div>
       </div>
     </li>
   </ul>
 </li>
 <li class="nav-item dropdown" *ngIf="user != null" ngbDropdown #loginDropdown="ngbDropdown">
-    <a href="" (click)="$event.preventDefault()" ngbDropdownToggle class="nav-link dropdown-toggle" data-toggle="dropdown">{{user.username}}</a>
+    <a href="" (click)="$event.preventDefault()" ngbDropdownToggle class="nav-link dropdown-toggle" data-toggle="dropdown">{{user?.username}}</a>
     <ul id="login-dp" class="dropdown-menu" ngbDropdownMenu>
       <li>
         <div class="row" (click)="$event.stopPropagation(); loginDropdown.open();">
           <div class="col col-lg-12">
             <ul class="list-unstyled">
-              <li><a routerLink="/{{league.url}}/user/{{user.username}}">Profil</a></li>
+              <li><a routerLink="/{{league?.url}}/user/{{user?.username}}">Profil</a></li>
               <li><a href="" (click)="$event.preventDefault();signOut()">Logga ut</a></li>
             </ul>
           </div>

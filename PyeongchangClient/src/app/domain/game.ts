@@ -1,3 +1,5 @@
+import { Team } from "./team";
+
 export class Game {
     id: number;
     title: string;
@@ -15,4 +17,6 @@ export class Game {
     sportIcon: string;
     hasUserPlacedBet: boolean;
     isConcluded: boolean;
+    team1: Team;
+    team2: Team;
 }

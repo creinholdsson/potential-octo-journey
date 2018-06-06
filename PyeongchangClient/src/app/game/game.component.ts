@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { BetForCreation } from '../domain/bet-for-creation';
 import { Bet } from '../domain/bet';
+import { LeagueService } from '../services/league.service';
+import { League } from '../domain/league';
 
 interface BetOption {
   label: string,
@@ -19,6 +21,7 @@ interface BetOption {
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
+  league: League;
   game: Game;
   bet: Bet;
   bets: Bet[];
@@ -32,7 +35,8 @@ export class GameComponent implements OnInit {
   constructor(
     private gameService: GameService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private leagueService: LeagueService
   ) {
     for (let i: number = 0; i <= 50; i++) {
       if (i > 0) {
@@ -94,6 +98,9 @@ export class GameComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getGame(id);
     this.getBetsForGame(id);
+    this.leagueService.getCurrentLeague().subscribe(league => {
+      this.league = league;
+    });
   }
 
 }

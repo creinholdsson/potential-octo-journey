@@ -3,7 +3,10 @@
     <div class="row" *ngIf="game.gameType == 1">
         <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
             <p-card title="Spelinformation">
-                <img src="{{game.sportIcon}}" class="sportIcon" />
+                <img src="{{game.sportIcon}}" class="sportIcon" *ngIf="game.gameType != 2" />
+                <img src="{{game.team1ImageUri}}" class="sportIcon" *ngIf="game.gameType == 2"/>
+                <img src="{{game.team1ImageUri}}" class="sportIcon" *ngIf="game.gameType == 2" />
+
                 <p>{{game.description}}</p>
                 <p>Rätt placering ger {{game.pointsResult}} poäng</p>
                 <p *ngIf="game.scoreTeam1 != null">
@@ -49,10 +52,16 @@
             </p-card>
         </div>
     </div>
-    <div class="row" *ngIf="game.gameType == 0">
+    <div class="row" *ngIf="game.gameType == 0 || game.gameType == 2">
             <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <p-card title="Spelinformation">
-                    <img src="{{game.sportIcon}}" class="sportIcon" />
+                    <img src="{{game.sportIcon}}" class="sportIcon" *ngIf="game.gameType != 2" />
+                    <div class="teams" *ngIf="game.gameType == 2">
+                      <img src="{{game.team1.imageUrl}}" />
+                      <img src="{{game.team2.imageUrl}}" />
+                    </div>
+                    
+
                     <p>{{game.description}}</p>
                     <p>Rätt resultat ger {{game.pointsResult}} poäng, medan rätt vinnare ger {{game.pointsWinner}} poäng</p>
 
@@ -70,7 +79,7 @@
                       <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
                     </div>
 
-                    <p><br /><a routerLink="/game/edit/{{game.id}}" [appHasPermission]="'Administrator'" pButton label="Uppdatera spel"></a></p>
+                    <p><br /><a routerLink="/{{league?.url}}/game/edit/{{game.id}}" [appHasPermission]="'Administrator'" pButton label="Uppdatera spel"></a></p>
 
                 </p-card>
                 <br /> <br />

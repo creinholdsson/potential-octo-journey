@@ -93,4 +93,17 @@ export class GameCreateComponent implements OnInit {
       }
     });
   }
+
+  onTeamsChanged() {
+    this.game.title = `${this.getTeamNameFromId(this.game.team1Id)}-${this.getTeamNameFromId(this.game.team2Id)}`
+  }
+
+  private getTeamNameFromId(id: number): string {
+    for (let team of this.teams) {
+      if (team.value == id) {
+        return team.label;
+      }
+    }
+    return '?';
+  }
 }

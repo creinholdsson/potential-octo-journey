@@ -60,10 +60,8 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.Bets, context => context.ResolveUsing(src => src.Bets == null ? new List<string>() : src.Bets.Select(x => x.UserId)))
                     .ForMember(dest => dest.HasUserPlacedBet, context => context.ResolveUsing(src => false))
                     .ForMember(dest => dest.IsConcluded, context => context.ResolveUsing(src => src.ScoreTeam1.HasValue ? true : false))
-                    .ForMember(dest => dest.Team1Name, context => context.ResolveUsing(src => src.Team1 != null ? src.Team1.Name : null))
-                    .ForMember(dest => dest.Team2Name, context => context.ResolveUsing(src => src.Team2 != null ? src.Team2.Name : null))
-                    .ForMember(dest => dest.Team1ImageUrl, context => context.ResolveUsing(src => src.Team1 != null ? src.Team1.ImageUrl : null))
-                    .ForMember(dest => dest.Team2ImageUrl, context => context.ResolveUsing(src => src.Team2 != null ? src.Team2.ImageUrl : null));
+                    .ForMember(dest => dest.Team1, context => context.MapFrom(src => src.Team1))
+                    .ForMember(dest => dest.Team2, context => context.MapFrom(src => src.Team2));
 
 
                 config.CreateMap<GameForCreationDto, Game>()

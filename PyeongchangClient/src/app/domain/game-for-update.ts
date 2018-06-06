@@ -13,6 +13,8 @@ export class GameForUpdate {
     isOpenForBets: boolean;
     pointsResult: number;
     pointsWinner: number;
+    team1Id: number;
+    team2Id: number;
 
     static copyFrom(game: Game) : GameForUpdate {
         let a = new GameForUpdate();
@@ -28,6 +30,8 @@ export class GameForUpdate {
         a.sportId = game.sportId;
         a.startsOn = game.startsOn;
         a.title = game.title;
+        a.team1Id = game.team1.id;
+        a.team2Id = game.team2.id;
         return a;
     }
 
