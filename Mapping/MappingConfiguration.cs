@@ -61,12 +61,15 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.HasUserPlacedBet, context => context.ResolveUsing(src => false))
                     .ForMember(dest => dest.IsConcluded, context => context.ResolveUsing(src => src.ScoreTeam1.HasValue ? true : false))
                     .ForMember(dest => dest.Team1, context => context.MapFrom(src => src.Team1))
-                    .ForMember(dest => dest.Team2, context => context.MapFrom(src => src.Team2));
+                    .ForMember(dest => dest.Team2, context => context.MapFrom(src => src.Team2))
+                    .ForMember(dest => dest.ScoreType, context => context.ResolveUsing(src => (int)src.ScoreType));
+                
 
 
                 config.CreateMap<GameForCreationDto, Game>()
                     .ForMember(dest => dest.Description, context => context.MapFrom(src => src.Description))
                     .ForMember(dest => dest.GameType, context => context.ResolveUsing(src => (GameType)src.GameType))
+                    .ForMember(dest => dest.ScoreType, context => context.ResolveUsing(src=> (ScoreType)src.ScoreType))
                     .ForMember(dest => dest.Title, context => context.MapFrom(src => src.Title))
                     .ForMember(dest => dest.StartsOn, context => context.MapFrom(src => src.StartsOn))
                     .ForMember(dest => dest.Sport, context => context.ResolveUsing(src => new Sport { Id = src.SportId }))
@@ -84,6 +87,7 @@ namespace PyeongchangKampen.Mapping
                 config.CreateMap<GameForUpdateDto, Game>()
                     .ForMember(dest => dest.Description, context => context.MapFrom(src => src.Description))
                     .ForMember(dest => dest.GameType, context => context.ResolveUsing(src => (GameType)src.GameType))
+                    .ForMember(dest => dest.ScoreType, context => context.ResolveUsing(src => (ScoreType)src.ScoreType))
                     .ForMember(dest => dest.Id, context => context.Ignore())
                     .ForMember(dest => dest.League, context => context.Ignore())
                     .ForMember(dest => dest.Sport, context => context.Ignore())

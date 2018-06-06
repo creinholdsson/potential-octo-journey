@@ -25,7 +25,7 @@ namespace PyeongchangKampen.Models
         public int? ScoreTeam1 { get; set; }
         public int? ScoreTeam2 { get; set; }
 
-        public int PointsResult { get; set; }
+        public int? PointsResult { get; set; }
         public int? PointsWinner { get; set; }
 
         [NotMapped]
@@ -34,6 +34,8 @@ namespace PyeongchangKampen.Models
 
         public Team Team1 { get; set; }
         public Team Team2 { get; set; }
+
+        public ScoreType ScoreType { get; set; }
     }
 
     public enum GameType
@@ -41,6 +43,12 @@ namespace PyeongchangKampen.Models
         Result,
         Placement,
         TeamGame
+    }
+
+    public enum ScoreType
+    {
+        Odds,
+        Custom
     }
 
 }

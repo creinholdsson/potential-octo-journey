@@ -15,10 +15,11 @@ namespace PyeongchangKampen.Models.DTO.Update
         public int GameType { get; set; }
         public int? ScoreTeam1 { get; set; }
         public int? ScoreTeam2 { get; set; }
-        public int PointsResult { get; set; }
+        public int? PointsResult { get; set; }
         public int? PointsWinner { get; set; }
         public DateTime StartsOn { get; set; }
         public int? Team1Id { get; set; }
         public int? Team2Id { get; set; }
+        public int ScoreType { get; set; }
     }
 }

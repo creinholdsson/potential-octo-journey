@@ -173,11 +173,11 @@ namespace PyeongchangKampen.Controllers
                 var bets = await _BetRepository.GetBets(game);
                 if(game.GameType == GameType.Placement)
                 {
-                    AwardPointsForPlacement(bets, game.ScoreTeam1.Value, game.PointsResult);
+                    AwardPointsForPlacement(bets, game.ScoreTeam1.Value, game.PointsResult.Value);
                 }
                 else
                 {
-                    AwardPointsForResult(bets, game.ScoreTeam1.Value, game.ScoreTeam2.Value, game.PointsResult, game.PointsWinner);
+                    AwardPointsForResult(bets, game.ScoreTeam1.Value, game.ScoreTeam2.Value, game.PointsResult.Value, game.PointsWinner);
                 }
                 await _BetRepository.UpdateBets(bets);
             }
