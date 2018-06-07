@@ -21,6 +21,7 @@ export class GameCreateComponent implements OnInit {
   teams: OptionValue<string>[] = [];
   gameTypes: OptionValue<string>[] = [];
   sports: OptionValue<string>[] = [];
+  scoreTypes: OptionValue<string>[] = this.gameService.getScoreTypes();
   points: OptionValue<string>[] = [
     { label: '0',  value: 0 }, 
     { label: '1',  value: 1 },

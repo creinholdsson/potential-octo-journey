@@ -4,7 +4,8 @@
     <p-card>
       <form #gameForm="ngForm" (ngSubmit)="addGame(null)">
         Titel <br />
-        <input type="text" pInputText [(ngModel)]="game.title" name="title"  required/>
+        <input type="text" pInputText [(ngModel)]="game.title" name="title"  required/> <br/>
+        Om det är ett lagspel sätts titeln automatiskt när lag väljs.
         <br /> <br />
 
 
@@ -20,12 +21,22 @@
         <p-calendar [(ngModel)]="game.startsOn" [showTime]="true" name="startsOn" [inline]="true" required></p-calendar>
         <br /><br />
 
-        Poäng rätt resultat <br />
-        <p-dropdown [options]="points" [(ngModel)]="game.pointsResult" name="pointsResult" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
+        Poängtyp <br />
+        <p-dropdown [options]="scoreTypes"
+                    [(ngModel)]="game.scoreType"
+                    name="scoreType"
+                    autoDisplayFirst="false"
+                    [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
+        <br /><br />
 
-        <div *ngIf="game.gameType == 0 || game.gameType == 2">
-          Poäng rätt vinnare <br />
-          <p-dropdown [options]="points" [(ngModel)]="game.pointsWinner" name="pointsWinner" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+        <div *ngIf="game.scoreType == 1">
+          Poäng rätt resultat <br />
+          <p-dropdown [options]="points" [(ngModel)]="game.pointsResult" name="pointsResult" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ" [required]="game.scoreType==1"></p-dropdown>
+
+          <div *ngIf="game.gameType == 0 || game.gameType == 2">
+            Poäng rätt vinnare <br />
+            <p-dropdown [options]="points" [(ngModel)]="game.pointsWinner" name="pointsWinner" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+          </div>
         </div>
 
         <div *ngIf="game.gameType == 2">
@@ -38,7 +49,7 @@
                       [style]="{'width':'100%'}"
                       (onChange)="onTeamsChanged($event)"
                       placeholder="V&auml;lj ett alternativ"></p-dropdown>
-          <br />
+          <br /><br />
           Bortalag <br />
           <p-dropdown
                       [options]="teams"

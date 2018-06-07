@@ -19,4 +19,5 @@ export class Game {
     isConcluded: boolean;
     team1: Team;
     team2: Team;
+    scoreType: number;
 }

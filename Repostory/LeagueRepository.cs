@@ -47,8 +47,8 @@ namespace PyeongchangKampen.Repostory
         
         public async Task<IEnumerable<ApplicationUser>> GetTopList(League league)
         {
-            var userWithBets = await _DbContext.Users.Include(x => x.Bets).Where(x=> x.Bets.Where(y => y.Game.League.Id == league.Id).Any()).ToListAsync();
-            return userWithBets.Select(x => new ApplicationUser { Id = x.Id, UserName = x.UserName, TotalPoints = x.Bets.Sum(y => y.AwardedPoints.HasValue ? y.AwardedPoints.Value : 0) });
+            var userWithBets = _DbContext.Users.Include(x => x.Bets).Where(x=> x.Bets.Where(y => y.Game.League.Id == league.Id).Any());
+            return await userWithBets.Select(x => new ApplicationUser { Id = x.Id, UserName = x.UserName, TotalPoints = x.Bets.Where(y=>y.Game.League.Id == league.Id).Sum(y => y.AwardedPoints.HasValue ? y.AwardedPoints.Value : 0) }).ToListAsync();
         }
     }
 }

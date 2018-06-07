@@ -7,8 +7,7 @@
         <input type="text" pInputText [(ngModel)]="game.title" name="title" [style]="{'width': '100%'}" required />
         <br /> <br />
         Sport <br />
-        <p-dropdown
-                    [options]="sports"
+        <p-dropdown [options]="sports"
                     [(ngModel)]="game.sportId"
                     name="sportId"
                     autoDisplayFirst="false"
@@ -24,11 +23,20 @@
         Starttid <br />
         <p-calendar [(ngModel)]="game.startsOn" [showTime]="true" name="startsOn" [inline]="true" required></p-calendar>
         <br /><br />
-        Poäng rätt resultat <br />
-        <p-dropdown [options]="points" [(ngModel)]="game.pointsResult" name="pointsResult" [style]="{'width': '100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
-        <div *ngIf="game.gameType == 0">
-          Poäng rätt vinnare <br />
-          <p-dropdown [options]="points" [(ngModel)]="game.pointsWinner" name="winnerResult" [style]="{'width': '100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+        Poängtyp <br />
+        <p-dropdown [options]="scoreTypes"
+                    [(ngModel)]="game.scoreType"
+                    name="scoreType"
+                    autoDisplayFirst="false"
+                    [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ" required></p-dropdown>
+        <br /><br />
+        <div *ngIf="game.scoreType == 1">
+          Poäng rätt resultat <br />
+          <p-dropdown [options]="points" [(ngModel)]="game.pointsResult" name="pointsResult" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ" [required]="game.scoreType==1"></p-dropdown>
+          <div *ngIf="game.gameType == 0 || game.gameType == 2">
+            Poäng rätt vinnare <br />
+            <p-dropdown [options]="points" [(ngModel)]="game.pointsWinner" name="pointsWinner" [style]="{'width':'100%'}" placeholder="V&auml;lj ett alternativ"></p-dropdown>
+          </div>
         </div>
 
         <div *ngIf="game.gameType == 2">

@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { GameForUpdate } from '../domain/game-for-update';
 import { User } from '../domain/auth/user';
+import { OptionValue } from '../domain/option-value';
 
 @Injectable()
 export class GameService {
@@ -54,5 +55,12 @@ export class GameService {
 
   getTopList(leagueId: number): Observable<User[]> {
     return this.http.get<User[]>(this.leagueUrl + '/' + leagueId + '/toplist');
+  }
+
+  getScoreTypes(): OptionValue<string>[] {
+    return [
+      new OptionValue<string>(0, 'Odds'),
+      new OptionValue<string>(1, 'Egna')
+    ];    
   }
 }

@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { LeagueService } from '../services/league.service';
 import { League } from '../domain/league';
 import { TeamService } from '../services/team.service';
+import { Game } from '../domain/game';
 
 @Component({
   selector: 'app-game-edit',
@@ -20,6 +21,7 @@ export class GameEditComponent implements OnInit {
   teams: OptionValue<string>[] = [];
   gameTypes: OptionValue<string>[] = [];
   sports: OptionValue<string>[] = [];
+  scoreTypes: OptionValue<string>[] = this.gameService.getScoreTypes();
   points: OptionValue<string>[] = [
     { label: '0',  value: 0 }, 
     { label: '1',  value: 1 },
@@ -69,9 +71,10 @@ export class GameEditComponent implements OnInit {
 
   getGame(id: number) {
     this.gameService.getGame(id).subscribe(game => {
-      this.game = GameForUpdate.copyFrom(game);
-      this.game.startsOn = new Date(this.game.startsOn);
-      this.getTeams();      
+      //this.game = GameForUpdate.copyFrom(game);
+      //this.game.startsOn = new Date(this.game.startsOn);
+      this.getTeams(game);
+      
     });
   }
   getSports() {
@@ -88,13 +91,16 @@ export class GameEditComponent implements OnInit {
     })
   }
 
-  getTeams() {
+  getTeams(game: Game) {
     this.teams = [];
-    this.teamService.getTeams(this.league.id, this.game.sportId).subscribe(teams => {
+    var sportId = game ? game.sportId : this.game.sportId
+    this.teamService.getTeams(this.league.id, game.sportId).subscribe(teams => {
       for (let team of teams) {
         var t = new OptionValue<string>(team.id, team.name);
         this.teams.push(t);
       }
+      this.game = GameForUpdate.copyFrom(game);
+      this.game.startsOn = new Date(this.game.startsOn);
     });
     var team1Id = this.game.team1Id;
     var team2Id = this.game.team2Id;
@@ -107,7 +113,7 @@ export class GameEditComponent implements OnInit {
   }
 
   onSportChange() {
-    this.getTeams();
+    this.getTeams(null);
   }
 
   onTeamsChanged() {
