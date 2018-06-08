@@ -11,6 +11,7 @@ import { environment } from '../../environments/environment';
 import { GameForUpdate } from '../domain/game-for-update';
 import { User } from '../domain/auth/user';
 import { OptionValue } from '../domain/option-value';
+import { BetOdds } from '../domain/bet-odds';
 
 @Injectable()
 export class GameService {
@@ -62,5 +63,12 @@ export class GameService {
       new OptionValue<string>(0, 'Odds'),
       new OptionValue<string>(1, 'Egna')
     ];    
+  }
+
+  getOddsForBet(gameId: number, scoreTeam1: number, scoreTeam2: number): Observable<BetOdds> {
+    return this.http.get<BetOdds>(
+      this.betsPlacementUrl + '/game/' + gameId
+      + '/odds/?scoreTeam1=' + scoreTeam1
+      + '&scoreTeam2=' + scoreTeam2);
   }
 }

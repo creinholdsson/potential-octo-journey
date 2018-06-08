@@ -8,6 +8,7 @@ using PyeongchangKampen.Models;
 using PyeongchangKampen.Models.DTO.Creation;
 using PyeongchangKampen.Models.DTO.Retrieve;
 using PyeongchangKampen.Repostory;
+using PyeongchangKampen.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -142,5 +143,36 @@ namespace PyeongchangKampen.Controllers
             return CreatedAtRoute("GetBet", new { betId = bet.Id }, Mapper.Map<BetForRetrieveDto>(bet));
         }
 
+        [HttpGet("game/{gameId:int}/odds")]
+        public async Task<IActionResult> GetOddsForBet(int gameId, int scoreTeam1, int? scoreTeam2)
+        {
+            var cacheKey = CACHE_KEY_BETS_GAME + gameId;
+            var currentUserId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+            IEnumerable<BetForRetrieveDto> betsForRetrieve;
+            IEnumerable<Bet> bets = null;
+
+            if (_Cache.TryGetValue(cacheKey, out betsForRetrieve) == false)
+            {
+                bets = await _Repository.GetBets(new Models.Game { Id = gameId });
+                betsForRetrieve = Mapper.Map<IEnumerable<BetForRetrieveDto>>(bets);
+
+                _Cache.Set(cacheKey, betsForRetrieve);
+            }
+
+            if(bets == null)
+            {
+                bets = Mapper.Map<IEnumerable<Bet>>(betsForRetrieve);
+            }
+
+            var betsList = bets.Where(x=>x.UserId != currentUserId.Value).ToList();
+            var bet = new Bet() { CreatedOn = DateTime.Now, ScoreTeam1 = scoreTeam1, ScoreTeam2 = scoreTeam2 };
+            betsList.Add(bet);
+            var oddsCalculationService = new ScoreCalculationService();
+            var oddsResult = oddsCalculationService.GetScoreForCorrectBet(betsList, bet);
+            var oddsWinner = oddsCalculationService.GetScoreForCorrectWinner(betsList, bet);
+            oddsResult += oddsWinner;
+
+            return Ok(new BetOddsForRetrieveDto { OddsResult = oddsResult, OddsWinner = oddsWinner });
+        }
     }
 }

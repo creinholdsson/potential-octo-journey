@@ -9,6 +9,8 @@ import { BetForCreation } from '../domain/bet-for-creation';
 import { Bet } from '../domain/bet';
 import { LeagueService } from '../services/league.service';
 import { League } from '../domain/league';
+import { GameType } from '../domain/gameType';
+import { BetOdds } from '../domain/bet-odds';
 
 interface BetOption {
   label: string,
@@ -30,6 +32,7 @@ export class GameComponent implements OnInit {
   availableOptionsResult: BetOption[] = [];
   selectedResult1: number = 0;
   selectedResult2: number = 0;
+  betOdds: BetOdds = null;
 
 
   constructor(
@@ -49,9 +52,11 @@ export class GameComponent implements OnInit {
 
   getGame(id: number): void {
     this.gameService.getGame(id).subscribe(game => { 
-      this.game = game; 
+      this.game = game;
+      this.onBetChanged(null);
       this.isBettingOpen = new Date(game.startsOn) > new Date();
-      if(game.gameType == 0) {
+      if (game.gameType == GameType.Result.valueOf()
+        || game.gameType == GameType.TeamGame.valueOf()) {
         this.selectedResult1 = 0;
         this.selectedResult2 = 0;
       }
@@ -98,9 +103,17 @@ export class GameComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getGame(id);
     this.getBetsForGame(id);
+    
     this.leagueService.getCurrentLeague().subscribe(league => {
       this.league = league;
     });
+  }
+
+  onBetChanged($event: any) {
+    this.gameService.getOddsForBet(this.game.id, this.selectedResult1, this.selectedResult2).subscribe(betOdds => {
+      this.betOdds = betOdds;
+    });
+
   }
 
 }

@@ -239,7 +239,7 @@ namespace PyeongchangKampen.Controllers
                 {
                     if(bet.ScoreTeam1.Value == scoreTeam1 && bet.ScoreTeam2.Value == scoreTeam2)
                     {
-                        bet.AwardedPoints = awardedPointsResult;
+                        bet.AwardedPoints = awardedPointsResult + awardedPointsWinner;
                     }
                     else if(scoreTeam1 == scoreTeam2 && bet.ScoreTeam1.Value == bet.ScoreTeam2.Value)
                     {
