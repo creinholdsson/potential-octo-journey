@@ -112,11 +112,11 @@ export class GameEditComponent implements OnInit {
     this.game.team2Id = team2Id;
   }
 
-  onSportChange() {
+  onSportChange(event: any) {
     this.getTeams(null);
   }
 
-  onTeamsChanged() {
+  onTeamsChanged(event: any) {
     this.game.title = `${this.getTeamNameFromId(this.game.team1Id)}-${this.getTeamNameFromId(this.game.team2Id)}`;
   }
 

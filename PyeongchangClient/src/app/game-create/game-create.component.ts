@@ -85,7 +85,7 @@ export class GameCreateComponent implements OnInit {
   }
 
 
-  onSportChange() {
+  onSportChange(event: any) {
     this.teams = [];
     this.teamService.getTeams(this.league.id, this.game.sportId).subscribe(teams => {
       for (let team of teams) {
@@ -95,7 +95,7 @@ export class GameCreateComponent implements OnInit {
     });
   }
 
-  onTeamsChanged() {
+  onTeamsChanged(event: any) {
     this.game.title = `${this.getTeamNameFromId(this.game.team1Id)}-${this.getTeamNameFromId(this.game.team2Id)}`
   }
 

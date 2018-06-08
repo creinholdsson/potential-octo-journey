@@ -9,4 +9,5 @@ export class GameForCreation {
   pointsWinner: number;
   team1Id: number;
   team2Id: number;
+  scoreType: number;
 }
