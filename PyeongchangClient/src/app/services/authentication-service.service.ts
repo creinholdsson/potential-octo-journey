@@ -130,8 +130,8 @@ export class AuthenticationService {
     return this.httpClient.post<string>(this.usersBaseUrl  + userId + '/reset', user);
   }
 
-  requestResetPassword(email: string): Observable<string> {
-    return this.httpClient.post<string>(this.usersBaseUrl + 'passwordReset', { email: email });
+  requestResetPassword(email: string, leagueUrl: string): Observable<string> {
+    return this.httpClient.post<string>(this.usersBaseUrl + 'passwordReset', { email: email, leagueUrl: leagueUrl });
   }
 
 

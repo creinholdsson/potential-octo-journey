@@ -12,5 +12,8 @@ namespace PyeongchangKampen.Models.DTO.Creation
         [EmailAddress]
         [Required]
         public string Email { get; set; }
+
+        [Required]
+        public string LeagueUrl { get; set; }
     }
 }
