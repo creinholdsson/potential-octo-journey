@@ -83,20 +83,7 @@ export class GameComponent implements OnInit {
     console.log(bet);
     console.log(this.selectedResult1);
     this.gameService.placeBet(bet).subscribe(createdBet => {
-      this.bet = createdBet;
-      var hasBeenUpdated = false;
-      for (let bet of this.bets) {
-        if(bet.userId == createdBet.userId) {
-          bet.scoreTeam1 = createdBet.scoreTeam1;
-          bet.scoreTeam2 = createdBet.scoreTeam2;
-          hasBeenUpdated = true;
-          break;
-        }
-      }
-
-      if(hasBeenUpdated == false) {
-        this.bets.push(createdBet);
-      }
+      this.getBetsForGame(this.game.id);
     });
   }
 

@@ -73,7 +73,7 @@ namespace PyeongchangKampen.Controllers
                 var oddsCalculationService = new ScoreCalculationService();
                 foreach(var bet in betsForRetrieve)
                 {
-                    bet.OddsResult = oddsCalculationService.GetScoreForCorrectBet(betsForRetrieve, bet);
+                    bet.OddsResult = oddsCalculationService.GetScoreForCorrectBet(betsForRetrieve, bet) + oddsCalculationService.GetScoreForCorrectWinner(betsForRetrieve, bet);
                     bet.OddsWinner = oddsCalculationService.GetScoreForCorrectWinner(betsForRetrieve, bet);
                 }
                 _Cache.Set(cacheKey, betsForRetrieve);

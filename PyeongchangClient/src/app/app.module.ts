@@ -42,7 +42,7 @@ import { TeamService } from './services/team.service';
 
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'pyeongchangkampen', pathMatch: 'full' },
+  { path: '', redirectTo: 'rysskampen', pathMatch: 'full' },
   {
     path: ':leagueUrl', component: LeagueComponent, children:
       [
