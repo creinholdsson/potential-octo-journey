@@ -22,8 +22,10 @@
               <p *ngIf="game.scoreType == 0">Odds: {{betOdds?.oddsResult | number : '1.0-2'}}</p>
               <br />
               <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
+
+              <p *ngIf="!game.hasUserPlacedBet"><small>När du tippar förbinder du dig att följa <u><a routerLink="/{{league?.url}}/rules">reglerna</a></u></small></p>
             </div>
-            <p><br /><a routerLink="/game/edit/{{game.id}}" [appHasPermission]="'Administrator'" pButton label="Uppdatera spel"></a></p>
+            <p><br /><a routerLink="/{{league?.url}}/game/edit/{{game.id}}" [appHasPermission]="'Administrator'" pButton label="Uppdatera spel"></a></p>
           </p-card>
             <br /> <br />
         </div>
@@ -77,8 +79,10 @@
                       <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult1" (onChange)="onBetChanged($event)"></p-dropdown> -
                       <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult2" (onChange)="onBetChanged($event)"></p-dropdown>
                       <p *ngIf="game.scoreType == 0">Odds: Resultat {{betOdds?.oddsResult | number : '1.0-2'}}, rätt vinnare {{betOdds?.oddsWinner | number : '1.0-2'}}</p>
-                      <br /> 
+                      <br />
                       <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
+
+                      <p *ngIf="!game.hasUserPlacedBet"><small>När du tippar förbinder du dig att följa <u><a routerLink="/{{league?.url}}/rules">reglerna</a></u></small></p>
                     </div>
 
                     <p><br /><a routerLink="/{{league?.url}}/game/edit/{{game.id}}" [appHasPermission]="'Administrator'" pButton label="Uppdatera spel"></a></p>

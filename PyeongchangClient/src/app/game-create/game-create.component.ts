@@ -88,6 +88,16 @@ export class GameCreateComponent implements OnInit {
   onSportChange(event: any) {
     this.teams = [];
     this.teamService.getTeams(this.league.id, this.game.sportId).subscribe(teams => {
+      teams.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1;
+        }
+        else if (a.name < b.name) {
+          return -1;
+        }
+        return 0;
+      });
+
       for (let team of teams) {
         var t = new OptionValue<string>(team.id, team.name);
         this.teams.push(t);

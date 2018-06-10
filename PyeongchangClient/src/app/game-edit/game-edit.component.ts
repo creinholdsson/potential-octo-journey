@@ -95,6 +95,16 @@ export class GameEditComponent implements OnInit {
     this.teams = [];
     var sportId = game ? game.sportId : this.game.sportId
     this.teamService.getTeams(this.league.id, game.sportId).subscribe(teams => {
+      teams.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1;
+        }
+        else if (a.name < b.name) {
+          return -1;
+        }
+        return 0;
+      });
+
       for (let team of teams) {
         var t = new OptionValue<string>(team.id, team.name);
         this.teams.push(t);

@@ -39,6 +39,7 @@ import { RequestPasswordResetComponent } from './request-password-reset/request-
 import { AllGamesComponent } from './all-games/all-games.component';
 import { LeagueComponent } from './league/league.component';
 import { TeamService } from './services/team.service';
+import { RulesComponent } from './components/rules/rules.component';
 
 
 const appRoutes: Routes = [
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
         { path: 'register', component: RegisterComponent },
         { path: 'user/requestreset', component: RequestPasswordResetComponent },
         { path: 'user/reset', component: ResetPasswordComponent },
-        { path: 'user/:username', component: UserComponent }, 
+        { path: 'user/:username', component: UserComponent },
+        { path: 'rules', component: RulesComponent }
       ]
   },
   
@@ -81,7 +83,8 @@ const appRoutes: Routes = [
     LimitToPipe,
     ResetPasswordComponent,
     RequestPasswordResetComponent,
-    AllGamesComponent
+    AllGamesComponent,
+    RulesComponent
   ],
   imports: [
     RouterModule.forRoot(

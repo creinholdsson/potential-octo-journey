@@ -5,6 +5,7 @@ import { League } from '../domain/league';
 import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
 import { Title } from '@angular/platform-browser';
+import { Rules } from '../domain/rules';
 
 @Injectable()
 export class LeagueService {
@@ -38,5 +39,9 @@ export class LeagueService {
     else {
       return new Observable<League>((subscriber: Subscriber<League>) => subscriber.next(this.currentLeague));
     }
+  }
+
+  public getRules(leagueId: number): Observable<Rules> {
+    return this.httpClient.get<Rules>(this.leagueApiBase + '/' + leagueId + '/rules');
   }
 }

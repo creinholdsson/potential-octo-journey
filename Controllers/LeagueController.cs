@@ -95,6 +95,26 @@ namespace PyeongchangKampen.Controllers
             return NoContent();
         }
 
+        [HttpGet("{leagueId:int}/rules")]
+        public IActionResult GetRules(int leagueId)
+        {
+            if(leagueId == 2 || leagueId == 1002)
+            {
+                return Ok(new { Rules =  @"<p>Genom att registrera dig på https://speltips.azurewebsites.net/rysskampen godkänner du att betala 50kr till slutsegraren. 
+                            Tävlingen består av att Tippa slutresultat inkl ev avgörande med straffsparkar. Poäng utdelas för både resultat och segrare. Antal poäng bestäms av vilket odds ett visst resultat och vinnare har. </p>
+                            <p>Exempel med 10 deltagare: <br />
+                            Sve - Dan slutresultat 1 - 0. <br />
+                            2 deltagare har tippat 1 - 0 och får 5 poäng plus 2, 5 poäng då 4 deltagare hade Sve som segrare. <br />
+                            Samtliga matcher i VM kommer att vara spelbara. <br />
+                            Det är möjligt att lägga in eller ändra sitt tips fram till spelstopp. </p>
+                            <p>Tävlingen är i form av seriespel, dvs mest poäng när VM avslutas utser vinnaren som håvar in hela potten dvs samtliga medspelares insatser á 50kr. <br />
+                            Tävlingsledningen tar inget ansvar för tekniska problem, dopade idrottsutövare och matchfixning.</p>" });
+            }
+
+            return Ok("");
+        }
+    
+
         [HttpGet("{leagueId:int}/toplist")]
         public async Task<IActionResult> GetToplist(int leagueId)
         {
