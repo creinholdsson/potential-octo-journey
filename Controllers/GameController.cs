@@ -181,7 +181,7 @@ namespace PyeongchangKampen.Controllers
                 }
                 else
                 {
-                    AwardPointsForResult(bets, game.ScoreTeam1.Value, game.ScoreTeam2.Value, game.PointsResult.Value, game.PointsWinner, game.ScoreType == ScoreType.Odds);
+                    AwardPointsForResult(bets, game.ScoreTeam1.Value, game.ScoreTeam2.Value, game.PointsResult, game.PointsWinner, game.ScoreType == ScoreType.Odds);
                 }
                 await _BetRepository.UpdateBets(bets);
             }
@@ -197,11 +197,11 @@ namespace PyeongchangKampen.Controllers
 
             await _Repository.UpdateGame(game);
 
-            _Cache.Remove(CACHE_KEY_GAME);
-            _Cache.Remove(CACHE_KEY_GAME + "closed");
-            _Cache.Remove(CACHE_KEY_GAME + "open");
+            _Cache.Remove(CACHE_KEY_GAME + game.League.Id);
+            _Cache.Remove(CACHE_KEY_GAME + game.League.Id + "closed");
+            _Cache.Remove(CACHE_KEY_GAME + game.League.Id + "open");
             _Cache.Remove(BetController.CACHE_KEY_BETS_GAME + gameId);
-            _Cache.Remove(LeagueController.CACHE_KEY_TOP_LIST + 1);
+            _Cache.Remove(LeagueController.CACHE_KEY_TOP_LIST +game.League.Id);
             _Logger.LogInformation($"{User.Identity.Name} updated game {gameDto.Title} with sport {gameDto.SportId}");
             return Ok(Mapper.Map<GameForRetrieveDto>(game));
         }
@@ -226,11 +226,11 @@ namespace PyeongchangKampen.Controllers
             }
         }
 
-        private void AwardPointsForResult(IEnumerable<Bet> bets, int scoreTeam1, int scoreTeam2, int pointsResult, int? pointsWinner, bool useScoreCalculation)
+        private void AwardPointsForResult(IEnumerable<Bet> bets, int scoreTeam1, int scoreTeam2, int? pointsResult, int? pointsWinner, bool useScoreCalculation)
         {
             var correctBet = new Bet() { ScoreTeam1 = scoreTeam1, ScoreTeam2 = scoreTeam2 };
             var scoreCalculator = new ScoreCalculationService();
-            var awardedPointsResult = useScoreCalculation ? scoreCalculator.GetScoreForCorrectBet(bets, correctBet) : pointsResult;
+            var awardedPointsResult = useScoreCalculation ? scoreCalculator.GetScoreForCorrectBet(bets, correctBet) : pointsResult.HasValue ? pointsResult.Value : 0;
             var awardedPointsWinner = useScoreCalculation ? scoreCalculator.GetScoreForCorrectWinner(bets, correctBet) : pointsWinner.HasValue ? pointsWinner.Value : 0;
 
             foreach(var bet in bets)

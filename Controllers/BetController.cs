@@ -70,7 +70,12 @@ namespace PyeongchangKampen.Controllers
             {
                 var bets = await _Repository.GetBets(new Models.Game { Id = gameId });
                 betsForRetrieve = Mapper.Map<IEnumerable<BetForRetrieveDto>>(bets);
-
+                var oddsCalculationService = new ScoreCalculationService();
+                foreach(var bet in betsForRetrieve)
+                {
+                    bet.OddsResult = oddsCalculationService.GetScoreForCorrectBet(betsForRetrieve, bet);
+                    bet.OddsWinner = oddsCalculationService.GetScoreForCorrectWinner(betsForRetrieve, bet);
+                }
                 _Cache.Set(cacheKey, betsForRetrieve);
             }
 

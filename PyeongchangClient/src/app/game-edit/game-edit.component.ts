@@ -133,8 +133,8 @@ export class GameEditComponent implements OnInit {
 
   updateGame() {
     this.gameService.updateGame(this.game).subscribe(game => {
-      this.messageService.add({severity: 'success', summary:'Spel uppdaterat', detail: 'Spelet har uppdaterats'});
-      this.router.navigate(['/game/'+this.game.id.toString()]);
+      this.messageService.add({ severity: 'success', summary: 'Spel uppdaterat', detail: 'Spelet har uppdaterats' });
+      this.router.navigate([this.league.url + '/game/' + this.game.id.toString()]);
     })
   }
 

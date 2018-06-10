@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PyeongchangKampen.Models
 {
-    public class Bet
+    public class Bet: IBet
     {
         public int Id { get; set; }
         public ApplicationUser User { get; set; }

@@ -2,30 +2,29 @@
   <h1>{{game.title}}</h1>
     <div class="row" *ngIf="game.gameType == 1">
         <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
-            <p-card title="Spelinformation">
-                <img src="{{game.sportIcon}}" class="sportIcon" *ngIf="game.gameType != 2" />
-                <img src="{{game.team1ImageUri}}" class="sportIcon" *ngIf="game.gameType == 2"/>
-                <img src="{{game.team1ImageUri}}" class="sportIcon" *ngIf="game.gameType == 2" />
+          <p-card title="Spelinformation">
+            <img src="{{game.sportIcon}}" class="sportIcon" *ngIf="game.gameType != 2" />
+            <img src="{{game.team1ImageUri}}" class="sportIcon" *ngIf="game.gameType == 2" />
+            <img src="{{game.team1ImageUri}}" class="sportIcon" *ngIf="game.gameType == 2" />
+            <p>{{game.description}}</p>
+            <p *ngIf="game.scoreType == 1">Rätt placering ger {{game.pointsResult}} poäng</p>
+            <p *ngIf="game.scoreType == 0">Poäng ges efter odds</p>
+            <p *ngIf="game.scoreTeam1 != null">
+              <b>Slutgiltig placering</b>: {{game.scoreTeam1 == -2 ? 'DNS' : game.scoreTeam1 == -1 ? 'DNF' : game.scoreTeam1}}
+            </p>
+            <p *ngIf="game.isOpenForBets == false && game.scoreTeam1 == null">Inget resultat ännu</p>
 
-                <p>{{game.description}}</p>
-                <p>Rätt placering ger {{game.pointsResult}} poäng</p>
-                <p *ngIf="game.scoreTeam1 != null">
-                  <b>Slutgiltig placering</b>: {{game.scoreTeam1 == -2 ? 'DNS' : game.scoreTeam1 == -1 ? 'DNF' : game.scoreTeam1}}
-                </p>
-                <p *ngIf="game.isOpenForBets == false && game.scoreTeam1 == null">Inget resultat ännu</p>
-
-            
-                <div *ngIf="game.isOpenForBets" [appHasPermission]="''">
-                    <h3>Tippa placering</h3>
-                    Sista tid att tippa: {{game.startsOn | date: 'yyyy-MM-dd HH:mm'}} <br />
-                    <span *ngIf="game.hasUserPlacedBet"><b>Du har redan tippat, men du kan fortfarande uppdatera.</b><br /></span> <br/>
-                    <p-dropdown [options]="availableOptionsPlacement" [(ngModel)]="selectedResult1"></p-dropdown>
-                    <br /> <br />
-                    <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
-                </div>
-
-                <p><br /><a routerLink="/game/edit/{{game.id}}" [appHasPermission]="'Administrator'" pButton label="Uppdatera spel"></a></p>
-            </p-card>
+            <div *ngIf="game.isOpenForBets" [appHasPermission]="''">
+              <h3>Tippa</h3>
+              Sista tid att tippa: {{game.startsOn | date: 'yyyy-MM-dd HH:mm'}} <br />
+              <span *ngIf="game.hasUserPlacedBet"><b>Du har redan tippat, men du kan fortfarande uppdatera.</b><br /></span> <br />
+              <p-dropdown [options]="availableOptionsPlacement" [(ngModel)]="selectedResult1" (onChange)="onBetChanged($event)"></p-dropdown>
+              <p *ngIf="game.scoreType == 0">Odds: {{betOdds?.oddsResult | number : '1.0-2'}}</p>
+              <br />
+              <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
+            </div>
+            <p><br /><a routerLink="/game/edit/{{game.id}}" [appHasPermission]="'Administrator'" pButton label="Uppdatera spel"></a></p>
+          </p-card>
             <br /> <br />
         </div>
 
@@ -47,7 +46,7 @@
                     </div>
                 </div>
                 <div *ngIf="bets && bets.length == 0">
-                    Inga tippade placeringar.
+                    Inga har tippat.
                 </div>
             </p-card>
         </div>
@@ -76,7 +75,7 @@
                       <span *ngIf="game.hasUserPlacedBet"><b>Du har redan tippat, men du kan fortfarande uppdatera.</b><br /></span> <br />
                       <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult1" (onChange)="onBetChanged($event)"></p-dropdown> -
                       <p-dropdown [options]="availableOptionsResult" [(ngModel)]="selectedResult2" (onChange)="onBetChanged($event)"></p-dropdown>
-                      <p *ngIf="game.scoreType == 0">Odds resultat: {{betOdds?.oddsResult}}, vinnare: {{betOdds?.oddsWinner}}</p>
+                      <p *ngIf="game.scoreType == 0">Odds: {{betOdds?.oddsResult | number : '1.0-2'}}, vinnare: {{betOdds?.oddsWinner | number : '1.0-2'}}</p>
                       <br /> 
                       <p-button icon="fa fa-play" styleClass="ui-button-success" label="Tippa" (click)="placeBet()"></p-button>
                     </div>
@@ -106,7 +105,7 @@
                         </div>
                     </div>
                     <div *ngIf="bets && bets.length == 0">
-                        Inga tippade resultat.
+                        Ingen har tippat.
                     </div>
                 </p-card>
             </div>

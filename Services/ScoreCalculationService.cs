@@ -9,7 +9,7 @@ namespace PyeongchangKampen.Services
 {
     public class ScoreCalculationService : IScoreCalculationService
     {
-        public double GetScoreForCorrectBet(IEnumerable<Bet> bets, Bet correctBet)
+        public double GetScoreForCorrectBet(IEnumerable<IBet> bets, IBet correctBet)
         {
             var maximumPoints = bets.Count();
             var correctBetsCount = bets.Count(x => x.ScoreTeam1 == correctBet.ScoreTeam1 && x.ScoreTeam2 == correctBet.ScoreTeam2);
@@ -20,10 +20,15 @@ namespace PyeongchangKampen.Services
             return maximumPoints / (double)correctBetsCount;
         }
 
-        public double GetScoreForCorrectWinner(IEnumerable<Bet> bets, Bet correctBet)
+        public double GetScoreForCorrectWinner(IEnumerable<IBet> bets, IBet correctBet)
         {
             var maximumPoints = bets.Count();
             int correctBetsCount;
+            if(correctBet.ScoreTeam1.HasValue == false || correctBet.ScoreTeam2.HasValue == false)
+            {
+                return 0;
+            }
+
             if (correctBet.ScoreTeam1.Value > correctBet.ScoreTeam2.Value)
             {
                 correctBetsCount = bets.Count(x => x.ScoreTeam1.Value > x.ScoreTeam2.Value);

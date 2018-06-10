@@ -53,7 +53,7 @@ export class GameComponent implements OnInit {
   getGame(id: number): void {
     this.gameService.getGame(id).subscribe(game => { 
       this.game = game;
-      this.onBetChanged(null);
+      
       this.isBettingOpen = new Date(game.startsOn) > new Date();
       if (game.gameType == GameType.Result.valueOf()
         || game.gameType == GameType.TeamGame.valueOf()) {
@@ -64,6 +64,7 @@ export class GameComponent implements OnInit {
         this.selectedResult1 = 1;
         this.selectedResult2 = null;
       }
+      this.onBetChanged(null);
     } );
   }
 
@@ -103,7 +104,6 @@ export class GameComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getGame(id);
     this.getBetsForGame(id);
-    
     this.leagueService.getCurrentLeague().subscribe(league => {
       this.league = league;
     });

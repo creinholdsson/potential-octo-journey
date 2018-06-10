@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PyeongchangKampen.Models.DTO.Retrieve
 {
-    public class BetForRetrieveDto
+    public class BetForRetrieveDto : IBet
     {
         public int Id { get; set; }
         public string UserId { get; set; }
@@ -20,6 +20,8 @@ namespace PyeongchangKampen.Models.DTO.Retrieve
         public string GameTitle { get; set; }
         public DateTime GameStartedOn { get; set; }
         public int AccumulatedScore { get; set; }
+        public double OddsResult { get; set; }
+        public double OddsWinner { get; set; }
 
     }
 }

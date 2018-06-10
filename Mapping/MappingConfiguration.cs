@@ -112,7 +112,9 @@ namespace PyeongchangKampen.Mapping
                     .ForMember(dest => dest.GameTitle, context => context.ResolveUsing(src => src.Game == null ? null : src.Game.Title))
                     .ForMember(dest => dest.UserName, context => context.ResolveUsing(src => src.User == null ? null : src.User.UserName))
                     .ForMember(dest => dest.GameStartedOn, context => context.ResolveUsing(src => src.Game != null ? src.Game.StartsOn : DateTime.MinValue))
-                    .ForMember(dest => dest.AccumulatedScore, context => context.Ignore());
+                    .ForMember(dest => dest.AccumulatedScore, context => context.Ignore())
+                    .ForMember(dest => dest.OddsResult, context => context.Ignore())
+                    .ForMember(dest => dest.OddsWinner, context => context.Ignore());
 
                 config.CreateMap<BetForRetrieveDto, Bet>()
                     .ForMember(dest => dest.AwardedPoints, context => context.MapFrom(src => src.AwardedPoints))
