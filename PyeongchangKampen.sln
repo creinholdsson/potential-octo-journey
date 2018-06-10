@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PyeongchangKampen", "PyeongchangKampen.csproj", "{648B52A0-E27C-43BC-A55A-B49EA78C84E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PyeongchangKampen.Test", "..\PyeongchangKampen.Test\PyeongchangKampen.Test.csproj", "{EFD96420-D337-45AD-B74D-608A8288BC04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PyeongchangKampen.Test", "PyeongchangKampen.Test\PyeongchangKampen.Test.csproj", "{EFD96420-D337-45AD-B74D-608A8288BC04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

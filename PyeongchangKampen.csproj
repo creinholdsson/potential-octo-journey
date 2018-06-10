@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="PyeongchangKampen.Test\**" />
+    <Content Remove="PyeongchangKampen.Test\**" />
+    <EmbeddedResource Remove="PyeongchangKampen.Test\**" />
+    <None Remove="PyeongchangKampen.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
