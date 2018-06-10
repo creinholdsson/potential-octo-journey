@@ -169,7 +169,7 @@ namespace PyeongchangKampen.Controllers
                 bets = Mapper.Map<IEnumerable<Bet>>(betsForRetrieve);
             }
 
-            var betsList = bets.Where(x=>x.UserId != currentUserId.Value).ToList();
+            var betsList = bets.Where(x=>x.UserId != currentUserId?.Value).ToList();
             var bet = new Bet() { CreatedOn = DateTime.Now, ScoreTeam1 = scoreTeam1, ScoreTeam2 = scoreTeam2 };
             betsList.Add(bet);
             var oddsCalculationService = new ScoreCalculationService();

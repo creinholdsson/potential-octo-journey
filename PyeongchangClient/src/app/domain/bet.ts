@@ -9,5 +9,7 @@ export class Bet {
     userName: string;
     gameTitle: string;
     gameStartedOn: Date;
-    accumulatedScore: number;
+  accumulatedScore: number;
+  oddsWinner: number;
+  oddsResult: number;
 }
