@@ -79,6 +79,17 @@ namespace PyeongchangKampen.Controllers
                     _Cache.Set(cacheKey, gamesToRetrieve);
                 }
             }
+            else if(filter == "active")
+            {
+                var cacheKey = CACHE_KEY_GAME + leagueId + "active";
+                if (_Cache.TryGetValue(cacheKey, out gamesToRetrieve) == false)
+                {
+                    var games = await _Repository.GetGamesAsync(leagueId);
+                    games = games.Where(x => x.IsOpenForBets == false && x.ScoreTeam1.HasValue == false);
+                    gamesToRetrieve = Mapper.Map<IEnumerable<GameForRetrieveDto>>(games);
+                    _Cache.Set(cacheKey, gamesToRetrieve);
+                }
+            }
             else
             {
                 var cacheKey = CACHE_KEY_GAME + leagueId;
@@ -141,6 +152,7 @@ namespace PyeongchangKampen.Controllers
             _Cache.Remove(CACHE_KEY_GAME + gameDto.LeagueId);
             _Cache.Remove(CACHE_KEY_GAME + gameDto.LeagueId + "closed");
             _Cache.Remove(CACHE_KEY_GAME + gameDto.LeagueId + "open");
+            _Cache.Remove(CACHE_KEY_GAME + gameDto.LeagueId + "active");
             return CreatedAtRoute("GetGame", new { gameId = game.Id }, Ok(Mapper.Map<GameForRetrieveDto>(game)));
         }
 
@@ -200,6 +212,7 @@ namespace PyeongchangKampen.Controllers
             _Cache.Remove(CACHE_KEY_GAME + game.League.Id);
             _Cache.Remove(CACHE_KEY_GAME + game.League.Id + "closed");
             _Cache.Remove(CACHE_KEY_GAME + game.League.Id + "open");
+            _Cache.Remove(CACHE_KEY_GAME + game.League.Id + "active");
             _Cache.Remove(BetController.CACHE_KEY_BETS_GAME + gameId);
             _Cache.Remove(LeagueController.CACHE_KEY_TOP_LIST +game.League.Id);
             _Logger.LogInformation($"{User.Identity.Name} updated game {gameDto.Title} with sport {gameDto.SportId}");
